@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Müasir Təhsil Məktəbi | Rəsmi Sayt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Ümumi tənzimləmələr */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            scroll-behavior: smooth;
+        }
+
+        /* Arxa fon - Açıq və işıqlı */
+        body {
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), 
+                        url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #2c3e50;
+        }
+
+        /* Naviqasiya Paneli */
+        header {
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 11px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: #3498db;
+            font-size: 10px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #34495e;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            background: #f0f7ff;
+            color: #3498db;
+        }
+
+        /* Xüsusi Dəstək Düyməsi */
+        .btn-support-nav {
+            background: #f1c40f !important;
+            color: #000 !important;
+        }
+
+        /* Əsas Struktur */
+        .main-container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 120px 5% 50px 5%;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        /* Bloklar */
+        section {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #edf2f7;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-size: 24px;
+            border-left: 6px solid #3498db;
+            padding-left: 15px;
+        }
+
+        /* Müəllimlər Siyahısı */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .teacher-card {
+            background: #fdfdfd;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px dashed #3498db;
+            text-align: center;
+        }
+
+        /* Ödəniş Kartı Dizaynı (Support Section) */
+        .payment-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 450px;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .card-chip {
+            width: 50px;
+            height: 40px;
+            background: #f1c40f;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .card-number {
+            font-size: 22px;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card-holder {
+            display: flex;
+            justify-content: space-between;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .achievements-box {
+            background: #eefdf5;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #d4f5e4;
+            margin-bottom: 20px;
+        }
+
+        .achievement-card {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            font-size: 14px;
+        }
+
+        .school-logo-box {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 1px solid #edf2f7;
+        }
+
+        .school-logo-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .btn-contact {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            AZƏRBAYCAN RESPUBLİKASI<br>
+            <span>ELM VƏ TƏHSİL NAZİRLİYİ</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#news">Xəbərlər</a></li>
+            <li><a href="#about">Məktəb Haqqında</a></li>
+            <li><a href="#teachers">Müəllimlər</a></li>
+            <li><a href="#support" class="btn-support-nav">Məktəbə Dəstək Fondu</a></li>
+            <li><a href="#system">Təhsil Sistemi</a></li>
+            <li><a href="#contact">Əlaqə</a></li>
+        </ul>
+    </header>
+
+    <div class="main-container">
+        
+        <main>
+            <section id="about">
+                <h2>Məktəb Haqqında</h2>
+                <p>Məktəbimiz gələcəyin mütəxəssislərini yetişdirən müasir təhsil mərkəzidir.</p>
+            </section>
+
+            <section id="teachers">
+                <h2>Məktəbin Müəllimlər Heyəti</h2>
+                <div class="teachers-grid">
+                    <div class="teacher-card"><strong>Müəllim Adı</strong><br><small>Riyaziyyat</small></div>
+                    <div class="teacher-card"><strong>Müəllim Adı</strong><br><small>Xarici Dil</small></div>
+                    <div class="teacher-card"><strong>Müəllim Adı</strong><br><small>İnformatika</small></div>
+                </div>
+            </section>
+
+            <section id="support">
+                <h2>Məktəbə Dəstək Fondu</h2>
+                <p>Məktəbimizin inkişafına töhfə vermək istəyən valideynlər və könüllülər aşağıdakı bank məlumatları vasitəsilə dəstək ola bilərlər. Yardımlarınız üçün təşəkkür edirik!</p>
+                
+                <div class="payment-card">
+                    <div class="card-chip"></div>
+                    <span class="card-number">4169 **** **** 1234</span>
+                    <div class="card-holder">
+                        <div>
+                            <small>Kart Sahibi (Direktor)</small><br>
+                            <strong>Ad Soyad</strong>
+                        </div>
+                        <div style="text-align: right;">
+                            <small>Müddət</small><br>
+                            <strong>12/28</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <p><strong>Bank:</strong> ABB (Azərbaycan Beynəlxalq Bankı)</p>
+                    <p><strong>Telefon (M10/E-pul):</strong> +994 50 000 00 00</p>
+                </div>
+            </section>
+
+            <section id="news">
+                <h2>Cari Xəbərlər</h2>
+                <div class="news-item">
+                    <h4>Yeni Tədris Proqramı</h4>
+                    <p>Məktəbimizdə rəqəmsal bacarıqlar dərsi genişləndirilir.</p>
+                </div>
+            </section>
+
+            <section id="system">
+                <h2>Təhsil Sistemi</h2>
+                <p>İnnovativ yanaşma və fərdi təhsil planları.</p>
+            </section>
+
+            <section id="contact">
+                <h2>Əlaqə</h2>
+                <p>📍 Ünvan: Sizin Məktəb</p>
+                <a href="#" class="btn-contact">WhatsApp ilə əlaqə</a>
+            </section>
+        </main>
+
+        <aside class="sidebar">
+            <div class="achievements-box">
+                <h3 style="color: #27ae60; margin-bottom: 15px;">Nailiyyətlər</h3>
+                <div class="achievement-card">🏆 Respublika Olimpiadası - 1-ci yer</div>
+            </div>
+
+            <div class="school-logo-box">
+                <img src="logo.jpg" alt="Məktəb Logosu">
+                <p style="margin-top: 10px; font-weight: 600;">Məktəbin Rəsmi Logosu</p>
+            </div>
+        </aside>
+
+    </div>
+
+</body>
+</html>
