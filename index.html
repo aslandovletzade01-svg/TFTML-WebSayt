@@ -301,12 +301,27 @@ Gələcəyə Hazırlıq: Texniki fənlərə üstünlük verilməsi müasir dövr
             </section>
 
             <section id="news">
-                <h2>Cari Xəbərlər</h2>
-                <div class="news-item">
-                    <h4>Yeni Tədris Proqramı</h4>
-                    <p>Məktəbimizdə rəqəmsal bacarıqlar dərsi genişləndirilir.</p>
-                </div>
-            </section>
+             <h2>Cari Xəbərlər</h2>
+             <div class="news-item">
+    <img src="yaris.jpg" alt="Cambridge English Qualifications" style="width:100%; border-radius:10px; margin-bottom:15px; height:250px; object-fit:cover;">
+    
+    <h4>Cambridge English Qualifications Uğurumuz</h4>
+    
+    <p>Məktəb-liseyin şagirdləri <strong>Cambridge English Qualifications - Cambridge English Level</strong> imtahanında iştirak etmiş və yüksək səviyyəli sertifikatlara layiq görülmüşlər.</p>
+    
+    <p style="margin-top:10px; color:#27ae60; font-weight:bold;">
+        🏆 Şagirdimiz Urufova İlknur Xalid qızı III yer tutaraq bürünc sertifikatla təltif edildi.
+    </p>
+    
+    <p style="margin-top:10px; font-style:italic;">Tələbələrimizi təbrik edirik!</p>
+
+    <div class="like-section" style="margin-top: 15px; display: flex; align-items: center; gap: 10px;">
+        <span class="heart-icon" onclick="addLike(this)" style="cursor: pointer; font-size: 24px; color: #ccc; transition: 0.3s;">❤</span>
+        <span class="like-count" style="font-weight: bold;">0</span> bəyənmə
+    </div>
+</div>
+
+</div> </section> ```
 
             <section id="system">
                 <h2>Təhsil Sistemi</h2>
@@ -335,7 +350,24 @@ Gələcəyə Hazırlıq: Texniki fənlərə üstünlük verilməsi müasir dövr
         </aside>
 
     </div>
+    </aside>
+    
+</div> <script>
+    function addLike(element) {
+        let countElement = element.nextElementSibling;
+        let currentCount = parseInt(countElement.innerText);
+
+        if (element.style.color === "red") {
+            element.style.color = "#ccc";
+            countElement.innerText = currentCount - 1;
+        } else {
+            element.style.color = "red";
+            countElement.innerText = currentCount + 1;
+        }
+    }
+</script>
 
 </body>
 
 </html>
+
