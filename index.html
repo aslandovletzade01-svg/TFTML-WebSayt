@@ -116,126 +116,6 @@
             padding-left: 15px;
         }
 
-        /* Müəllimlər Siyahısı */
-        .teachers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .teacher-card {
-            background: #fdfdfd;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px dashed #3498db;
-            text-align: center;
-        }
-
-        /* Ödəniş Kartı Dizaynı (Support Section) */
-        .payment-card {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 450px;
-            margin: 20px 0;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        .card-chip {
-            width: 50px;
-            height: 40px;
-            background: #f1c40f;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .card-number {
-            font-size: 22px;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .card-holder {
-            display: flex;
-            justify-content: space-between;
-            text-transform: uppercase;
-            font-size: 14px;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: sticky;
-            top: 100px;
-            height: fit-content;
-        }
-
-        .achievements-box {
-            background: #eefdf5;
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid #d4f5e4;
-            margin-bottom: 20px;
-        }
-
-        .achievement-card {
-            background: white;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            font-size: 14px;
-        }
-
-        .school-logo-box {
-            background: white;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            border: 1px solid #edf2f7;
-        }
-
-        .school-logo-box img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-
-        .btn-contact {
-            display: block;
-            text-align: center;
-            padding: 12px;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        /* Qeydiyyat Formu üçün stil */
-        .reg-input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            margin-bottom: 15px;
-        }
-        .btn-reg-submit {
-            padding: 15px;
-            background: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-        }
-
         /* Kalendar Stilləri */
         .calendar-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         .calendar-table th, .calendar-table td { border: 1px solid #eee; padding: 12px; text-align: center; }
@@ -248,41 +128,42 @@
             background: #2c3e50; color: white; padding: 5px 10px;
             border-radius: 5px; font-size: 12px; white-space: nowrap; z-index: 10;
         }
+
+        /* Digər Stillər */
+        .teachers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+        .teacher-card { background: #fdfdfd; padding: 15px; border-radius: 12px; border: 1px dashed #3498db; text-align: center; }
+        .payment-card { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 30px; border-radius: 20px; max-width: 450px; margin: 20px 0; box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+        .card-chip { width: 50px; height: 40px; background: #f1c40f; border-radius: 8px; margin-bottom: 20px; }
+        .card-number { font-size: 22px; letter-spacing: 3px; margin-bottom: 20px; display: block; }
+        .card-holder { display: flex; justify-content: space-between; text-transform: uppercase; font-size: 14px; }
+        .sidebar { position: sticky; top: 100px; height: fit-content; }
+        .achievements-box { background: #eefdf5; padding: 25px; border-radius: 20px; border: 1px solid #d4f5e4; margin-bottom: 20px; }
+        .achievement-card { background: white; margin: 10px 0; padding: 15px; border-radius: 10px; font-size: 14px; }
+        .school-logo-box { background: white; padding: 20px; border-radius: 20px; text-align: center; border: 1px solid #edf2f7; }
+        .school-logo-box img { max-width: 100%; height: auto; border-radius: 10px; }
+        .btn-contact { display: block; text-align: center; padding: 12px; background: #3498db; color: white; text-decoration: none; border-radius: 10px; margin-top: 20px; font-weight: bold; }
+        .reg-input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px; }
+        .btn-reg-submit { padding: 15px; background: #2c3e50; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">
-            AZƏRBAYCAN RESPUBLİKASI<br>
-            <span>ELM VƏ TƏHSİL NAZİRLİYİ</span>
-        </div>
+        <div class="logo">AZƏRBAYCAN RESPUBLİKASI<br><span>ELM VƏ TƏHSİL NAZİRLİYİ</span></div>
         <ul class="nav-links">
             <li><a href="#news">Xəbərlər</a></li>
-            <li><a href="#about">Məktəb Haqqında</a></li>
-            <li><a href="#teachers">Müəllimlər</a></li>
-            <li><a href="#support" class="btn-support-nav">Məktəbə Dəstək Fondu</a></li>
-            <li><a href="#system">Təhsil Sistemi</a></li>
+            <li><a href="#calendar">Təqvim</a></li>
+            <li><a href="#chat">Forum</a></li>
+            <li><a href="#registration">Qeydiyyat</a></li>
             <li><a href="#contact">Əlaqə</a></li>
         </ul>
     </header>
 
     <div class="main-container">
-        
         <main>
             <section id="about">
                 <h2>Məktəb Haqqında</h2>
-                <p>🏫 Ümumi Məlumat və Status Adı: K.Ağayev adına Texniki fənlər təmayüllü internat tipli məktəb-lisey. 
-                    Təmayülü: Məktəbiniz xüsusilə riyaziyyat, fizika və informatika kimi texniki fənlər üzrə ixtisaslaşıb. İnternat Tipi: Bu o deməkdir ki, 
-                    burada uzaq kəndlərdən və ya digər ərazilərdən gələn şagirdlərin qalması və təhsil alması üçün hər cür şərait (yataqxana, qidalanma və s.) mövcuddur. 
-                    🎓 Tədrisin Keyfiyyəti və Uğurları Bu məktəb-lisey Biləsuvarda və respublika səviyyəsində bir neçə xüsusiyyəti ilə tanınır: Yüksək Ali Məktəb Göstəriciləri: 
-                    Məzunlarınızın böyük faizi hər il ölkənin nüfuzlu universitetlərinə, xüsusən də texniki ixtisaslar üzrə qəbul olunurlar. Olimpiada Uğurları: 
-                    Texniki təmayüllü olduğu üçün şagirdləriniz fənn olimpiadalarında (xüsusilə riyaziyyat və fizika) aktiv iştirak edir və yerlər qazanırlar. 
-                    Peşəkar Müəllim Heyəti: Lisey statusuna malik olduğu üçün burada dərslər xüsusi proqramla və təcrübəli pedaqoqlar tərəfindən keçirilir. 
-                    💡 Niyə Bizim Məktəb Fərqlənir? Qeyd: Bu tip məktəblər sadəcə təhsil vermir, həm də şagirdlərdə müstəqil həyat vərdişləri və güclü nizam-intizam formalaşdırır. 
-                    Maddi-Texniki Baza: Müasir laboratoriyalar və texniki avadanlıqlarla təminat yüksək səviyyədədir. Sosial Mühit: 
-                    İnternat tipli olduğu üçün şagirdlər arasında güclü dostluq və komanda ruhu yaranır. Gələcəyə Hazırlıq: 
-                    Texniki fənlərə üstünlük verilməsi müasir dövrün "İT" və "Mühəndislik" tələblərinə tam cavab verir..</p>
+                <p>🏫 Ümumi Məlumat və Status Adı: K.Ağayev adına Texniki fənlər təmayüllü internat tipli məktəb-lisey...</p>
             </section>
 
             <section id="teachers">
@@ -294,44 +175,8 @@
                 </div>
             </section>
 
-            <section id="support">
-                <h2>Məktəbə Dəstək Fondu</h2>
-                <p>Məktəbimizin inkişafına töhfə vermək istəyən valideynlər və könüllülər aşağıdakı bank məlumatları vasitəsilə dəstək ola bilərlər.</p>
-                <div class="payment-card">
-                    <div class="card-chip"></div>
-                    <span class="card-number">4169 **** **** 1234</span>
-                    <div class="card-holder">
-                        <div><small>Kart Sahibi (Direktor)</small><br><strong>Ad Soyad</strong></div>
-                        <div style="text-align: right;"><small>Müddət</small><br><strong>12/28</strong></div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="news">
-                <h2>Cari Xəbərlər</h2>
-                <div class="news-item">
-                    <img src="yaris.jpg" alt="Cambridge" style="width:100%; border-radius:10px; margin-bottom:15px; height:250px; object-fit:cover;">
-                    <h4>Cambridge English Qualifications Uğurumuz</h4>
-                    <p>Məktəb-liseyin şagirdləri yüksək sertifikatlara layiq görülmüşlər.Şagirdimiz <strong>Urufova İlknur Xalid qızı</strong> III yer tutaraq bürünc sertifikatla təltif edildi.</p>
-                    <div class="like-section" style="margin-top: 15px; display: flex; align-items: center; gap: 10px;">
-                        <span class="heart-icon" onclick="addLike(this)" style="cursor: pointer; font-size: 24px; color: #ccc;">❤</span>
-                        <span class="like-count" style="font-weight: bold;">0</span> bəyənmə
-                    </div>
-                </div>
-            </section>
-
-            <section id="system">
-                <h2>Təhsil Sistemi</h2>
-                <div style="width: 100%; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); background: #000;">
-                    <video width="100%" controls poster="logo.jpg">
-                        <source src="Random Yt TWD Video.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </section>
-
             <section id="calendar">
                 <h2>Məktəb Təqvimi</h2>
-                <p>Tədbirlərin üzərinə gələrək məlumat ala bilərsiniz:</p>
                 <table class="calendar-table">
                     <tr><th>B.e</th><th>Ç.a</th><th>Çər</th><th>C.a</th><th>Cüm</th><th>Şən</th><th>Baz</th></tr>
                     <tr><td></td><td></td><td></td><td></td><td></td><td>1</td><td>2</td></tr>
@@ -340,15 +185,28 @@
                 </table>
             </section>
 
+            <section id="system">
+                <h2>Təhsil Sistemi</h2>
+                <div style="width: 100%; border-radius: 15px; overflow: hidden; background: #000;">
+                    <video width="100%" controls poster="logo.jpg">
+                        <source src="Random Yt TWD Video.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </section>
+
+            <section id="chat">
+                <h2>Məktəb Forumu</h2>
+                <div style="border-radius: 15px; overflow: hidden; border: 1px solid #ddd;">
+                    <iframe src="https://www5.cbox.ws/box/?boxid=961095&boxtag=BQOnEz" width="100%" height="450" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+                </div>
+            </section>
+
             <section id="registration">
                 <h2>Şagird Qeydiyyatı (UTİS)</h2>
                 <form action="https://formspree.io/f/xreazore" method="POST">
-                    <label style="font-weight: 600; font-size: 14px;">Ad və Soyad:</label>
-                    <input type="text" name="name" class="reg-input" placeholder="Məsələn: Nihat Əliyev" required>
-                    <label style="font-weight: 600; font-size: 14px;">Şagirdin UTİS Kodu:</label>
-                    <input type="text" name="utis_code" class="reg-input" placeholder="7 rəqəmli kodu daxil edin" required>
-                    <label style="font-weight: 600; font-size: 14px;">Gmail Ünvanınız:</label>
-                    <input type="email" name="email" class="reg-input" placeholder="Məsələn: shagird@gmail.com" required>
+                    <input type="text" name="name" class="reg-input" placeholder="Ad Soyad" required>
+                    <input type="text" name="utis_code" class="reg-input" placeholder="UTİS Kodu" required>
+                    <input type="email" name="email" class="reg-input" placeholder="Gmail" required>
                     <button type="submit" class="btn-reg-submit">Qeydiyyatı Tamamla</button>
                 </form>
             </section>
@@ -362,28 +220,14 @@
 
         <aside class="sidebar">
             <div class="achievements-box">
-                <h3 style="color: #27ae60; margin-bottom: 15px;">Nailiyyətlər</h3>
-                <div class="achievement-card">🏆 Respublika Olimpiadasında 37 Şagird Rayon Turunu Keçib</div>
+                <h3 style="color: #27ae60;">Nailiyyətlər</h3>
+                <div class="achievement-card">🏆 37 Şagird Rayon Turunu Keçib</div>
             </div>
             <div class="school-logo-box">
-                <img src="logo.jpg" alt="Məktəb Logosu">
-                <p style="margin-top: 10px; font-weight: 600;">Məktəbin Rəsmi Logosu</p>
+                <img src="logo.jpg" alt="Logo">
             </div>
         </aside>
     </div>
 
-    <script>
-        function addLike(element) {
-            let countElement = element.nextElementSibling;
-            let currentCount = parseInt(countElement.innerText);
-            if (element.style.color === "red") {
-                element.style.color = "#ccc";
-                countElement.innerText = currentCount - 1;
-            } else {
-                element.style.color = "red";
-                countElement.innerText = currentCount + 1;
-            }
-        }
-    </script>
 </body>
 </html>
