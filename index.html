@@ -216,6 +216,24 @@
             margin-top: 20px;
             font-weight: bold;
         }
+
+        /* Qeydiyyat bölməsi üçün stil əlavələri (sənin kodunda çatışmayanlar) */
+        .reg-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .btn-reg-submit {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -231,6 +249,7 @@
             <li><a href="#teachers">Müəllimlər</a></li>
             <li><a href="#support" class="btn-support-nav">Məktəbə Dəstək Fondu</a></li>
             <li><a href="#system">Təhsil Sistemi</a></li>
+            <li><a href="#chat">Forum</a></li>
             <li><a href="#contact">Əlaqə</a></li>
         </ul>
     </header>
@@ -240,30 +259,7 @@
         <main>
             <section id="about">
                 <h2>Məktəb Haqqında</h2>
-                <p>🏫 Ümumi Məlumat və Status
-Adı: K.Ağayev adına Texniki fənlər təmayüllü internat tipli məktəb-lisey.
-
-Təmayülü: Məktəbiniz xüsusilə riyaziyyat, fizika və informatika kimi texniki fənlər üzrə ixtisaslaşıb.
-
-İnternat Tipi: Bu o deməkdir ki, burada uzaq kəndlərdən və ya digər ərazilərdən gələn şagirdlərin qalması və təhsil alması üçün hər cür şərait (yataqxana, qidalanma və s.) mövcuddur.
-
-🎓 Tədrisin Keyfiyyəti və Uğurları
-Bu məktəb-lisey Biləsuvarda və respublika səviyyəsində bir neçə xüsusiyyəti ilə tanınır:
-
-Yüksək Ali Məktəb Göstəriciləri: Məzunlarınızın böyük faizi hər il ölkənin nüfuzlu universitetlərinə, xüsusən də texniki ixtisaslar üzrə qəbul olunurlar.
-
-Olimpiada Uğurları: Texniki təmayüllü olduğu üçün şagirdləriniz fənn olimpiadalarında (xüsusilə riyaziyyat və fizika) aktiv iştirak edir və yerlər qazanırlar.
-
-Peşəkar Müəllim Heyəti: Lisey statusuna malik olduğu üçün burada dərslər xüsusi proqramla və təcrübəli pedaqoqlar tərəfindən keçirilir.
-
-💡 Niyə Sizin Məktəb Fərqlənir?
-Qeyd: Bu tip məktəblər sadəcə təhsil vermir, həm də şagirdlərdə müstəqil həyat vərdişləri və güclü nizam-intizam formalaşdırır.
-
-Maddi-Texniki Baza: Müasir laboratoriyalar və texniki avadanlıqlarla təminat yüksək səviyyədədir.
-
-Sosial Mühit: İnternat tipli olduğu üçün şagirdlər arasında güclü dostluq və komanda ruhu yaranır.
-
-Gələcəyə Hazırlıq: Texniki fənlərə üstünlük verilməsi müasir dövrün "İT" və "Mühəndislik" tələblərinə tam cavab verir..</p>
+                <p>🏫 Ümumi Məlumat və Status Adı: K.Ağayev adına Texniki fənlər təmayüllü internat tipli məktəb-lisey...</p>
             </section>
 
             <section id="teachers">
@@ -277,82 +273,58 @@ Gələcəyə Hazırlıq: Texniki fənlərə üstünlük verilməsi müasir dövr
 
             <section id="support">
                 <h2>Məktəbə Dəstək Fondu</h2>
-                <p>Məktəbimizin inkişafına töhfə vermək istəyən valideynlər və könüllülər aşağıdakı bank məlumatları vasitəsilə dəstək ola bilərlər. Yardımlarınız üçün təşəkkür edirik!</p>
-                
                 <div class="payment-card">
                     <div class="card-chip"></div>
                     <span class="card-number">4169 **** **** 1234</span>
                     <div class="card-holder">
-                        <div>
-                            <small>Kart Sahibi (Direktor)</small><br>
-                            <strong>Ad Soyad</strong>
-                        </div>
-                        <div style="text-align: right;">
-                            <small>Müddət</small><br>
-                            <strong>12/28</strong>
-                        </div>
+                        <div><small>Kart Sahibi (Direktor)</small><br><strong>Ad Soyad</strong></div>
+                        <div style="text-align: right;"><small>Müddət</small><br><strong>12/28</strong></div>
                     </div>
-                </div>
-
-                <div style="margin-top: 20px;">
-                    <p><strong>Bank:</strong> ABB (Azərbaycan Beynəlxalq Bankı)</p>
-                    <p><strong>Telefon (M10/E-pul):</strong> +994 50 000 00 00</p>
                 </div>
             </section>
 
             <section id="news">
-             <h2>Cari Xəbərlər</h2>
+                <h2>Cari Xəbərlər</h2>
                 <div class="news-item">
                     <img src="yaris.jpg" alt="Cambridge" style="width:100%; border-radius:10px; margin-bottom:15px; height:250px; object-fit:cover;">
                     <h4>Cambridge English Qualifications Uğurumuz</h4>
-                    <p>Məktəb-liseyin şagirdləri yüksək sertifikatlara layiq görülmüşlər.
-                        Şagirdimiz <strong>Urufova İlknur Xalid qızı</strong> III yer tutaraq bürünc sertifikatla təltif edildi.</p>
-                    <div class="like-section" style="margin-top: 15px; display: flex; align-items: center; gap: 10px;">
-                        <span class="heart-icon" onclick="addLike(this)" style="cursor: pointer; font-size: 24px; color: #ccc;">❤</span>
-                        <span class="like-count" style="font-weight: bold;">0</span> bəyənmə
-                    </div>
+                    <p>Şagirdimiz <strong>Urufova İlknur Xalid qızı</strong> III yer tutaraq bürünc sertifikatla təltif edildi.</p>
                 </div>
             </section>
 
             <section id="system">
-    <h2>Təhsil Sistemi</h2>
-    <p style="margin-bottom: 20px;">İnnovativ yanaşma və fərdi təhsil planları ilə şagirdlərimizin gələcəyini qururuq.
-        Aşağıdakı videoda təhsil prosesimizlə daha yaxından tanış ola bilərsiniz:</p>
-    
-    <div style="width: 100%; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); background: #000;">
-        <video width="100%" controls poster="logo.jpg">
-            <source src="Random Yt TWD Video.mp4" type="video/mp4">
-            Sizin brauzeriniz video formatını dəstəkləmir.
-        </video>
-    </div>
-    
-    <p style="margin-top: 15px; font-size: 14px; color: #7f8c8d; font-style: italic;">
-        * Videoya baxmaq üçün "Play" düyməsinə basın.
-    </p>
-</section>
-<section id="registration">
+                <h2>Təhsil Sistemi</h2>
+                <div style="width: 100%; border-radius: 15px; overflow: hidden; background: #000;">
+                    <video width="100%" controls poster="logo.jpg">
+                        <source src="Random Yt TWD Video.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </section>
+
+            <section id="registration">
                 <h2>Şagird Qeydiyyatı (UTİS)</h2>
-                <p style="margin-bottom: 20px;">Məktəb portalında rəsmi qeydiyyat üçün məlumatlarınızı daxil edin:</p>
-
                 <form action="https://formspree.io/f/xreazore" method="POST">
-                    <label style="font-weight: 600; font-size: 14px;">Ad və Soyad:</label>
+                    <label>Ad və Soyad:</label>
                     <input type="text" name="name" class="reg-input" placeholder="Məsələn: Nihat Əliyev" required>
-
-                    <label style="font-weight: 600; font-size: 14px;">Şagirdin UTİS Kodu:</label>
+                    <label>Şagirdin UTİS Kodu:</label>
                     <input type="text" name="utis_code" class="reg-input" placeholder="7 rəqəmli kodu daxil edin" required>
-
-                    <label style="font-weight: 600; font-size: 14px;">Gmail Ünvanınız:</label>
+                    <label>Gmail Ünvanınız:</label>
                     <input type="email" name="email" class="reg-input" placeholder="Məsələn: shagird@gmail.com" required>
-
                     <button type="submit" class="btn-reg-submit">Qeydiyyatı Tamamla</button>
                 </form>
             </section>
 
+            <section id="chat">
+                <h2>Məktəb Forumu</h2>
+                <p style="margin-bottom: 15px;">Şagirdlər burada canlı müzakirə edə bilərlər:</p>
+                <div style="border-radius: 15px; overflow: hidden; border: 1px solid #ddd;">
+                    <iframe src="https://www5.cbox.ws/box/?boxid=961095&boxtag=BQOnEz" width="100%" height="450" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+                </div>
+            </section>
+
             <section id="contact">
                 <h2>Əlaqə</h2>
-                <p> 📞Telefon:+994 51 756 15 58  
-                    📧 E-poçt (Gmail):aslandovletzade01@gmail.com
-                    📍 Ünvan:108 Mirzə Fətəli Axundov, Biləsuvar</p>
+                <p>📞Telefon:+994 51 756 15 58 📧 E-poçt:aslandovletzade01@gmail.com 📍 Ünvan:108 M. Axundov, Biləsuvar</p>
                 <a href="#" class="btn-contact">WhatsApp ilə əlaqə</a>
             </section>
         </main>
@@ -362,39 +334,25 @@ Gələcəyə Hazırlıq: Texniki fənlərə üstünlük verilməsi müasir dövr
                 <h3 style="color: #27ae60; margin-bottom: 15px;">Nailiyyətlər</h3>
                 <div class="achievement-card">🏆 Respublika Olimpiadasında 37 Şagir Rayon Turunu Keçib</div>
             </div>
-
             <div class="school-logo-box">
                 <img src="logo.jpg" alt="Məktəb Logosu">
                 <p style="margin-top: 10px; font-weight: 600;">Məktəbin Rəsmi Logosu</p>
             </div>
         </aside>
-
     </div>
-    </aside>
-    
-</div> <script>
-    function addLike(element) {
-        let countElement = element.nextElementSibling;
-        let currentCount = parseInt(countElement.innerText);
 
-        if (element.style.color === "red") {
-            element.style.color = "#ccc";
-            countElement.innerText = currentCount - 1;
-        } else {
-            element.style.color = "red";
-            countElement.innerText = currentCount + 1;
+    <script>
+        function addLike(element) {
+            let countElement = element.nextElementSibling;
+            let currentCount = parseInt(countElement.innerText);
+            if (element.style.color === "red") {
+                element.style.color = "#ccc";
+                countElement.innerText = currentCount - 1;
+            } else {
+                element.style.color = "red";
+                countElement.innerText = currentCount + 1;
+            }
         }
-    }
-</script>
-
+    </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
