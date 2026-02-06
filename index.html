@@ -361,6 +361,30 @@
 .academic-calc-btn .icon {
     font-size: 20px;
 }
+        /* Bu kod yalnız telefonlarda işə düşəcək */
+@media (max-width: 480px) {
+    .nav-container { 
+        display: flex;
+        flex-wrap: wrap; /* Düymələr sığmayanda avtomatik aşağı düşsün */
+        justify-content: center;
+        gap: 5px !important; /* Düymələr arasındakı məsafəni minimuma endirir */
+        padding: 5px !important;
+    }
+
+    /* Bütün əsas düymələr üçün (Əlaçı, Pedaqoji heyət, Əlaqə və s.) */
+    .nav-container button, .nav-container a {
+        padding: 8px 12px !important; /* Düymənin daxilini kiçildir */
+        font-size: 12px !important; /* Yazını bir az kiçildir */
+        letter-spacing: -0.5px; /* Hərfləri bir-birinə yaxınlaşdırır */
+        margin: 2px !important;
+        border-radius: 8px !important; /* Daha yığcam görünüş üçün */
+    }
+
+    /* Əgər düymələrin içində ikonlar varsa, onları da kiçildək */
+    .nav-container i, .nav-container span {
+        font-size: 14px !important;
+    }
+}
  
 
         
@@ -592,6 +616,7 @@
     
 </body>
 </html>
+
 
 
 
