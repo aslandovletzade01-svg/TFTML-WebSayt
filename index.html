@@ -447,50 +447,38 @@
         </aside>
     </div>
 
-    <script>
-        function addLike(element) {
-            let countElement = element.nextElementSibling;
-            let currentCount = parseInt(countElement.innerText);
-            if (element.style.color === "red") {
-                element.style.color = "#ccc";
-                countElement.innerText = currentCount - 1;
-            } else {
-                element.style.color = "red";
-                countElement.innerText = currentCount + 1;
-            }
-        }
-
-  window.chatbaseConfig = {
-    chatbotId: "qZHucb73p7lxykvewMYzF",
-  };
-
-  function toggleChat() {
-    if (window.chatbase && typeof window.chatbase.toggle === 'function') {
-      window.chatbase.toggle();
-    }
-  }
-</script>
-
-<script
-  src="https://www.chatbase.co/embed.min.js"
-  id="qZHucb73p7lxykvewMYzF"
-  defer>
-</script>
-    
-    
     <div class="social-sidebar">
-        <a href="https://www.facebook.com/internat.mekteblisey" class="social-icon facebook">f</a>
+        <a href="#" class="social-icon facebook">f</a>
         <a href="#" class="social-icon instagram">IG</a>
         <a href="#" class="social-icon tiktok">♪</a>
     </div>
 
-    <div class="ai-floating-button" onclick="toggleChat()" title="TFTML AI" 
-     style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer;">
-  AI
-</div>
+    <div class="ai-floating-button" onclick="toggleChat()">AI</div>
+
+    <script>
+        // Chatbase Ayarları
+        window.chatbaseConfig = {
+            chatbotId: "qZHucb73p7lxykvewMYzF",
+        };
+
+        function toggleChat() {
+            if (window.chatbase && typeof window.chatbase.toggle === 'function') {
+                window.chatbase.toggle();
+            } else {
+                alert("Bot yüklənir, bir neçə saniyə gözləyin...");
+            }
+        }
+    </script>
+
+    <script 
+        src="https://www.chatbase.co/embed.min.js" 
+        id="qZHucb73p7lxykvewMYzF" 
+        defer>
+    </script>
     
 </body>
 </html>
+
 
 
 
