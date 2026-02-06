@@ -334,23 +334,34 @@
     transform: scale(1.08); /* Üstünə gələndə bir az böyüsün */
     box-shadow: 0 6px 25px rgba(0,0,0,0.4);
 }
-        .teacher-calc-btn {
-    background: #27ae60;
+        .academic-calc-btn {
+    background-color: #00d2ff; /* İstədiyin açıq mavi rəng */
+    background-image: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
     color: white !important;
+    padding: 12px 25px;
+    border-radius: 12px;
     text-decoration: none;
-    padding: 8px 18px;
-    border-radius: 6px;
     font-weight: bold;
-    font-size: 14px;
-    transition: 0.3s;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.teacher-calc-btn:hover {
-    background: #2ecc71;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+.academic-calc-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 210, 255, 0.5);
+    filter: brightness(1.1);
 }
+
+.academic-calc-btn .icon {
+    font-size: 20px;
+}
+ 
 
         
         
@@ -410,9 +421,9 @@
                 </div>
                 <div style="text-align: center;">
                     <a href="pedaqoji-heyet.html" class="btn-pedagog">Pedaqoji Heyət</a>
-                    <a href="hesablayici.html" class="calc-btn-style">
-            🧮 Akademik Hesablayıcı
-        </a>
+                    <a href="hesablayici.html" class="academic-calc-btn">
+        <span class="icon">🧮</span> Akademik Hesablayıcı
+    </a>
                 </div>
                 </section>
             
@@ -578,6 +589,7 @@
     
 </body>
 </html>
+
 
 
 
