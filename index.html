@@ -361,30 +361,35 @@
 .academic-calc-btn .icon {
     font-size: 20px;
 }
-        /* Bu kod yalnız telefonlarda işə düşəcək */
-@media (max-width: 480px) {
-    .nav-container { 
-        display: flex;
-        flex-wrap: wrap; /* Düymələr sığmayanda avtomatik aşağı düşsün */
-        justify-content: center;
-        gap: 5px !important; /* Düymələr arasındakı məsafəni minimuma endirir */
-        padding: 5px !important;
+        @media (max-width: 480px) {
+    /* Düymələrin olduğu əsas blok */
+    .nav-container {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important; /* Ekranı tam 2 bərabər hissəyə bölür */
+        gap: 10px !important; /* Düymələr arasındakı məsafə */
+        padding: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
-    /* Bütün əsas düymələr üçün (Əlaçı, Pedaqoji heyət, Əlaqə və s.) */
-    .nav-container button, .nav-container a {
-        padding: 8px 12px !important; /* Düymənin daxilini kiçildir */
-        font-size: 12px !important; /* Yazını bir az kiçildir */
-        letter-spacing: -0.5px; /* Hərfləri bir-birinə yaxınlaşdırır */
-        margin: 2px !important;
-        border-radius: 8px !important; /* Daha yığcam görünüş üçün */
-    }
-
-    /* Əgər düymələrin içində ikonlar varsa, onları da kiçildək */
-    .nav-container i, .nav-container span {
-        font-size: 14px !important;
+    /* Bütün düymələr və link-düymələr üçün */
+    .nav-container button, 
+    .nav-container a, 
+    .nav-container .btn {
+        width: 100% !important; /* Hər düymə öz xanasını tam doldursun */
+        margin: 0 !important;
+        padding: 12px 5px !important;
+        font-size: 13px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        border-radius: 10px !important;
+        white-space: normal !important; /* Yazı uzundursa alt sətrə keçsin */
+        height: 50px !important; /* Hamısı eyni hündürlükdə olsun deyə */
     }
 }
+    
  
 
         
@@ -616,6 +621,7 @@
     
 </body>
 </html>
+
 
 
 
