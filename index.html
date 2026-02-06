@@ -501,12 +501,13 @@
         <a href="#" class="social-icon tiktok">♪</a>
     </div>
 
-    <div class="ai-floating-button" onclick="toggleChat()" title="TFT-ML AI">
-    AI
+    <div class="ai-floating-button" onclick="if(window.chatbase) { window.chatbase.toggle(); } else { alert('Bot hələ yüklənir...'); }" title="TFTML AI">
+  AI
 </div>
     
 </body>
 </html>
+
 
 
 
