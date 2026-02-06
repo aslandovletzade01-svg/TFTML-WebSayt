@@ -625,24 +625,26 @@
         defer>
     </script>
     <script>
+// Cbox açılıb-bağlanma funksiyası
 function toggleCbox() {
-    // Cbox-u saxlayan qutunu tapırıq
     var x = document.getElementById("cbox-container");
-    
-    // Əgər gizlidirsə aç, açıqdırsa gizlət
-    if (x.style.display === "none") {
-        x.style.display = "block";
-        // Düyməyə basanda səhifəni avtomatik Cbox olan yerə sürüşdürür
-        x.scrollIntoView({ behavior: 'smooth' });
-    } else {
+    if (!x) return; // Əgər cbox-container tapılmasa, xəta verməsin
+
+    if (x.style.display === "block") {
         x.style.display = "none";
+    } else {
+        x.style.display = "block";
+        x.scrollIntoView({ behavior: 'smooth' });
     }
 }
+
+// Bəyənmə funksiyasının bitişini bura əlavə et (əgər yuxarıda yarımçıq qalıbsa)
 </script>
    
     
 </body>
 </html>
+
 
 
 
