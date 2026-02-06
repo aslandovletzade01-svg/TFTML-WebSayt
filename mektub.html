@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Məktəbə Məktub - Rəsmi Forma</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
+        .letter-container { background: white; max-width: 600px; margin: 40px auto; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-top: 8px solid #f39c12; }
+        h2 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #34495e; }
+        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #dcdde1; border-radius: 10px; box-sizing: border-box; font-size: 16px; outline: none; }
+        input:focus, textarea:focus { border-color: #f39c12; box-shadow: 0 0 8px rgba(243, 156, 18, 0.2); }
+        .btn-submit { background: #f39c12; color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-submit:hover { background: #e67e22; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+<div class="letter-container">
+    <h2>📩 Məktəbə Məktub Yazın</h2>
+    
+    <form action="https://formspree.io/f/mlgweeky" method="POST">
+        <div class="input-group">
+            <label>Adınız və Soyadınız:</label>
+            <input type="text" name="Ad_Soyad" required placeholder="Məs: Əli Məmmədov">
+        </div>
+
+        <div class="input-group">
+            <label>Kim tərəfindən (Valideyn / Şagird):</label>
+            <select name="Kimden" required>
+                <option value="Valideyn">Valideyn</option>
+                <option value="Şagird">Şagird</option>
+                <option value="Digər">Digər</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Əlaqə Nömrəniz:</label>
+            <input type="tel" name="Telefon" required placeholder="+994 __ ___ __ __">
+        </div>
+
+        <div class="input-group">
+            <label>Məktubun Məzmunu:</label>
+            <textarea name="Mesaj" rows="8" required placeholder="Fikirlərinizi bura qeyd edin..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Məktubu Göndər</button>
+    </form>
+    
+    <p style="text-align: center; margin-top: 20px;">
+        <a href="index.html" style="color: #7f8c8d; text-decoration: none; font-size: 14px;">← Ana səhifəyə qayıt</a>
+    </p>
+</div>
+
+</body>
+</html>
