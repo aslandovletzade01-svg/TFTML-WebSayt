@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Səsli Tanıtım - TFTML</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body { 
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .audio-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .icon-box {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        h1 { font-size: 24px; margin-bottom: 10px; }
+        p { font-size: 14px; opacity: 0.8; margin-bottom: 30px; }
+
+        /* Audio Player stili */
+        audio {
+            width: 100%;
+            height: 45px;
+            filter: invert(100%); /* Player-i ağ rəngə yaxın edir */
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 20px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover { background: white; color: #b21f1f; }
+    </style>
+</head>
+<body>
+
+    <div class="audio-container">
+        <div class="icon-box">🎙️</div>
+        <h1>Məktəbimizi Dinlə</h1>
+        <p>TFTML haqqında səsli bələdçi (MP3)</p>
+
+        <audio controls>
+            <source src="tanitim.mp3" type="audio/mpeg">
+            Sizin brauzeriniz səs faylını dəstəkləmir.
+        </audio>
+
+        <br>
+        <a href="index.html" class="back-btn">← Ana Səhifəyə Qayıt</a>
+    </div>
+
+</body>
+</html>
