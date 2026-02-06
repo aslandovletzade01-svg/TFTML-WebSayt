@@ -278,6 +278,49 @@
         .facebook { background: #1877F2; }
         .instagram { background: #E4405F; }
         .tiktok { background: #010101; }
+        
+        .ai-floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); /* Xüsusi Göy Background */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 114, 255, 0.6); /* Parıltı effekti */
+            z-index: 10001;
+            transition: 0.3s;
+            border: 2px solid white;
+        }
+
+        .ai-floating-button:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 0 30px rgba(0, 114, 255, 0.9);
+        }
+
+        
+        #chat-window {
+            position: fixed;
+            bottom: 90px; /* Düymədən yuxarıda qalsın */
+            right: 20px;
+            width: 320px;
+            height: 450px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 10000;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
     </style>
 </head>
 <body>
@@ -430,6 +473,57 @@
                 countElement.innerText = currentCount + 1;
             }
         }
+
+        function toggleChat() {
+        const win = document.getElementById('chat-window');
+        win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
+    }
+        const apiKey = "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";
+
+    // Göndər düyməsinə klikləyəndə işləyən əsas hissə
+    document.addEventListener('DOMContentLoaded', function() {
+        const sendBtn = document.getElementById('send-btn');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+
+        if (sendBtn) {
+            sendBtn.addEventListener('click', async () => {
+                const userText = chatInput.value.trim();
+                if (!userText) return;
+
+                // 1. Sizin mesajı ekrana yazır
+                chatMessages.innerHTML += `<div style="text-align:right; margin-bottom:10px;"><span style="background:#0072ff; color:white; padding:8px 12px; border-radius:15px; display:inline-block;">${userText}</span></div>`;
+                chatInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                try {
+                    // 2. OpenAI-yə sorğu göndərir
+                    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        body: JSON.stringify({
+                            model: "gpt-3.5-turbo",
+                            messages: [{role: "user", content: userText}]
+                        })
+                    });
+
+                    const data = await response.json();
+                    
+                    // 3. AI-nin cavabını ekrana yazır
+                    if (data.choices && data.choices[0]) {
+                        const aiText = data.choices[0].message.content;
+                        chatMessages.innerHTML += `<div style="text-align:left; margin-bottom:10px;"><span style="background:#eee; color:#333; padding:8px 12px; border-radius:15px; display:inline-block;"><b>AI:</b> ${aiText}</span></div>`;
+                    }
+                } catch (error) {
+                    chatMessages.innerHTML += `<div style="color:red;">Xəta: API ilə bağlantı qurulmadı.</div>`;
+                }
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
+        }
+    });
     </script>
     
     <div class="social-sidebar">
@@ -437,9 +531,23 @@
         <a href="#" class="social-icon instagram">IG</a>
         <a href="#" class="social-icon tiktok">♪</a>
     </div>
+
+    <div class="ai-floating-button" onclick="toggleChat()" title="TFT-ML AI">
+    AI
+</div>
+
+<div id="chat-window">
+    <div class="chat-header">TFT-ML Süni İntellekt</div>
+    <div id="chat-messages"></div>
+    <div class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Sualınızı yazın...">
+        <button id="send-btn">➤</button>
+    </div>
+</div>
     
 </body>
 </html>
+
 
 
 
