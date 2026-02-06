@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademik Hesablayıcı - TFTML</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        button:hover { background: #2ecc71; }
+        .res-container { margin-top: 20px; padding: 15px; border-radius: 8px; display: none; background: #f0fff4; }
+        .back-btn { display: block; margin-top: 20px; color: #3498db; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>📊 KSQ/BSQ Hesabla</h2>
+    <p style="font-size: 12px; color: #666;">KSQ ortalaması (40%) + BSQ (60%)</p>
+    
+    <input type="number" id="ksqVal" placeholder="KSQ Ortalaması">
+    <input type="number" id="bsqVal" placeholder="BSQ Balı">
+    
+    <button onclick="calculate()">Hesabla</button>
+
+    <div id="resultBox" class="res-container">
+        <div style="font-size: 14px; color: #555;">Yekun Bal:</div>
+        <div id="totalScore" style="font-size: 30px; font-weight: bold; color: #27ae60;">0</div>
+        <div id="grade" style="margin-top: 10px; font-weight: bold;"></div>
+    </div>
+
+    <a href="index.html" class="back-btn">← Ana səhifəyə qayıt</a>
+</div>
+
+<script>
+    function calculate() {
+        let k = parseFloat(document.getElementById('ksqVal').value);
+        let b = parseFloat(document.getElementById('bsqVal').value);
+        
+        if(isNaN(k) || isNaN(b)) { alert("Zəhmət olmasa balları yazın!"); return; }
+        
+        let result = (k * 0.4) + (b * 0.6);
+        document.getElementById('totalScore').innerText = result.toFixed(1);
+        
+        let g = "";
+        if(result >= 81) g = "Qiymət: 5 (Əla) ⭐";
+        else if(result >= 61) g = "Qiymət: 4 (Yaxşı) ✅";
+        else if(result >= 21) g = "Qiymət: 3 (Kafi) ⚠️";
+        else g = "Qiymət: 2 (Qeyri-kafi) ❌";
+        
+        document.getElementById('grade').innerText = g;
+        document.getElementById('resultBox').style.display = "block";
+    }
+</script>
+
+</body>
+</html>
