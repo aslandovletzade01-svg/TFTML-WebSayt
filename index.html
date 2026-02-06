@@ -496,6 +496,13 @@
                    <div class="like-section" style="margin-top: 15px; display: flex; align-items: center; gap: 10px;">
     <span id="heart-btn" onclick="addLike()" style="cursor: pointer; font-size: 24px; color: #ccc; transition: 0.3s; display: inline-block;">❤</span>
     <span id="like-count" style="font-weight: bold;">0</span> bəyənmə
+                       <button onclick="toggleCbox()" style="background-color: #00d2ff; color: white; border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 13px; margin-left: 10px;">
+        💬 Yorum yaz
+    </button>
+                       <div id="cbox-container" style="display: none; margin-top: 20px; transition: 0.5s;">
+    <h4 style="text-align: center; color: #333;">Müzakirəyə Qoşul</h4>
+    <iframe src="https://www5.cbox.ws/box/?boxid=961113&boxtag=BzPIrn" width="100%" height="450" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+                    
 </div>
                 </div>
             </section>
@@ -617,10 +624,26 @@
         id="qZHucb73p7lxykvewMYzF" 
         defer>
     </script>
+    <script>
+function toggleCbox() {
+    // Cbox-u saxlayan qutunu tapırıq
+    var x = document.getElementById("cbox-container");
+    
+    // Əgər gizlidirsə aç, açıqdırsa gizlət
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        // Düyməyə basanda səhifəni avtomatik Cbox olan yerə sürüşdürür
+        x.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
    
     
 </body>
 </html>
+
 
 
 
