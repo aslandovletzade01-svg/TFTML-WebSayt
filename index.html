@@ -480,15 +480,52 @@
             }
         }
     </script>
+    <script>
+        const apiURL = "https://api.countapi.xyz/hit/tftml-bilesuvar/likes";
+        const getURL = "https://api.countapi.xyz/get/tftml-bilesuvar/likes";
 
-    <script 
+        window.addEventListener('DOMContentLoaded', (event) => {
+            fetch(getURL)
+                .then(res => res.json())
+                .then(data => {
+                    const countDisplay = document.getElementById('like-count');
+                    countDisplay.innerText = data.value || 0;
+                }).catch(err => console.log("Yükləmə xətası:", err));
+        });
+
+        function addLike() {
+            const heart = document.getElementById('heart-btn');
+            const countDisplay = document.getElementById('like-count');
+
+            if (heart.style.color === "red") {
+                alert("Siz artıq bəyənmisiniz!");
+                return;
+            }
+
+            heart.style.color = "red";
+            heart.style.transform = "scale(1.4)";
+            
+            fetch(apiURL)
+                .then(res => res.json())
+                .then(data => {
+                    countDisplay.innerText = data.value;
+                    setTimeout(() => { heart.style.transform = "scale(1)"; }, 200);
+                }).catch(err => {
+                    countDisplay.innerText = parseInt(countDisplay.innerText) + 1;
+                });
+        }
+    </script>
+
+    <script>
         src="https://www.chatbase.co/embed.min.js" 
         id="qZHucb73p7lxykvewMYzF" 
         defer>
     </script>
+   
     
 </body>
 </html>
+
 
 
 
