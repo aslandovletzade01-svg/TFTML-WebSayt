@@ -399,6 +399,55 @@
         height: 50px !important; /* Hamısı eyni hündürlükdə olsun deyə */
     }
 }
+        .partners-carousel {
+    padding: 30px 0;
+    background-color: #fff;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.partners-title {
+    text-align: center;
+    color: #27ae60;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.slider-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.logo-track {
+    display: flex;
+    width: calc(200px * 8); /* 8 loqo olduğu üçün */
+    animation: scrollLogos 20s linear infinite; /* Ümumi hərəkət sürəti */
+}
+
+.partner-logo {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.partner-logo img {
+    height: 50px; /* Loqoların hündürlüyü */
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.partner-logo img:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Animasiya hərəkəti */
+@keyframes scrollLogos {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-200px * 4)); }
+}
     
  
 
@@ -581,6 +630,19 @@
         </button>
     </a>
 </section>
+            <section style="padding: 20px 0; background: #fff; overflow: hidden; border-top: 1px solid #eee;">
+    <h3 style="text-align: center; color: #27ae60; font-size: 1.1rem; margin-bottom: 15px;">Örnək Aldığımız Təhsil İnstitutları</h3>
+    <div class="logo-slider">
+        <div class="logo-track">
+            <div class="slide"><img src="oxford.png" alt="Oxford" style="height: 40px; margin: 0 20px;"></div>
+            <div class="slide"><img src="harvard.png" alt="Harvard" style="height: 40px; margin: 0 20px;"></div>
+            <div class="slide"><img src="dalton.png" alt="Dalton" style="height: 40px; margin: 0 20px;"></div>
+            <div class="slide"><img src="ada.png" alt="ADA" style="height: 40px; margin: 0 20px;"></div>
+            <div class="slide"><img src="oxford.png" alt="Oxford" style="height: 40px; margin: 0 20px;"></div>
+            <div class="slide"><img src="harvard.png" alt="Harvard" style="height: 40px; margin: 0 20px;"></div>
+        </div>
+    </div>
+</section>
         </main>
 
         <aside class="sidebar">
@@ -681,6 +743,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
