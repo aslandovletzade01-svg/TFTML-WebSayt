@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Məktəb Video Təqdimatı</title>
+    <style>
+        /* Səhifənin ümumi görünüşü */
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0f172a; /* Tünd, modern fon */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Video çərçivəsi */
+        .video-wrapper {
+            width: 80%; /* Səhifənin 80%-ni tutur */
+            max-width: 1000px;
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(0, 210, 255, 0.3); /* Düymənin rəngində işıqlanma */
+            border: 3px solid #3a7bd5; /* Düymə ilə eyni rəngdə çərçivə */
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            outline: none;
+        }
+
+        /* Geri qayıtmaq düyməsi */
+        .back-home {
+            margin-top: 30px;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .back-home:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(58, 123, 213, 0.5);
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>TFTML - Video Tanıtım</h1>
+
+    <div class="video-wrapper">
+        <video controls poster="logo.jpg">
+            <source src="mekteb1.mp4" type="video/mp4">
+            Brauzeriniz video dəstəkləmir.
+        </video>
+    </div>
+
+    <a href="index.html" class="back-home">⬅ Ana Səhifəyə Qayıt</a>
+
+</body>
+</html>
