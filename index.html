@@ -399,51 +399,7 @@
         height: 50px !important; /* Hamısı eyni hündürlükdə olsun deyə */
     }
 }
-        .partners-wrapper {
-        width: 100%;
-        overflow: hidden; /* Kənara çıxan şəkilləri gizlədir */
-        background: #fff;
-        padding: 20px 0;
-        border-radius: 20px;
-        position: relative;
-    }
-
-    .logo-slider {
-        display: flex;
-        width: calc(200px * 8); /* Şəkillərin sayına görə ümumi genişlik */
-        animation: scrollWheel 15s linear infinite;
-    }
-
-    .logo-slider:hover {
-        animation-play-state: paused; /* Siçanı üstünə gətirəndə dayansın */
-    }
-
-    .slide {
-        width: 200px; /* Hər şəklin ayrılan sahəsi */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-shrink: 0;
-    }
-
-    .slide img {
-        height: 60px; /* Şəkillərin hündürlüyünü burdan tənzimləyirik */
-        width: auto;
-        max-width: 150px;
-        object-fit: contain;
-        filter: grayscale(20%); /* İstəsən rəngli saxlaya bilərsən */
-        transition: transform 0.3s;
-    }
-
-    .slide img:hover {
-        transform: scale(1.1);
-        filter: grayscale(0%);
-    }
-
-    @keyframes scrollWheel {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(calc(-200px * 4)); } /* 4 loqodan sonra başa qayıdır */
-    }
+      
        
     </style>
 </head>
@@ -622,20 +578,6 @@
         </button>
     </a>
 </section>
-            <section style="padding: 20px 0; background: #fff; overflow: hidden; border-top: 1px solid #eee;">
-    <h3 style="text-align: center; color: #27ae60; font-size: 1.1rem; margin-bottom: 15px;">Örnək Aldığımız Təhsil İnstitutları</h3>
-    <div class="logo-slider">
-        <div class="logo-track">
-            <div class="slide"><img src="oxford.jpg" alt="Oxford" style="height: 40px; margin: 0 20px;"></div>
-            <div class="slide"><img src="harvard.png" alt="Harvard" style="height: 40px; margin: 0 20px;"></div>
-            <div class="slide"><img src="dalton.png" alt="Dalton" style="height: 40px; margin: 0 20px;"></div>
-            <div class="slide"><img src="ada.jpg" alt="ADA" style="height: 40px; margin: 0 20px;"></div>
-            <div class="slide"><img src="oxford.png" alt="Oxford" style="height: 40px; margin: 0 20px;"></div>
-            <div class="slide"><img src="harvard.png" alt="Harvard" style="height: 40px; margin: 0 20px;"></div>
-            <div class="partner-logo"><img src="ada-logo.jpg" alt="ADA"></div>
-        </div>
-    </div>
-</section>
         </main>
 
         <aside class="sidebar">
@@ -736,6 +678,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
