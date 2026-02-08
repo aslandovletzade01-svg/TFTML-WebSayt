@@ -640,29 +640,28 @@
     let deferredPrompt;
     const pwaBtn = document.getElementById('pwaInstallBtn');
 
-    // Bu hissə brauzerdən gələn yükləmə siqnalını tutur
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        // Siqnal gələn kimi düyməni tam aktiv edirik
-        pwaBtn.style.opacity = "1"; 
+        // Düymə artıq görünür, burada əlavə işə ehtiyac yoxdur
     });
 
-    pwaBtn.addEventListener('click', async () => {
+    pwaBtn.addEventListener('click', (e) => {
         if (deferredPrompt) {
-            // Əgər siqnal varsa, birbaşa quraşdırma pəncərəsini açır
             deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-                pwaBtn.innerText = "✅ Quraşdırıldı";
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    pwaBtn.innerText = "✅ Yükləndi";
+                    pwaBtn.style.background = "#bdc3c7";
+                }
                 deferredPrompt = null;
-            }
+            });
         } else {
-            // Əgər siqnal yoxdursa, brauzerin bu funksiyanı dəstəklədiyini yoxlayırıq
-            alert("Zəhmət olmasa bir neçə saniyə gözləyin və ya brauzerinizin tətbiq quraşdırma funksiyasını yoxlayın.");
+            // Əgər brauzer hələ "hazır deyil" deyirsə, istifadəçiyə yol göstəririk
+            alert("Proqramı yükləmək üçün brauzer menyusundan (üç nöqtə) 'Ana ekrana əlavə et' (Add to Home Screen) düyməsini seçə bilərsiniz.");
         }
     });
-</script>
+</script>           
         </main>
 
         <aside class="sidebar">
@@ -763,6 +762,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
