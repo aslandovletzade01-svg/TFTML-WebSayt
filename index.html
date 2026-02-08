@@ -12,6 +12,8 @@
     <link rel="icon" type="image/jpg" href="logo.jpg">
     <link rel="apple-touch-icon" href="logo.jpg">
     <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#27ae60">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
     <meta name="description" content="TFTML rəsmi veb saytı. Müasir təhsil və peşəkar pedaqoji heyət.">
     
@@ -634,30 +636,30 @@
         </p>
     </div>
 </section>
-
-<script>
+            <script>
     let deferredPrompt;
     const pwaBtn = document.getElementById('pwaInstallBtn');
 
+    // Bu hissə brauzerdən gələn yükləmə siqnalını tutur
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        // Düymə artıq görünür, burada əlavə işə ehtiyac yoxdur
+        // Siqnal gələn kimi düyməni tam aktiv edirik
+        pwaBtn.style.opacity = "1"; 
     });
 
-    pwaBtn.addEventListener('click', (e) => {
+    pwaBtn.addEventListener('click', async () => {
         if (deferredPrompt) {
+            // Əgər siqnal varsa, birbaşa quraşdırma pəncərəsini açır
             deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    pwaBtn.innerText = "✅ Yükləndi";
-                    pwaBtn.style.background = "#bdc3c7";
-                }
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                pwaBtn.innerText = "✅ Quraşdırıldı";
                 deferredPrompt = null;
-            });
+            }
         } else {
-            // Əgər brauzer hələ "hazır deyil" deyirsə, istifadəçiyə yol göstəririk
-            alert("Proqramı yükləmək üçün brauzer menyusundan (üç nöqtə) 'Ana ekrana əlavə et' (Add to Home Screen) düyməsini seçə bilərsiniz.");
+            // Əgər siqnal yoxdursa, brauzerin bu funksiyanı dəstəklədiyini yoxlayırıq
+            alert("Zəhmət olmasa bir neçə saniyə gözləyin və ya brauzerinizin tətbiq quraşdırma funksiyasını yoxlayın.");
         }
     });
 </script>
@@ -761,6 +763,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
