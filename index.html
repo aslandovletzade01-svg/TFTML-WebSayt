@@ -676,6 +676,74 @@
         </button>
     </a>
 </section>
+            <section id="future-job-test" style="background: #0f172a; padding: 40px; border-radius: 30px; color: white; text-align: center; margin: 20px; border: 2px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);">
+    <h2 style="color: #38bdf8; font-family: 'Poppins', sans-serif;">🚀 Peşə Seçimi Portalı</h2>
+    <p id="test-desc" style="color: #94a3b8;">Xarakterinə və maraqlarına uyğun ən yaxşı peşəni tap!</p>
+
+    <div id="quiz-container" style="min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div id="question-box">
+            <p style="font-size: 1.2rem; margin-bottom: 20px;">1. İnsanlara hansı yolla kömək etməyi daha çox sevirsən?</p>
+            <button onclick="nextStep(2, 'A')" style="padding: 12px 25px; margin: 10px; cursor:pointer; background:#1e293b; color:white; border:1px solid #38bdf8; border-radius:12px; transition: 0.3s;">Onları müalicə etməklə</button>
+            <button onclick="nextStep(2, 'B')" style="padding: 12px 25px; margin: 10px; cursor:pointer; background:#1e293b; color:white; border:1px solid #38bdf8; border-radius:12px; transition: 0.3s;">Təhlükəsizliyi təmin etməklə</button>
+            <button onclick="nextStep(2, 'C')" style="padding: 12px 25px; margin: 10px; cursor:pointer; background:#1e293b; color:white; border:1px solid #38bdf8; border-radius:12px; transition: 0.3s;">Yeni kəşflər etməklə</button>
+        </div>
+    </div>
+
+    <div id="result" style="display:none; animation: fadeIn 1s;">
+        <h3 style="color: #22c55e;">Sənin üçün ən uyğun peşə:</h3>
+        <h1 id="job-title" style="font-size: 2.8rem; text-shadow: 0 0 15px #38bdf8; margin: 15px 0;"></h1>
+        <p id="job-desc" style="color: #cbd5e1; font-size: 1.1rem; max-width: 600px; margin: 0 auto 20px auto;"></p>
+        <button onclick="location.reload()" style="background:#38bdf8; color:black; border:none; padding:12px 30px; border-radius:8px; font-weight:bold; cursor:pointer; transition: 0.3s;">Yenidən Başla</button>
+    </div>
+</section>
+
+<script>
+    let userAnswers = "";
+
+    function nextStep(step, choice) {
+        userAnswers += choice;
+        const container = document.getElementById('quiz-container');
+        
+        if (step === 2) {
+            container.innerHTML = `
+                <p style="font-size: 1.2rem; margin-bottom: 20px;">2. Hansı mühitdə işləmək sənə daha xoş olar?</p>
+                <button onclick="nextStep(3, '1')" style="padding: 12px 25px; margin: 10px; background:#1e293b; border:1px solid #38bdf8; color:white; border-radius:12px;">Xəstəxana və ya Laboratoriya</button>
+                <button onclick="nextStep(3, '2')" style="padding: 12px 25px; margin: 10px; background:#1e293b; border:1px solid #38bdf8; color:white; border-radius:12px;">Şəhər küçələri və ya Kosmos</button>
+                <button onclick="nextStep(3, '3')" style="padding: 12px 25px; margin: 10px; background:#1e293b; border:1px solid #38bdf8; color:white; border-radius:12px;">Müasir ofis və ya Ev</button>
+            `;
+        } else if (step === 3) {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        document.getElementById('quiz-container').style.display = 'none';
+        document.getElementById('test-desc').style.display = 'none';
+        const resultDiv = document.getElementById('result');
+        const title = document.getElementById('job-title');
+        const desc = document.getElementById('job-desc');
+
+        // Peşə Məntiqləri
+        if (userAnswers.startsWith("A")) {
+            title.innerText = "Yüksək Texnologiyalı Həkim 🩺";
+            desc.innerText = "Sən gələcəyin tibb dünyasında nanorobotlar və süni intellekt vasitəsilə insanları sağaldacaqsan!";
+        } else if (userAnswers.startsWith("B")) {
+            title.innerText = "Kiber-Polis 👮‍♂️";
+            desc.innerText = "Sən həm real dünyada, həm də rəqəmsal aləmdə asayişi və insanların təhlükəsizliyini qoruyacaqsan!";
+        } else if (userAnswers.includes("C1")) {
+            title.innerText = "Genetik Mühəndis 🧬";
+            desc.innerText = "Sən bitkilərin və canlıların DNT-si üzərində işləyərək dünyanı aclıqdan və xəstəliklərdən xilas edəcəksən!";
+        } else if (userAnswers.includes("C2")) {
+            title.innerText = "Kosmos Tədqiqatçısı 👨‍🚀";
+            desc.innerText = "Məktəbdə öyrəndiyin fizika və riyaziyyat səni ulduzlara qədər aparacaq!";
+        } else {
+            title.innerText = "Süni İntellekt Memarı 🤖";
+            desc.innerText = "Sən insanların həyatını asanlaşdıran ağıllı sistemlərin yaradıcısı olacaqsan!";
+        }
+        
+        resultDiv.style.display = 'block';
+    }
+</script>
         </main>
         <aside class="sidebar">
             <div class="achievements-box">
@@ -786,6 +854,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
