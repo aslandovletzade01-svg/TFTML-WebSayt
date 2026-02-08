@@ -47,16 +47,29 @@
     const form = document.getElementById('sorguForm');
     const msg = document.getElementById('msg');
 
-    // Əvvəl göndərib-göndərmədiyini yoxla
-    if (localStorage.getItem('sorgu_gonderildi')) {
+    // Cari həftənin nömrəsini hesablamaq üçün funksiya (İlin neçənci həftəsidir)
+    function getWeekNumber() {
+        const now = new Date();
+        const oneJan = new Date(now.getFullYear(), 0, 1);
+        const numberOfDays = Math.floor((now - oneJan) / (24 * 60 * 60 * 1000));
+        return Math.ceil((now.getDay() + 1 + numberOfDays) / 7);
+    }
+
+    const currentWeek = getWeekNumber(); 
+    const savedWeek = localStorage.getItem('sorgu_heftesi'); 
+
+    // Əgər şagird bu həftə səs veribsə, formu gizlə, mesajı göstər
+    if (savedWeek == currentWeek) {
         form.style.display = 'none';
         msg.style.display = 'block';
     }
 
     form.onsubmit = function() {
-        // Göndərildiyi an yaddaşa yazılır
-        localStorage.setItem('sorgu_gonderildi', 'true');
+        // Səs verəndə hansı həftədə olduğumuzu yadda saxlayırıq
+        localStorage.setItem('sorgu_heftesi', currentWeek);
+        // Bu sətir Formspree-nin işləməsinə mane olmur
     };
+    
 </script>
 
 </body>
