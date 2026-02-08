@@ -420,75 +420,7 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-        /* Matrix Arka Fonu */
-    .matrix-container {
-        position: relative;
-        background: #020617;
-        padding: 60px 20px;
-        overflow: hidden;
-        border-radius: 30px;
-        margin-top: 30px;
-    }
 
-    /* Kartların düzülüşü - Telefona uyğun (Responsive) */
-    .neon-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-        position: relative;
-        z-index: 2;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .neon-card {
-        background: rgba(15, 23, 42, 0.8);
-        border: 2px solid rgba(56, 189, 248, 0.1);
-        padding: 40px 20px;
-        border-radius: 24px;
-        color: white;
-        text-align: center;
-        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        cursor: pointer;
-        backdrop-filter: blur(10px);
-    }
-
-    /* Mouse üzərinə gələndə (və ya telefonda toxunanda) */
-    .neon-card:hover {
-        transform: scale(1.05);
-        border-color: #38bdf8;
-        box-shadow: 0 0 30px rgba(56, 189, 248, 0.5), inset 0 0 10px rgba(56, 189, 248, 0.2);
-    }
-
-    .neon-icon {
-        font-size: 50px;
-        margin-bottom: 20px;
-        display: block;
-        filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
-    }
-
-    .neon-card h3 {
-        color: #38bdf8;
-        margin: 10px 0;
-        font-size: 22px;
-        letter-spacing: 1px;
-    }
-
-    .neon-card p {
-        color: #94a3b8;
-        font-size: 14px;
-        line-height: 1.5;
-    }
-
-    /* Telefon üçün xüsusi tənzimləmə */
-    @media (max-width: 600px) {
-        .neon-grid {
-            grid-template-columns: 1fr; /* Kartlar alt-alta */
-        }
-        .neon-card {
-            padding: 30px 15px;
-        }
-    }
       
        
     </style>
@@ -745,27 +677,6 @@
     </a>
 </section>
         </main>
-        <div class="neon-grid">
-    <div class="neon-card" onclick="location.href='kitabxana.html'">
-        <span class="neon-icon">🧪</span>
-        <h3>Rəqəmsal Lab</h3>
-        <p>Dərsliklər və interaktiv sınaqlar.</p>
-    </div>
-
-    <div class="neon-card" onclick="location.href='foto.html'">
-        <span class="neon-icon">⚡</span>
-        <h3>Foto-Stend</h3>
-        <p>Məktəb loqosu ilə xatırə şəkli.</p>
-    </div>
-
-    <div class="neon-card">
-        <span class="neon-icon">🛸</span>
-        <h3>Gələcək Səsi</h3>
-        <p>Rəqəmsal zaman kapsulu mesajları.</p>
-    </div>
-</div>
-        
-
         <aside class="sidebar">
             <div class="achievements-box">
                 <h3 style="color: #27ae60; margin-bottom: 15px;">Nailiyyətlər</h3>
@@ -875,6 +786,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
