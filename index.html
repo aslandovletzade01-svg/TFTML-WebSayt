@@ -617,6 +617,49 @@
             🔍 Ətraflı Məlumat Al
         </a>
 </section>
+            <section style="background: #ffffff; padding: 40px 20px; border-radius: 25px; margin-top: 30px; border: 2px solid #f1f1f1; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.03);">
+    <div style="max-width: 700px; margin: 0 auto;">
+        <h2 style="color: #1e293b; font-size: 24px; margin-bottom: 15px;">📲 Məktəbimizin Proqramını Endirin</h2>
+        
+        <p style="color: #475569; font-size: 16px; line-height: 1.6; margin-bottom: 25px;">
+            Əziz valideynlər və şagirdlər! Məktəbimizin rəsmi veb-sayt proqramını quraşdıraraq məktəb xəbərlərindən, elanlardan və yeniliklərdən daha sürətli xəbər tuta bilərsiniz. 
+        </p>
+
+        <button id="pwaInstallBtn" style="display: none; background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);">
+            📥 Proqramı İndi Endir
+        </button>
+
+        <p id="pwaStatus" style="color: #94a3b8; font-size: 13px; margin-top: 15px;">
+            (Android, iOS və Windows sistemləri üçün uyğundur)
+        </p>
+    </div>
+</section>
+
+<script>
+    let deferredPrompt;
+    const pwaBtn = document.getElementById('pwaInstallBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Brauzerin öz çıxışını dayandırırıq
+        e.preventDefault();
+        deferredPrompt = e;
+        // Düyməni görünən edirik
+        pwaBtn.style.display = 'inline-block';
+    });
+
+    pwaBtn.addEventListener('click', (e) => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('İstifadəçi proqramı yüklədi');
+                    pwaBtn.style.display = 'none';
+                }
+                deferredPrompt = null;
+            });
+        }
+    });
+</script>
         </main>
 
         <aside class="sidebar">
@@ -717,6 +760,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
