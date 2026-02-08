@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Həftəlik Sorğu | TFTML</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 90%; max-width: 500px; text-align: center; }
+        h1 { color: #2c3e50; font-size: 32px; border-bottom: 4px solid #3498db; display: inline-block; padding-bottom: 5px; margin-top: 0; }
+        .info { color: #555; font-weight: 600; margin: 20px 0; font-size: 18px; line-height: 1.4; }
+        .form-group { text-align: left; margin-bottom: 20px; }
+        label { font-weight: bold; color: #34495e; display: block; margin-bottom: 8px; }
+        input, textarea { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 10px; outline: none; font-size: 15px; }
+        input:focus, textarea:focus { border-color: #3498db; }
+        button { width: 100%; padding: 15px; border: none; border-radius: 10px; background: #27ae60; color: white; font-weight: bold; font-size: 17px; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #219150; transform: translateY(-2px); }
+        #msg { margin-top: 20px; color: #e74c3c; font-weight: bold; display: none; padding: 15px; border: 1px dashed #e74c3c; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>SORĞU</h1>
+    <p class="info">🌟 Bu həftəlik ən fəal müəllim</p>
+
+    <form id="sorguForm" action="https://formspree.io/f/xdaloqej" method="POST">
+        <div class="form-group">
+            <label>Müəllimin adı və soyadı:</label>
+            <input type="text" name="muellim_adi" required placeholder="Müəllimi qeyd edin...">
+        </div>
+        <div class="form-group">
+            <label>Nə üçün bu müəllimi seçirsiniz?</label>
+            <textarea name="sebeb" rows="4" required placeholder="Səbəbinizi bura yazın..."></textarea>
+        </div>
+        <button type="submit" id="subBtn">Sorğunu Göndər</button>
+    </form>
+    
+    <div id="msg">🚫 Siz artıq bu həftəlik sorğunu göndərmisiniz!</div>
+    
+    <br>
+    <a href="index.html" style="color: #3498db; text-decoration: none; font-size: 14px;">⬅ Ana səhifəyə qayıt</a>
+</div>
+
+<script>
+    const form = document.getElementById('sorguForm');
+    const msg = document.getElementById('msg');
+
+    // Əvvəl göndərib-göndərmədiyini yoxla
+    if (localStorage.getItem('sorgu_gonderildi')) {
+        form.style.display = 'none';
+        msg.style.display = 'block';
+    }
+
+    form.onsubmit = function() {
+        // Göndərildiyi an yaddaşa yazılır
+        localStorage.setItem('sorgu_gonderildi', 'true');
+    };
+</script>
+
+</body>
+</html>
