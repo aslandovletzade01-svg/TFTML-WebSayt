@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qəbul Şərtləri | TFTML</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1523050853063-915894612264?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Sağ küncdəki kiçik Azərbaycan Bayrağı */
+        .az-flag {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            width: 100%;
+            max-width: 850px;
+            padding: 40px;
+            color: white;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        h1 { text-align: center; font-size: 28px; margin-bottom: 30px; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+
+        .info-section { margin-bottom: 25px; }
+        
+        .info-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border-left: 6px solid #3498db;
+        }
+
+        .info-card h3 { color: #3498db; margin-bottom: 8px; font-size: 18px; }
+
+        /* Keçid Balları Cədvəli */
+        .score-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .score-table td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .score-tag { background: #e74c3c; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+
+        /* Düymələr Sahəsi */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-main { background: #3498db; color: white; }
+        .btn-main:hover { background: #2980b9; transform: translateY(-3px); }
+
+        .btn-edu { background: #27ae60; color: white; } /* Nazirlik üçün yaşıl rəng */
+        .btn-edu:hover { background: #219150; transform: translateY(-3px); }
+
+        .btn-back { background: rgba(255,255,255,0.2); color: white; }
+    </style>
+</head>
+<body>
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Azerbaijan.svg/1200px-Flag_of_Azerbaijan.svg.png" class="az-flag" alt="Azərbaycan Bayrağı">
+
+    <div class="glass-panel">
+        <h1>🇦🇿 Qəbul Şərtləri və Qaydalar</h1>
+
+        <div class="info-section">
+            <div class="info-card">
+                <h3>🏛️ Elm və Təhsil Nazirliyinin Tələbləri</h3>
+                <p>1. Ümumi müddəalar
+1.1. Bu sənəddə mərkəzləşdirilmiş imtahan əsasında lisey və gimnaziyalara qəbul prosesinin təşkili və
+keçirilməsinə dair əsas prinsiplər və qaydalar müəyyən olunur.
+1.2. Qəbul və şagirdlərin yerdəyişməsi yalnız Şagirdlərin elektron yerdəyişməsi portalı -
+https://sy.edu.az üzərindən elektron qaydada aparılır.
+2. Qəbul imtahanı
+2.1. İmtahan aşağıdakı fənlər üzrə keçirilir:
+- Tədris dili (Azərbaycan və ya Rus dili);
+- Riyaziyyat (standart və qeyri-standart suallar əsasında).
+2.2. Tədris dili şagirdin qeydiyyat zamanı etdiyi "Kitabça dili" seçiminə əsasən müəyyən edilir və
+sonradan dəyişdirilə bilməz.
+QEYD: Portalda qeydiyyatdan keçərkən Kitabça dili bölməsi görünəcəkdir. Tədris dili başqa dillərdə
+həyata keçirilən şagirdlərə həmin xanada “Azərbaycan” və ya “Rus” dili seçimi təqdim edilir. Bu
+mərhələdə seçilən dildən asılı olaraq şagirdə uyğun məktəblər bölməsi açılır. Eyni zamanda şagirdin
+sual kitabçası da həmin dildə təqdim edilir. Şagird qəbul olunacağı halda tədris dili “Kitabça dili”
+seçiminə uyğun olaraq birbaşa tənzimlənir.
+2.3. Rus bölməsində təhsil alan şagird istəyə əsasən Azərbaycan və ya Rus bölməsində təhsilini davam
+etdirə bilər. Azərbaycan bölməsi üzrə təhsil alan şagird tədris dilini dəyişə bilməz.
+2.4 Tədris dili Azərbaycan və ya Rus dilindən fərqli olan şagirdlər imtahan qeydiyyatı zamanı “Kitabça
+dili” bölməsində öz istəklərinə uyğun olaraq Azərbaycan və ya Rus dilini seçə bilərlər. Qəbul
+olunduqları təqdirdə təhsil aldıqları tədris dilinin həmin seçimə uyğun olaraq tənzimlənəcəyi nəzərə
+alınmalıdır 
+3. Qəbul imtahanının qiymətləndirilməsi
+3.1. Qəbul aşağıdakı siniflər üzrə həyata keçirilir: V, VI, VII və VIII siniflər.
+3.2. Hər fənn üzrə sual sayı və ballar siniflər üzrə aşağıdakı kimidir:
+ Sinif Tədris Dili Riyaziyyat CƏMİ Bal
+ V 15 SUAL (17.5 BAL) 30 SUAL (32.5 BAL) 50 BAL
+ VI 20 SUAL (22.5 BAL) 40 SUAL (42.5 BAL) 65 BAL
+ VII 20 SUAL (22.5 BAL) 40 SUAL (42.5 BAL) 65 BAL
+ VIII 20 SUAL (22.5 BAL) 40 SUAL (42.5 BAL) 65 BAL
+3.3. Sualların qiymətləndirilməsi: hər fənn üzrə son 5 sual 1,5 balla, digərləri 1 balla qiymətləndirilir.
+4. İştirak və qəbul qaydası
+4.1. Seçimlərdə iştirak edə bilmək üçün minimum iştirak balı – 10 baldır.
+4.2. Bərabər bal toplayan şagirdlər arasında sıralama aşağıdakı ardıcıllıqla müəyyən edilir:
+a) Riyaziyyat üzrə 1,5 ballıq suallardan toplanmış nisbi bal;
+b) Riyaziyyat üzrə 1 ballıq suallardan toplanmış nisbi bal;
+c) Tədris dili üzrə 1,5 ballıq suallardan toplanmış nisbi bal;
+ d) Tədris dili üzrə 1 ballıq suallardan toplanmış nisbi bal.
+5. Prosedur və mərhələlər
+5.1. Qəbul prosesi üç mərhələdə həyata keçirilir.
+5.2. I mərhələdə aşağıdakı addımlar icra olunur:
+a) Portalda valideyn modulu yaradılır və şagird əlavə olunur;
+b) Sorğu yaradılır, buraxılış vərəqəsi əldə edilir;
+c) İmtahan keçirilir;
+d) Nəticələr açıqlandıqdan sonra lisey/gimnaziya seçimi edilir (I mərhələdə 3, II və III mərhələlərdə
+2 seçim);
+e) Şagird qəbul olunduğu təqdirdə I mərhələdə həmin müəssisənin təsdiqi və ya imtinası tələb edilir;
+ f) Yerdəyişmə portalı aktivləşdirkdən sonra sənədlərin qəbulu həyata keçirilir.
+5.3. II və III (ehtiyac olacağı təqdirdə) mərhələdə aşağıdakı addımlar icra olunur:
+a) Lisey/gimnaziya seçimi edilir (2 seçim);
+b) Şagird qəbul olunduğu təqdirdə sənədlərin qəbulu həyata keçirilir.
+5.4. Qəbul sənədlərinin vaxtında təqdim edilməməsi halında növbəti mərhələdə iştirak hüququ
+itirilə bilər.
+a) Birinci mərhələdə seçim edib qəbul olan şagird həmin təhsil müəssisəsində oxuyacağını təsdiqləmir,
+sənəd qəbulu zamanı gecikir, sənədlərini həmin liseyə, gimnaziyaya vaxtında təqdim etmir, yaxud
+oxumaqdan imtina edirsə, onun ikinci mərhələdə iştirakına icazə verilsə də, ikinci mərhələdə qəbul olub
+hər hansı səbəbdən sənədlərini qəbul olduğu lisey yaxud gimnaziyaya təqdim etməyən şagirdlərin
+üçüncü mərhələdə iştirakına icazə verilmir.
+b) Lisey, gimnaziya seçimi edib qəbul olmayan şagirdlərin sonrakı mərhələlərdə iştirakında heç bir
+məhdudiyyət yoxdur.
+c) Birinci mərhələdə seçim etməyən şagirdlərin növbəti mərhələdə vakant yer olan lisey və
+gimnaziyalar arasında seçim etmək imkanı olacaqdır.
+d) Birinci mərhələdə seçim edib qəbul olan, lakin hər hansı səbəbdən sənədlərini həmin lisey yaxud
+gimnaziyaya təqdim etməyən şagirdlər ikinci mərhələnin seçimlərində iştirak edə biləcək. İkinci
+mərhələdə qəbul olunmayacaqları halda üçüncü mərhələdə də iştirak edə bilərlər.
+e) İkinci mərhələdə lisey, gimnaziya seçimi edib qəbul olan (sənədlərini qəbul olduqları lisey yaxud
+gimnaziyalara təqdim edən, etməyən) şagirdlərin üçüncü mərhələdə iştirak etmələrinə icazə verilmir.
+f) Birinci mərhələdə seçim edib qəbul olan, lakin ikinci mərhələdə seçim etməyən şagirdlər üçüncü
+mərhələdə iştirak edə bilərlər.
+g) Şagird mərkəzləşmiş qaydada imtahan verərək qəbul olunduğu lisey və gimnaziyadan mərkəzləşmiş
+qaydada qəbul həyata keçirilən digər təhsil müəssisəsinə yerdəyişmə edə bilməz. Bu halda yalnız
+növbəti tədris ilində keçiriləcək qəbul imtahanında iştirak etmək mümkündür.
+h) Boş qalan yerlərə ikinci və üçüncü mərhələ ilə əlaqəli lisey/gimnaziya seçimi (ehtiyac olacağı halda)
+avqust ayında həyata keçiriləcəkdir.
+6. Texniki və təşkilati məsələlər
+6.1. Qeydiyyat zamanı seçilən imtahan binası və kitabça dili seçimi sonradan dəyişdirilə bilməz.
+6.2. Buraxılış vərəqi, şəxsiyyət vəsiqəsi və digər tələb olunan ləvazimatlar olmadan imtahanda iştirak
+etmək olmaz.
+6.3. İmtahana mobil telefon, ağıllı saat və digər rabitə vasitələri, kalkulyator və digər elektron cihazlar,
+konspekt, lüğət, cədvəl, çanta, məlumat kitabçası, xarici yaddaş qurğuları və başqa yardımçı vasitələr
+gətirmək və onlardan istifadə etmək qadağandır.
+6.4. Qeydiyyatdan keçərkən tələb edilən bütün məlumatları daxil etdiyinizə əmin olun. Buraxılış vərəqi
+yüklənib çap edilməyənə qədər qeydiyyatınız tamamlanmış hesab olunmur.
+6.5.Şagirdin şəxsiyyət vəsiqəsində şəkli yoxdursa, buraxılış vərəqinə mütləq 3x4 ölçüdə şəkil əlavə
+edilməlidir.
+6.6. Buraxılış vərəqinin möhürlə təsdiqlənməsi zəruri deyil.
+6.7. Şagird ancaq buraxılış vərəqində qeyd olunan imtahan mərkəzində (binasında) imtahanda iştirak
+edə bilər.
+6.8.Şagird imtahan mərkəzinə imtahanın başlayacağı vaxtdan ən azı 1 (bir) saat tez gəlməlidir.
+6.9.Şagirdin imtahana gələrkən mütləq özü ilə gətirməli olduğu sənəd və ləvazimatlar: şəxsiyyət
+vəsiqəsi, imtahana buraxılış vərəqi (çap olunmuş formada), tünd qara, yaxud göy rəngdə yazan
+qələm.
+6.10. Şagirdin imtahana gələrkən gətirə biləcəyi əlavə ləvazimatlar: sadə karandaş, pozan, eynək
+(ehtiyac varsa), şəffaf butulkada su.
+6.11. Birinci mərhələdə 3 (üç) yer seçimi imkanı verilir. Hər 3 (üç) seçimi qeyd etmək zərurəti
+yoxdur.
+6.12. Şagirdin sənədlərinin qəbul olunduğu liseyə və ya gimnaziyaya təqdim edilməsi əsasən avqustun
+ilk həftələrində həyata keçirilir.
+6.13. İkinci və üçüncü mərhələdə hər şagirdə 2 (iki) seçim imkanı verilir. Bu mərhələlər də əsasən
+avqust ayında keçirilir. Hər 2 (iki) seçimi qeyd etmək zərurəti yoxdur.
+7. Əlaqə və Dəstək
+Əlavə məlumat və dəstək üçün:
+ WhatsApp: (051) 756 15 58
+ https://sy.edu.az üzərindən“Əks əlaqə” bölməsi</p>
+            </div>
+
+            <div class="info-card">
+                <h3>📊 Minimum Keçid Balları (Nümunə)</h3>
+                <table class="score-table">
+                    <tr>
+                        <td>Riyaziyyat</td>
+                        <td><span class="score-tag">45+ Bal</span></td>
+                    </tr>
+                    <tr>
+                        <td>Azərbaycan dili</td>
+                        <td><span class="score-tag">35+ Bal</span></td>
+                    </tr>
+                    <tr>
+                        <td>Məntiq</td>
+                        <td><span class="score-tag">15+ Bal</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <a href="https://sy.edu.az" target="_blank" class="btn btn-edu">
+                🎓 Təhsil Nazirliyi
+            </a>
+
+            <a href="index.html" class="btn btn-back">
+                ⬅ Geri Qayıt
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
