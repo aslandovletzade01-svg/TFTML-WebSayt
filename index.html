@@ -399,6 +399,24 @@
         height: 50px !important; /* Hamısı eyni hündürlükdə olsun deyə */
     }
 }
+        .rainbow-nav-button {
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8);
+    background-size: 400%;
+    color: white !important;
+    font-weight: bold !important;
+    border-radius: 20px !important;
+    animation: nav_rainbow 8s linear infinite;
+    padding: 8px 15px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+@keyframes nav_rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
       
        
     </style>
@@ -411,6 +429,7 @@
             <span>ELM VƏ TƏHSİL NAZİRLİYİ</span>
         </div>
         <ul class="nav-links">
+            <li><a href="sorgu.html" class="rainbow-nav-button">🌈 Sorğu</a></li>
             <li><a href="#news">Xəbərlər</a></li>
             <li><a href="#about">Məktəb Haqqında</a></li>
             <li><a href="#teachers">Müəllimlər</a></li>
@@ -692,6 +711,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
