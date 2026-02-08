@@ -625,7 +625,7 @@
             Əziz valideynlər və şagirdlər! Məktəbimizin rəsmi veb-sayt proqramını quraşdıraraq məktəb xəbərlərindən, elanlardan və yeniliklərdən daha sürətli xəbər tuta bilərsiniz. 
         </p>
 
-        <button id="pwaInstallBtn" style="display: none; background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);">
+        <button id="pwaInstallBtn" style="background: linear-gradient(135deg, #27ae60, #2ecc71); color: white; border: none; padding: 18px 45px; border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); display: inline-block;">
             📥 Proqramı İndi Endir
         </button>
 
@@ -640,11 +640,9 @@
     const pwaBtn = document.getElementById('pwaInstallBtn');
 
     window.addEventListener('beforeinstallprompt', (e) => {
-        // Brauzerin öz çıxışını dayandırırıq
         e.preventDefault();
         deferredPrompt = e;
-        // Düyməni görünən edirik
-        pwaBtn.style.display = 'inline-block';
+        // Düymə artıq görünür, burada əlavə işə ehtiyac yoxdur
     });
 
     pwaBtn.addEventListener('click', (e) => {
@@ -652,11 +650,14 @@
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === 'accepted') {
-                    console.log('İstifadəçi proqramı yüklədi');
-                    pwaBtn.style.display = 'none';
+                    pwaBtn.innerText = "✅ Yükləndi";
+                    pwaBtn.style.background = "#bdc3c7";
                 }
                 deferredPrompt = null;
             });
+        } else {
+            // Əgər brauzer hələ "hazır deyil" deyirsə, istifadəçiyə yol göstəririk
+            alert("Proqramı yükləmək üçün brauzer menyusundan (üç nöqtə) 'Ana ekrana əlavə et' (Add to Home Screen) düyməsini seçə bilərsiniz.");
         }
     });
 </script>
@@ -760,6 +761,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
