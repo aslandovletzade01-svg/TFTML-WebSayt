@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Məktəb Yaddaşı | TFTML Arxiv</title>
+    <style>
+        body { background: #020617; color: #f8fafc; font-family: 'Poppins', sans-serif; margin: 0; overflow-x: hidden; }
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
+        
+        /* Dünən və Bu gün Kartları */
+        .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 40px; }
+        .comp-card { background: #1e293b; border-radius: 15px; overflow: hidden; border: 1px solid #38bdf8; transition: 0.3s; }
+        .split-img { display: flex; height: 200px; position: relative; cursor: pointer; }
+        .img-left { width: 50%; background-size: cover; background-position: center; border-right: 2px solid #38bdf8; }
+        .img-right { width: 50%; background-size: cover; background-position: center; }
+        
+        /* Divar Qəzeti */
+        .wall-section { margin-top: 60px; border-top: 2px solid #334155; padding-top: 40px; }
+        #writing-space { 
+            width: 100%; min-height: 100px; background: rgba(56, 189, 248, 0.05); 
+            border: 2px dashed #38bdf8; border-radius: 15px; padding: 20px; 
+            color: #fff; outline: none; font-size: 1.1rem; margin-bottom: 20px;
+        }
+        .note { 
+            background: #0f172a; border-left: 4px solid #38bdf8; padding: 15px; 
+            margin: 10px; border-radius: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        button { background: #38bdf8; color: #020617; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { transform: scale(1.05); box-shadow: 0 0 15px #38bdf8; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 style="text-align: center; color: #38bdf8; letter-spacing: 3px;">MƏKTƏB YADDAŞI: İZLƏR</h1>
+    
+    <div class="comparison-grid">
+        <div class="comp-card">
+            <div class="split-img" onclick="playVoice('voice1')">
+                <div class="img-left" style="background-image: url('kohn-shekil1.jpg');"></div>
+                <div class="img-right" style="background-image: url('yeni-shekil1.jpg');"></div>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(56,189,248,0.8); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">🔊</div>
+            </div>
+            <div style="padding: 15px; text-align: center;">
+                <h3 style="margin: 0;">Məzun: Əli Məmmədov</h3>
+                <p style="color: #94a3b8; font-size: 0.9rem;">2012 Məzunu | İndi: Cərrah</p>
+            </div>
+            <audio id="voice1" src="ses1.mp3"></audio>
+        </div>
+        </div>
+
+    <div class="wall-section">
+        <h2 style="text-align: center;">Rəqəmsal Divar Qəzeti</h2>
+        <p style="text-align: center; color: #64748b;">Aşağıdakı sahəyə adını, məzun ilini və mesajını həkk et...</p>
+        
+        <div id="writing-space" contenteditable="true" onfocus="if(this.innerText==='Bura yaz...') this.innerText=''">Bura yaz...</div>
+        
+        <div style="text-align: center;">
+            <button onclick="publishMessage()">DİVARA HƏKK ET 🔨</button>
+        </div>
+
+        <div id="message-wall" style="margin-top: 30px; display: flex; flex-direction: column-reverse;">
+            </div>
+    </div>
+</div>
+
+<script>
+    // Səs pleyeri funksiyası
+    function playVoice(id) {
+        let audio = document.getElementById(id);
+        audio.play();
+    }
+
+    // Mesajı divara əlavə etmək (Local yaddaşla)
+    function publishMessage() {
+        const space = document.getElementById('writing-space');
+        const wall = document.getElementById('message-wall');
+        const text = space.innerText;
+
+        if(text.trim() !== "" && text !== "Bura yaz...") {
+            const date = new Date().toLocaleDateString('az-AZ');
+            const note = document.createElement('div');
+            note.className = 'note';
+            note.innerHTML = `
+                <p style="margin: 0; font-size: 1.1rem;">${text}</p>
+                <small style="color: #38bdf8; display: block; margin-top: 8px;">🗓️ ${date} tarixində divara həkk olundu</small>
+            `;
+            
+            wall.appendChild(note);
+            
+            // Mesajı brauzer yaddaşına atırıq (Hələlik sadə üsul)
+            let savedData = JSON.parse(localStorage.getItem('alumni_notes') || '[]');
+            savedData.push({text: text, date: date});
+            localStorage.setItem('alumni_notes', JSON.stringify(savedData));
+            
+            space.innerText = "";
+        }
+    }
+
+    // Səhifə açılanda köhnə mesajları yüklə
+    window.onload = function() {
+        let savedData = JSON.parse(localStorage.getItem('alumni_notes') || '[]');
+        const wall = document.getElementById('message-wall');
+        savedData.forEach(item => {
+            const note = document.createElement('div');
+            note.className = 'note';
+            note.innerHTML = `<p style="margin: 0;">${item.text}</p><small style="color: #38bdf8;">🗓️ ${item.date}</small>`;
+            wall.appendChild(note);
+        });
+    }
+</script>
+
+</body>
+</html>
