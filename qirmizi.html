@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>Qırmızı Kart | Ciddi İntizam Pozuntusu</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #fef2f2; color: #991b1b; text-align: center; padding: 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .student-card { 
+            background: #ffffff; 
+            padding: 25px; 
+            border-radius: 10px; 
+            border: 5px solid #ef4444; 
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.2);
+            position: relative;
+        }
+        .student-img { 
+            width: 150px; height: 180px; 
+            border-radius: 5px; 
+            object-fit: cover; 
+            border: 2px solid #ef4444;
+            margin-bottom: 15px;
+            filter: grayscale(80%); /* Daha ciddi görünməsi üçün rəngi azaldırıq */
+        }
+        .danger-zone { background: #ef4444; color: white; padding: 5px; font-size: 0.8rem; border-radius: 5px; display: inline-block; margin-bottom: 10px; }
+        .back-btn { margin-top: 50px; display: inline-block; padding: 12px 35px; background: #991b1b; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>🚫 QIRMIZI KART: CİDDİ POZUNTULAR</h1>
+    <p style="color: #b91c1c;">Qaydaları təkrarən pozan və intizam şurasına təqdim olunan şagirdlər.</p>
+
+    <div class="grid">
+        <div class="student-card">
+            <div class="danger-zone">SƏRHƏDİ KEÇİB</div>
+            <img src="sagird_qirmizi1.jpg" alt="Şagird" class="student-img">
+            <h3>Ad Soyad</h3>
+            <p>Sinif: 11C</p>
+            <p><strong>Status:</strong> Məktəb nizamnaməsinə uyğun deyil.</p>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-btn">← Ana Səhifəyə Qayıt</a>
+
+</body>
+</html>
