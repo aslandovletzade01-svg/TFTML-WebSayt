@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>Sarı Kart | İntizam Xəbərdarlığı</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #fffbeb; color: #854d0e; text-align: center; padding: 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
+        .student-card { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 20px; 
+            border: 4px solid #eab308; 
+            box-shadow: 0 10px 20px rgba(234, 179, 8, 0.1);
+        }
+        .student-img { 
+            width: 140px; height: 140px; 
+            border-radius: 15px; /* Sarı kartda küncləri bir az daha kəskin edək */
+            object-fit: cover; 
+            border: 3px solid #eab308;
+            margin-bottom: 15px;
+            filter: sepia(30%); /* Bir az xəbərdarlıq havası verir */
+        }
+        .warning-text { font-weight: bold; color: #9a3412; font-size: 0.9rem; }
+        .back-btn { margin-top: 50px; display: inline-block; padding: 12px 30px; background: #eab308; color: white; text-decoration: none; border-radius: 12px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>⚠️ SARI KART: İNTİZAM XƏBƏRDARLIĞI</h1>
+    <p>Məktəb qaydalarını 1-ci dəfə pozan və xəbərdarlıq alan şagirdlərin siyahısı.</p>
+
+    <div class="grid">
+        <div class="student-card">
+            <img src="sagird_sari1.jpg" alt="Şagird" class="student-img">
+            <h3>Ad Soyad</h3>
+            <p>Sinif: 10B</p>
+            <p class="warning-text">Səbəb: Dərsə gecikmə</p>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-btn">← Ana Səhifəyə Qayıt</a>
+
+</body>
+</html>
