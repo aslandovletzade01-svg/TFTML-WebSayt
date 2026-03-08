@@ -785,118 +785,97 @@
         </a>
     </div>
 </section>
-            <section style="
-    background-color: #f4f7f6; 
-    padding: 50px 20px; 
-    text-align: center; 
-    border-radius: 20px; 
-    margin: 30px auto; 
-    max-width: 400px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            <div id="mega-container" style="position: relative; padding: 60px 20px; transition: 1s; border-radius: 30px; text-align: center; overflow: hidden; background: #1a1a2e; color: white; font-family: 'Poppins', sans-serif;">
     
-    <h2 style="color: #2c3e50; font-size: 22px; margin-bottom: 30px;">🎁 Bəxtini Sına: Bugünkü Təkrar?</h2>
+    <div id="bg-particles" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 1; pointer-events: none;"></div>
 
-    <div style="position: relative; width: 300px; height: 300px; margin: 0 auto;">
-        
-        <div id="main-wheel" style="
-            width: 100%; 
-            height: 100%; 
-            border-radius: 50%; 
-            border: 10px solid #fff; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            /* Sənin məktəb layihəndəki fənlərə uyğun rənglər */
-            background: conic-gradient(
-                #3498db 0deg 60deg,    /* Riyaziyyat - Göy */
-                #e74c3c 60deg 120deg,  /* Fizika - Qırmızı */
-                #2ecc71 120deg 180deg, /* İnformatika - Yaşıl */
-                #f1c40f 180deg 240deg, /* Kimya - Sarı */
-                #9b59b6 240deg 300deg, /* Biologiya - Bənövşəyi */
-                #e67e22 300deg 360deg  /* Coğrafiya - Narıncı */
-            );
-            transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
-            transform: rotate(0deg);">
-        </div>
+    <h2 id="main-title" style="position: relative; z-index: 2; font-size: 28px; text-transform: uppercase; letter-spacing: 3px; color: #00d2ff;">🎯 Təmayülünü Seç</h2>
 
-        <div style="
-            position: absolute; 
-            top: -20px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            width: 0; height: 0; 
-            border-left: 15px solid transparent; 
-            border-right: 15px solid transparent; 
-            border-top: 30px solid #333; 
-            z-index: 10;">
+    <div style="position: relative; width: 350px; height: 350px; margin: 40px auto; z-index: 2;">
+        <div id="game-wheel" style="width: 100%; height: 100%; border-radius: 50%; border: 15px solid #16213e; box-shadow: 0 0 50px #00d2ff; transition: transform 5s cubic-bezier(0.15, 0, 0, 1.01); background: conic-gradient(#00d2ff 0 60deg, #ff0055 60deg 120deg, #00ff88 120deg 180deg, #f39c12 180deg 240deg, #9b59b6 240deg 300deg, #e67e22 300deg 360deg);">
+            <div style="position: absolute; width: 100%; height: 100%; pointer-events: none; font-size: 12px; font-weight: bold;">
+                <span style="position: absolute; top: 15%; left: 60%; transform: rotate(30deg);">Riyaziyyat</span>
+                <span style="position: absolute; top: 50%; left: 75%; transform: rotate(90deg);">Fizika</span>
+                <span style="position: absolute; top: 75%; left: 50%; transform: rotate(150deg);">İnfo</span>
+                <span style="position: absolute; top: 60%; left: 15%; transform: rotate(210deg);">Kimya</span>
+                <span style="position: absolute; top: 25%; left: 15%; transform: rotate(270deg);">Bio</span>
+                <span style="position: absolute; top: 5%; left: 40%; transform: rotate(330deg);">Coğrafiya</span>
+            </div>
         </div>
-        
-        <div style="
-            position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            width: 50px; 
-            height: 50px; 
-            background: #fff; 
-            border-radius: 50%; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.3); 
-            z-index: 5;">
+        <div style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 40px solid #00d2ff; filter: drop-shadow(0 0 10px #00d2ff);"></div>
+    </div>
+
+    <button onclick="megaSpin()" id="spin-master-btn" style="position: relative; z-index: 2; padding: 20px 50px; font-size: 20px; font-weight: bold; text-transform: uppercase; background: linear-gradient(45deg, #00d2ff, #3a7bd5); color: white; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 0 20px #00d2ff; transition: 0.3s;">🚀 START</button>
+
+    <div id="info-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; flex-direction: column; animation: fadeIn 0.5s;">
+        <div id="subject-card" style="background: #16213e; padding: 50px; border-radius: 30px; border: 3px solid #00d2ff; box-shadow: 0 0 100px #00d2ff; text-align: center; max-width: 500px; transform: scale(0);">
+            <h1 id="res-subject" style="font-size: 45px; margin-bottom: 20px; text-shadow: 0 0 20px #00d2ff;"></h1>
+            <p id="res-desc" style="font-size: 18px; line-height: 1.6; color: #a2a2a2;"></p>
+            <div id="res-icon" style="font-size: 80px; margin: 20px 0;"></div>
+            <button onclick="closeOverlay()" style="margin-top: 30px; padding: 15px 40px; background: #00d2ff; color: #1a1a2e; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">Məktəb Divarına Qayıt</button>
         </div>
     </div>
 
-    <div id="subject-result" style="margin-top: 30px; font-size: 20px; font-weight: bold; color: #27ae60; min-height: 24px;"></div>
-    
-    <button onclick="startSpin()" id="spin-button" style="
-        margin-top: 20px; 
-        padding: 15px 40px; 
-        background-color: #3498db; 
-        color: white; 
-        border: none; 
-        border-radius: 50px; 
-        cursor: pointer; 
-        font-weight: bold; 
-        font-size: 16px; 
-        box-shadow: 0 5px 15px rgba(52,152,219,0.3); 
-        transition: 0.3s;">
-        💥 Çarxı Fırlat! 💥
-    </button>
+    <style>
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes popUp { from { transform: scale(0); } to { transform: scale(1); } }
+        .spin-active { animation: shake 0.1s infinite; }
+        @keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -1px); } 100% { transform: translate(1px, 1px); } }
+    </style>
 
     <script>
-        let currentRotationAngle = 0;
-        // Sənin TFTML layihəndəki əsas fənlər
-        const schoolSubjects = ["Riyaziyyat", "Coğrafiya", "Biologiya", "Kimya", "İnformatika", "Fizika"];
+        let totalRot = 0;
+        const subjectsData = {
+            "Riyaziyyat": { desc: "Sən rəqəmlərin ustasısan! Analitik düşüncə tərzi səni zirvəyə daşıyacaq.", icon: "📐", color: "#00d2ff" },
+            "Fizika": { desc: "Kainatın sirləri səni gözləyir. Enerji, qüvvə və hərəkət sənin dünyandır.", icon: "⚛️", color: "#ff0055" },
+            "İnformatika": { desc: "Gələcəyin kodu sənin əllərindədir. Süni intellekt və alqoritmlər dünyasına xoş gəldin!", icon: "💻", color: "#00ff88" },
+            "Kimya": { desc: "Elementlərin rəqsi! Sən molekulları idarə edən sehrbazsan.", icon: "🧪", color: "#f39c12" },
+            "Biologiya": { desc: "Həyatın kodunu öyrənirsən. Hüceyrələrdən ekosistemə qədər hər şey sənə tabedir.", icon: "🧬", color: "#9b59b6" },
+            "Coğrafiya": { desc: "Dünyanı sərhədsiz kəşf et. Xəritələr sənin yol göstərənin olacaq.", icon: "🌍", color: "#e67e22" }
+        };
 
-        function startSpin() {
-            const wheel = document.getElementById('main-wheel');
-            const resultText = document.getElementById('subject-result');
-            const btn = document.getElementById('spin-button');
-
-            btn.disabled = true; // Fırlanarkən düyməni bağla
-            btn.style.backgroundColor = "#95a5a6";
-            resultText.innerText = "🌀 Bəxtin hazırlanır...";
-
-            // Təsadüfi fırlanma dərəcəsi (ən az 5 tam dövr + təsadüfi dərəcə)
-            const randomSpin = Math.floor(Math.random() * 360) + 1800; 
-            currentRotationAngle += randomSpin;
+        function megaSpin() {
+            const wheel = document.getElementById('game-wheel');
+            const btn = document.getElementById('spin-master-btn');
+            const container = document.getElementById('mega-container');
             
-            // Animasiyanı başlat
-            wheel.style.transform = `rotate(${currentRotationAngle}deg)`;
+            btn.disabled = true;
+            container.classList.add('spin-active');
+            
+            let spin = Math.floor(Math.random() * 360) + 2160; // 6 dövr
+            totalRot += spin;
+            wheel.style.transform = `rotate(${totalRot}deg)`;
 
-            // 4 saniyə gözlə və nəticəni göstər
             setTimeout(() => {
+                container.classList.remove('spin-active');
+                const finalDeg = totalRot % 360;
+                const index = Math.floor(((360 - finalDeg) % 360) / 60);
+                const subName = Object.keys(subjectsData)[index];
+                showResult(subName);
                 btn.disabled = false;
-                btn.style.backgroundColor = "#3498db";
-                
-                const finalDegree = currentRotationAngle % 360;
-                // Hər bölmə 60 dərəcədir (360/6)
-                // Ox yuxarıda olduğu üçün (dərəcə/60) tərsinə hesablanmalıdır
-                const subjectIndex = Math.floor(((360 - finalDegree) % 360) / 60);
-                
-                resultText.innerText = "🎯 Bugünkü Mövzu: " + schoolSubjects[subjectIndex];
-            }, 4000); // cubic-bezier transition müddəti ilə eyni olmalıdır
+            }, 5000);
+        }
+
+        function showResult(name) {
+            const overlay = document.getElementById('info-overlay');
+            const card = document.getElementById('subject-card');
+            const data = subjectsData[name];
+
+            document.getElementById('res-subject').innerText = name;
+            document.getElementById('res-desc').innerText = data.desc;
+            document.getElementById('res-icon').innerText = data.icon;
+            card.style.borderColor = data.color;
+            card.style.boxShadow = `0 0 100px ${data.color}`;
+
+            overlay.style.display = 'flex';
+            setTimeout(() => { card.style.animation = "popUp 0.5s forwards"; card.style.transform = "scale(1)"; }, 100);
+        }
+
+        function closeOverlay() {
+            document.getElementById('info-overlay').style.display = 'none';
         }
     </script>
-</section>
+</div>
         </main>
         <aside class="sidebar">
             <div class="achievements-box">
@@ -1016,6 +995,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
