@@ -920,131 +920,6 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
 
         <button onclick="startSpinMaster()" id="spin-btn" style="margin-top: 30px; padding: 12px 35px; background: #00d2ff; color: white; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,210,255,0.3);">💥 START</button>
     </div>
-                <section id="nihas-converter-section" style="
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); 
-    padding: 60px 20px; 
-    border-radius: 40px; 
-    margin: 40px auto; 
-    max-width: 900px; 
-    box-shadow: 0 20px 50px rgba(0,0,0,0.05); 
-    font-family: 'Poppins', sans-serif;
-    border: 1px solid #bae6fd;">
-
-    <div style="text-align: center; margin-bottom: 40px;">
-        <div style="font-size: 50px; margin-bottom: 10px;">🤖</div>
-        <h2 style="color: #0369a1; font-size: 32px; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Nihas AI Geniş Çevirici</h2>
-        <p style="color: #0c4a6e; font-size: 18px; opacity: 0.8;">Şəkilləri və PDF-ləri səsli biliyə çevirin</p>
-    </div>
-
-    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; align-items: start;">
-        
-        <div style="background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid #f1f5f9;">
-            <h4 style="color: #0369a1; margin-top: 0;">📁 Faylı Seçin</h4>
-            <div style="position: relative; border: 2px dashed #38bdf8; border-radius: 15px; padding: 20px; text-align: center; background: #f8fafc;">
-                <input type="file" id="nihas-file-input" accept="image/*, .pdf" style="width: 100%; cursor: pointer;">
-                <p style="font-size: 12px; color: #64748b; margin-top: 10px;">(Dərsliyin şəklini bura yükləyin)</p>
-            </div>
-            
-            <button onclick="processNihasAI()" id="nihas-btn" style="
-                width: 100%; 
-                margin-top: 20px; 
-                padding: 15px; 
-                background: #0ea5e9; 
-                color: white; 
-                border: none; 
-                border-radius: 12px; 
-                font-weight: bold; 
-                font-size: 16px; 
-                cursor: pointer; 
-                transition: 0.3s;">
-                🔍 Analizə Başla
-            </button>
-            
-            <div id="nihas-loader" style="display: none; margin-top: 15px; font-weight: bold; color: #0ea5e9;">
-                🌀 AI Mətni Oxuyur...
-            </div>
-        </div>
-
-        <div style="background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid #f1f5f9; min-height: 300px; display: flex; flex-direction: column;">
-            <h4 style="color: #0369a1; margin-top: 0;">📝 Çıxarılan Mətn</h4>
-            
-            <div id="nihas-output" style="
-                flex-grow: 1; 
-                background: #f8fafc; 
-                padding: 20px; 
-                border-radius: 15px; 
-                color: #334155; 
-                font-size: 15px; 
-                line-height: 1.7; 
-                max-height: 250px; 
-                overflow-y: auto; 
-                border: 1px solid #e2e8f0;
-                margin-bottom: 20px;">
-                Yüklədiyiniz şəkildəki yazılar burada görünəcək və Nihas tərəfindən oxunacaq...
-            </div>
-
-            <div style="display: flex; gap: 10px;">
-                <button onclick="stopNihasVoice()" style="flex: 1; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">🛑 Dayandır</button>
-                <button onclick="copyNihasText()" style="flex: 1; padding: 12px; background: #64748b; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">📋 Kopyala</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-    <script>
-        let synth = window.speechSynthesis;
-        let nihasUtterance = new SpeechSynthesisUtterance();
-
-        async function processNihasAI() {
-            const input = document.getElementById('nihas-file-input');
-            const output = document.getElementById('nihas-output');
-            const loader = document.getElementById('nihas-loader');
-            const btn = document.getElementById('nihas-btn');
-
-            if (!input.files[0]) {
-                alert("Zəhmət olmasa bir şəkil yükləyin!");
-                return;
-            }
-
-            btn.disabled = true;
-            btn.style.opacity = "0.6";
-            loader.style.display = "block";
-            output.innerText = "Nihas AI şəkli analiz edir, bu bir neçə saniyə çəkə bilər...";
-
-            Tesseract.recognize(
-                input.files[0],
-                'aze+tur+eng',
-                { logger: m => console.log(m) }
-            ).then(({ data: { text } }) => {
-                loader.style.display = "none";
-                btn.disabled = false;
-                btn.style.opacity = "1";
-                output.innerText = text;
-                
-                // Oxumağa başla
-                synth.cancel();
-                nihasUtterance.text = text;
-                nihasUtterance.lang = 'tr-TR'; 
-                nihasUtterance.rate = 0.9;
-                synth.speak(nihasUtterance);
-            }).catch(err => {
-                alert("Xəta baş verdi: " + err);
-                btn.disabled = false;
-                loader.style.display = "none";
-            });
-        }
-
-        function stopNihasVoice() {
-            synth.cancel();
-        }
-
-        function copyNihasText() {
-            const text = document.getElementById('nihas-output').innerText;
-            navigator.clipboard.writeText(text);
-            alert("Mətn kopyalandı!");
-        }
-    </script>
-</section>
         </main>
         <aside class="sidebar">
             <div class="achievements-box">
@@ -1164,6 +1039,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
