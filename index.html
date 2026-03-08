@@ -897,6 +897,132 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         }
     </script>
 </div>
+                <section id="nihas-ai-section" style="
+    background: #0f172a; 
+    color: white; 
+    padding: 40px 20px; 
+    border-radius: 30px; 
+    margin: 40px 10px; 
+    border: 2px solid #38bdf8; 
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+    font-family: 'Poppins', sans-serif;">
+
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="color: #38bdf8; text-transform: uppercase; letter-spacing: 2px;">🤖 Nihas AI: Səsli Oxuyucu</h2>
+        <p style="color: #94a3b8;">Kitabın şəklini və ya mətni yükləyin, süni intellekt sizin üçün oxusun.</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        
+        <div style="width: 100%; max-width: 500px; background: #1e293b; padding: 25px; border-radius: 20px; border: 1px dashed #38bdf8;">
+            <label for="ai-upload" style="cursor: pointer; display: block;">
+                <div style="font-size: 40px; margin-bottom: 10px;">📸</div>
+                <p style="margin: 0;">Şəkil və ya PDF seçin</p>
+                <input type="file" id="ai-upload" accept="image/*, .pdf" style="margin-top: 15px; font-size: 12px;">
+            </label>
+        </div>
+
+        <div id="ai-status" style="color: #38bdf8; font-weight: bold; min-height: 20px;">Status: Gözlənilir...</div>
+
+        <div id="ai-text-box" style="
+            width: 100%; 
+            max-width: 500px; 
+            background: rgba(15, 23, 42, 0.8); 
+            border: 1px solid #334155; 
+            padding: 20px; 
+            border-radius: 15px; 
+            min-height: 100px; 
+            max-height: 200px; 
+            overflow-y: auto; 
+            text-align: left; 
+            font-size: 14px; 
+            line-height: 1.6;
+            color: #cbd5e1;">
+            Analiz edilən mətn burada görünəcək və avtomatik səslənəcək...
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button onclick="runNihasOCR()" id="ai-process-btn" style="
+                background: #38bdf8; 
+                color: #0f172a; 
+                padding: 12px 30px; 
+                border: none; 
+                border-radius: 50px; 
+                font-weight: bold; 
+                cursor: pointer; 
+                transition: 0.3s;
+                box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);">
+                🔍 Analiz et və Oxu
+            </button>
+            
+            <button onclick="stopAIVoice()" style="
+                background: #ef4444; 
+                color: white; 
+                padding: 12px 25px; 
+                border: none; 
+                border-radius: 50px; 
+                font-weight: bold; 
+                cursor: pointer;">
+                🛑 Dayandır
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+    <script>
+        let aiSpeech = new SpeechSynthesisUtterance();
+
+        async function runNihasOCR() {
+            const fileInput = document.getElementById('ai-upload');
+            const status = document.getElementById('ai-status');
+            const textBox = document.getElementById('ai-text-box');
+            const btn = document.getElementById('ai-process-btn');
+
+            if (!fileInput.files[0]) {
+                alert("Zəhmət olmasa bir şəkil və ya PDF yükləyin!");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.style.opacity = "0.5";
+            status.innerText = "🌀 Nihas AI mətni oxuyur...";
+            textBox.innerText = "Zəhmət olmasa gözləyin, şəkildəki simvollar analiz edilir...";
+
+            Tesseract.recognize(
+                fileInput.files[0],
+                'aze+tur+eng',
+                { logger: m => console.log(m) }
+            ).then(({ data: { text } }) => {
+                status.innerText = "✅ Analiz tamamlandı!";
+                textBox.innerText = text;
+                btn.disabled = false;
+                btn.style.opacity = "1";
+                
+                // Mətni səsə çevir
+                playNihasVoice(text);
+            }).catch(err => {
+                status.innerText = "❌ Xəta baş verdi!";
+                console.error(err);
+                btn.disabled = false;
+            });
+        }
+
+        function playNihasVoice(text) {
+            window.speechSynthesis.cancel(); // Köhnə səsi dayandır
+            aiSpeech.text = text;
+            aiSpeech.lang = 'tr-TR'; // Azərbaycan dilinə ən yaxın səs
+            aiSpeech.rate = 0.9;
+            aiSpeech.pitch = 1.1; // "Nihas" üçün bir az daha süni intellekt tonu
+            window.speechSynthesis.speak(aiSpeech);
+        }
+
+        function stopAIVoice() {
+            window.speechSynthesis.cancel();
+            document.getElementById('ai-status').innerText = "🛑 Səs dayandırıldı.";
+        }
+    </script>
+</section>
         </main>
         <aside class="sidebar">
             <div class="achievements-box">
@@ -1016,6 +1142,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
