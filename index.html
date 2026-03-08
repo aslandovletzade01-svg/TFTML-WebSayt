@@ -792,18 +792,37 @@
     <h2 id="main-title" style="position: relative; z-index: 2; font-size: 28px; text-transform: uppercase; letter-spacing: 3px; color: #00d2ff;">🎯 Təkrar Etmək İstədiyin Fənnini Seç</h2>
 
     <div style="position: relative; width: 350px; height: 350px; margin: 40px auto; z-index: 2;">
-        <div id="game-wheel" style="width: 100%; height: 100%; border-radius: 50%; border: 15px solid #16213e; box-shadow: 0 0 50px #00d2ff; transition: transform 5s cubic-bezier(0.15, 0, 0, 1.01); background: conic-gradient(#00d2ff 0 60deg, #ff0055 60deg 120deg, #00ff88 120deg 180deg, #f39c12 180deg 240deg, #9b59b6 240deg 300deg, #e67e22 300deg 360deg);">
-            <div style="position: absolute; width: 100%; height: 100%; pointer-events: none; font-size: 12px; font-weight: bold;">
-                <span style="position: absolute; top: 15%; left: 60%; transform: rotate(30deg);">Riyaziyyat</span>
-                <span style="position: absolute; top: 50%; left: 75%; transform: rotate(90deg);">Fizika</span>
-                <span style="position: absolute; top: 75%; left: 50%; transform: rotate(150deg);">İnfo</span>
-                <span style="position: absolute; top: 60%; left: 15%; transform: rotate(210deg);">Kimya</span>
-                <span style="position: absolute; top: 25%; left: 15%; transform: rotate(270deg);">Bio</span>
-                <span style="position: absolute; top: 5%; left: 40%; transform: rotate(330deg);">Coğrafiya</span>
-            </div>
-        </div>
-        <div style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 40px solid #00d2ff; filter: drop-shadow(0 0 10px #00d2ff);"></div>
+        <div id="game-wheel" style="
+    width: 350px; 
+    height: 350px; 
+    border-radius: 50%; 
+    border: 15px solid #16213e; 
+    box-shadow: 0 0 50px #00d2ff; 
+    transition: transform 5s cubic-bezier(0.15, 0, 0, 1.01); 
+    background: conic-gradient(
+        #00d2ff 0deg 60deg,    /* Riyaziyyat */
+        #ff0055 60deg 120deg,  /* Fizika */
+        #00ff88 120deg 180deg, /* İnfo */
+        #f39c12 180deg 240deg, /* Kimya */
+        #9b59b6 240deg 300deg, /* Bio */
+        #e67e22 300deg 360deg  /* Coğrafiya */
+    );
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;">
+
+    <div style="position: absolute; width: 100%; height: 100%; font-size: 14px; font-weight: bold; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
+        <span style="position: absolute; top: 20%; left: 65%; transform: translate(-50%, -50%) rotate(30deg);">Riyaziyyat</span>
+        <span style="position: absolute; top: 50%; left: 80%; transform: translate(-50%, -50%) rotate(90deg);">Fizika</span>
+        <span style="position: absolute; top: 80%; left: 65%; transform: translate(-50%, -50%) rotate(150deg);">İnfo</span>
+        <span style="position: absolute; top: 80%; left: 35%; transform: translate(-50%, -50%) rotate(210deg);">Kimya</span>
+        <span style="position: absolute; top: 50%; left: 20%; transform: translate(-50%, -50%) rotate(270deg);">Bio</span>
+        <span style="position: absolute; top: 20%; left: 35%; transform: translate(-50%, -50%) rotate(330deg);">Coğrafiya</span>
     </div>
+
+    <div style="width: 40px; height: 40px; background: #16213e; border-radius: 50%; border: 3px solid #00d2ff; z-index: 5;"></div>
+</div>
 
     <button onclick="megaSpin()" id="spin-master-btn" style="position: relative; z-index: 2; padding: 20px 50px; font-size: 20px; font-weight: bold; text-transform: uppercase; background: linear-gradient(45deg, #00d2ff, #3a7bd5); color: white; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 0 20px #00d2ff; transition: 0.3s;">🚀 START</button>
 
@@ -995,6 +1014,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
