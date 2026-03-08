@@ -784,14 +784,118 @@
             DİVARA YAZI ƏLAVƏ ET
         </a>
     </div>
-                <section class="wheel-section" style="text-align: center; padding: 20px; background: #f9f9f9; border-radius: 15px; margin: 20px 0;">
-    <h2 style="color: #2c3e50;">Bəxtini Sına: Hansı mövzunu təkrar edək?</h2>
-    <div class="wheel-wrapper" style="position: relative; width: 300px; margin: 0 auto;">
-        <div id="main-wheel" class="spin-wheel"></div>
-        <div class="wheel-arrow"></div>
+</section>
+            <section style="
+    background-color: #f4f7f6; 
+    padding: 50px 20px; 
+    text-align: center; 
+    border-radius: 20px; 
+    margin: 30px auto; 
+    max-width: 400px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    
+    <h2 style="color: #2c3e50; font-size: 22px; margin-bottom: 30px;">🎁 Bəxtini Sına: Bugünkü Təkrar?</h2>
+
+    <div style="position: relative; width: 300px; height: 300px; margin: 0 auto;">
+        
+        <div id="main-wheel" style="
+            width: 100%; 
+            height: 100%; 
+            border-radius: 50%; 
+            border: 10px solid #fff; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            /* Sənin məktəb layihəndəki fənlərə uyğun rənglər */
+            background: conic-gradient(
+                #3498db 0deg 60deg,    /* Riyaziyyat - Göy */
+                #e74c3c 60deg 120deg,  /* Fizika - Qırmızı */
+                #2ecc71 120deg 180deg, /* İnformatika - Yaşıl */
+                #f1c40f 180deg 240deg, /* Kimya - Sarı */
+                #9b59b6 240deg 300deg, /* Biologiya - Bənövşəyi */
+                #e67e22 300deg 360deg  /* Coğrafiya - Narıncı */
+            );
+            transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
+            transform: rotate(0deg);">
+        </div>
+
+        <div style="
+            position: absolute; 
+            top: -20px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 0; height: 0; 
+            border-left: 15px solid transparent; 
+            border-right: 15px solid transparent; 
+            border-top: 30px solid #333; 
+            z-index: 10;">
+        </div>
+        
+        <div style="
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 50px; 
+            height: 50px; 
+            background: #fff; 
+            border-radius: 50%; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.3); 
+            z-index: 5;">
+        </div>
     </div>
-    <button onclick="startSpin()" id="spin-button" style="margin-top: 25px; padding: 12px 30px; background: #3498db; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 16px;">Çarxı Fırlat!</button>
-    <div id="subject-result" style="margin-top: 20px; font-size: 20px; font-weight: bold; color: #27ae60;"></div>
+
+    <div id="subject-result" style="margin-top: 30px; font-size: 20px; font-weight: bold; color: #27ae60; min-height: 24px;"></div>
+    
+    <button onclick="startSpin()" id="spin-button" style="
+        margin-top: 20px; 
+        padding: 15px 40px; 
+        background-color: #3498db; 
+        color: white; 
+        border: none; 
+        border-radius: 50px; 
+        cursor: pointer; 
+        font-weight: bold; 
+        font-size: 16px; 
+        box-shadow: 0 5px 15px rgba(52,152,219,0.3); 
+        transition: 0.3s;">
+        💥 Çarxı Fırlat! 💥
+    </button>
+
+    <script>
+        let currentRotationAngle = 0;
+        // Sənin TFTML layihəndəki əsas fənlər
+        const schoolSubjects = ["Riyaziyyat", "Coğrafiya", "Biologiya", "Kimya", "İnformatika", "Fizika"];
+
+        function startSpin() {
+            const wheel = document.getElementById('main-wheel');
+            const resultText = document.getElementById('subject-result');
+            const btn = document.getElementById('spin-button');
+
+            btn.disabled = true; // Fırlanarkən düyməni bağla
+            btn.style.backgroundColor = "#95a5a6";
+            resultText.innerText = "🌀 Bəxtin hazırlanır...";
+
+            // Təsadüfi fırlanma dərəcəsi (ən az 5 tam dövr + təsadüfi dərəcə)
+            const randomSpin = Math.floor(Math.random() * 360) + 1800; 
+            currentRotationAngle += randomSpin;
+            
+            // Animasiyanı başlat
+            wheel.style.transform = `rotate(${currentRotationAngle}deg)`;
+
+            // 4 saniyə gözlə və nəticəni göstər
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.style.backgroundColor = "#3498db";
+                
+                const finalDegree = currentRotationAngle % 360;
+                // Hər bölmə 60 dərəcədir (360/6)
+                // Ox yuxarıda olduğu üçün (dərəcə/60) tərsinə hesablanmalıdır
+                const subjectIndex = Math.floor(((360 - finalDegree) % 360) / 60);
+                
+                resultText.innerText = "🎯 Bugünkü Mövzu: " + schoolSubjects[subjectIndex];
+            }, 4000); // cubic-bezier transition müddəti ilə eyni olmalıdır
+        }
+    </script>
 </section>
         </main>
         <aside class="sidebar">
@@ -912,6 +1016,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
