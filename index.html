@@ -1516,74 +1516,6 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         }
     </script>
 </section>
-          <section id="aslan-real-avatar" style="background: #020617; padding: 40px; border-radius: 40px; color: white; font-family: 'Poppins', sans-serif; border: 3px solid #6366f1;">
-    
-    <div style="text-align: center; margin-bottom: 30px;">
-        <h2 style="color: #818cf8;">👤 Gencraft Mirror: Real Avatar Skaneri</h2>
-        <p style="color: #94a3b8;">Üz cizgilərini oxuyaraq sənə bənzəyən rəqəmsal əkizini yaradırıq.</p>
-    </div>
-
-    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-        
-        <div style="position: relative; width: 450px; height: 350px; background: #000; border-radius: 25px; overflow: hidden; border: 2px solid #1e293b;">
-            <video id="input_video" style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
-            <canvas id="output_canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: scaleX(-1);"></canvas>
-            
-            <div id="scan-overlay" style="position: absolute; inset: 0; border: 2px solid #6366f1; border-radius: 20px; pointer-events: none; opacity: 0.3;"></div>
-        </div>
-
-        <div id="avatar-preview" style="width: 450px; height: 350px; background: radial-gradient(circle, #0f172a, #020617); border-radius: 25px; border: 2px solid #4f46e5; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-            <div id="ai-loading" style="text-align: center; color: #4b5563;">
-                <div class="pulse-icon">🧬</div>
-                <p>Analiz gözlənilir...</p>
-            </div>
-            
-            <div id="real-3d-model" style="display: none; text-align: center;">
-                <div style="font-size: 80px; filter: drop-shadow(0 0 20px #6366f1);">👤</div>
-                <h4 style="color: #818cf8; margin-top: 10px;">Model ID: ASLAN-AI-2026</h4>
-                <div style="font-size: 12px; color: #4ade80;">%98 Bənzərlik Təsdiqləndi</div>
-            </div>
-        </div>
-    </div>
-
-    <button onclick="processFace()" style="margin-top: 30px; padding: 15px 50px; background: linear-gradient(90deg, #4f46e5, #9333ea); border: none; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0 5px 20px rgba(79, 70, 229, 0.4);">🚀 Üzümü Skan Et</button>
-
-    <style>
-        .pulse-icon { font-size: 50px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.5; transform: scale(1); } }
-        @keyframes scanEffect { 0% { top: 0; } 100% { top: 100%; } }
-    </style>
-
-    <script>
-        // Üz analizi simulyasiyası
-        function processFace() {
-            const loading = document.getElementById('ai-loading');
-            const model = document.getElementById('real-3d-model');
-            const scanLine = document.getElementById('scan-overlay');
-            
-            scanLine.style.opacity = "1";
-            scanLine.style.borderTop = "4px solid #818cf8";
-            scanLine.style.animation = "scanEffect 2s infinite ease-in-out";
-            
-            loading.innerHTML = "<p style='color: #818cf8;'>Üz sümükləri və dəri rəngi analiz edilir...</p>";
-
-            setTimeout(() => {
-                scanLine.style.animation = "none";
-                loading.style.display = "none";
-                model.style.display = "block";
-                
-                // Məlumatı Firebase-ə göndəririk ki, model yadda qalsın
-                alert("Analiz tamamlandı! Sənin cizgilərinə uyğun 3D profil hazırlandı.");
-            }, 4000);
-        }
-
-        // Kameranı aktiv etmək
-        const videoElement = document.getElementById('input_video');
-        navigator.mediaDevices.getUserMedia({video: true}).then(stream => {
-            videoElement.srcObject = stream;
-        });
-    </script>
-</section>
         </section>
              <div id="mega-container" style="position: relative; padding: 60px 20px; transition: 1s; border-radius: 30px; text-align: center; overflow: hidden; background: #1a1a2e; color: white; font-family: 'Poppins', sans-serif;">
     
@@ -1815,6 +1747,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
