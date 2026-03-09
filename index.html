@@ -1167,6 +1167,60 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         initElements();
     </script>
 </section>
+            <section id="space-lab" style="background: #020617; color: white; padding: 40px; border-radius: 30px; margin: 30px auto; max-width: 900px; border: 2px solid #6366f1; box-shadow: 0 15px 45px rgba(99, 102, 241, 0.2);">
+    
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="color: #818cf8;">🌌 Kosmik Çəki Hesablayıcısı</h2>
+        <p style="color: #94a3b8;">Başqa planetlərdə çəkinizin nə qədər olduğunu öyrənin!</p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: center;">
+        <div style="background: #1e293b; padding: 25px; border-radius: 20px; flex: 1; min-width: 300px;">
+            <label style="display: block; margin-bottom: 10px;">Çəkinizi daxil edin (kq):</label>
+            <input type="number" id="user-weight" value="60" style="width: 100%; padding: 12px; border-radius: 10px; border: none; background: #334155; color: white; font-size: 18px; margin-bottom: 20px;">
+            
+            <label style="display: block; margin-bottom: 10px;">Planet seçin:</label>
+            <select id="planet-select" onchange="calculateSpaceWeight()" style="width: 100%; padding: 12px; border-radius: 10px; border: none; background: #334155; color: white; font-size: 16px;">
+                <option value="0.38">Merkuri</option>
+                <option value="0.91">Venera</option>
+                <option value="0.38">Mars</option>
+                <option value="2.34">Yupiter</option>
+                <option value="1.06">Saturn</option>
+                <option value="0.16">Ay (Peyk)</option>
+            </select>
+        </div>
+
+        <div id="planet-result" style="flex: 1; min-width: 300px; text-align: center; background: linear-gradient(135deg, #1e1b4b, #312e81); padding: 40px; border-radius: 20px; border: 1px solid #4338ca;">
+            <div id="planet-emoji" style="font-size: 70px; margin-bottom: 15px;">🪐</div>
+            <h3 id="result-weight" style="font-size: 40px; margin: 0; color: #fbbf24;">-- kq</h3>
+            <p id="planet-info" style="color: #c7d2fe; margin-top: 10px;">Planet seçərək kəşfə başlayın!</p>
+        </div>
+    </div>
+
+    <script>
+        const planetData = {
+            "0.38": { name: "Merkuri", emoji: "☄️", info: "Günəşə ən yaxın planetdir. Çox istidir!" },
+            "0.91": { name: "Venera", emoji: "🌋", info: "Qalın atmosferi olan ən parlaq planet." },
+            "0.38": { name: "Mars", emoji: "🔴", info: "Qırmızı planet. Gələcəkdə orada yaşaya bilərik!" },
+            "2.34": { name: "Yupiter", emoji: "🌀", info: "Sistemin ən böyük qaz nəhəngidir." },
+            "1.06": { name: "Saturn", emoji: "🪐", info: "Möhtəşəm halqaları ilə tanınır." },
+            "0.16": { name: "Ay", emoji: "🌑", info: "Burada çox yüksəyə tullana bilərsiniz!" }
+        };
+
+        function calculateSpaceWeight() {
+            const weight = document.getElementById('user-weight').value;
+            const gravity = document.getElementById('planet-select').value;
+            const planet = planetData[gravity];
+            
+            if (weight > 0) {
+                const finalWeight = (weight * gravity).toFixed(1);
+                document.getElementById('result-weight').innerText = finalWeight + " kq";
+                document.getElementById('planet-emoji').innerText = planet.emoji;
+                document.getElementById('planet-info').innerText = planet.name + ": " + planet.info;
+            }
+        }
+    </script>
+</section>
         </section>
              <div id="mega-container" style="position: relative; padding: 60px 20px; transition: 1s; border-radius: 30px; text-align: center; overflow: hidden; background: #1a1a2e; color: white; font-family: 'Poppins', sans-serif;">
     
@@ -1398,6 +1452,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
