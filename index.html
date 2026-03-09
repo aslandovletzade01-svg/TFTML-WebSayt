@@ -902,96 +902,83 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         }
     </script>
 </section>
-            <section id="psychology-support" style="
-    background: #ffffff; 
-    padding: 40px 25px; 
-    border-radius: 30px; 
-    margin: 30px auto; 
-    max-width: 850px; 
-    border: 2px solid #a5b4fc; 
-    box-shadow: 0 15px 40px rgba(165, 180, 252, 0.15);
-    font-family: 'Poppins', sans-serif;">
+            <section id="psychology-support" style="background: #ffffff; padding: 40px; border-radius: 30px; margin: 30px auto; max-width: 850px; border: 2px solid #a5b4fc; box-shadow: 0 15px 40px rgba(165, 180, 252, 0.15); font-family: 'Poppins', sans-serif;">
 
     <div style="text-align: center; margin-bottom: 25px;">
         <div style="font-size: 50px; margin-bottom: 10px;">🤝</div>
-        <h2 style="color: #4338ca; border: none; padding: 0; margin-bottom: 15px;">Rəqəmsal Sirdaş (Anonim Dəstək)</h2>
+        <h2 style="color: #4338ca; border: none; padding: 0; margin-bottom: 15px;">Rəqəmsal Sirdaş (Yazılı Dəstək)</h2>
         
         <div style="background: #f5f3ff; padding: 15px; border-radius: 15px; border-left: 5px solid #7c3aed; text-align: left; margin-bottom: 20px;">
             <p style="color: #5b21b6; font-size: 14px; line-height: 1.5; margin: 0;">
-                <strong>Bu nə üçündür?</strong> Məktəb həyatında özünü tənha və ya stresli hiss edəndə bura yaza bilərsən. 
-                Sistem tamamilə <strong>anonimdir</strong>, adın və mətni heç yerdə saxlanılmır. 
-                Nihas AI sənə dost kimi cavab verib motivasiya verəcək.
+                <strong>Bu nə üçündür?</strong> Bura hər hansı bir dərdini və ya problemini yaza bilərsən. 
+                Nihas AI (OpenAI) səni dinləyəcək və hər bir cümlənə özəl, səmimi və motivasiyaedici **yazılı** cavab verəcək.
             </p>
         </div>
     </div>
 
-    <textarea id="user-feeling" placeholder="Məsələn: İmtahan yaxınlaşır, çox stresliyəm..." style="
-        width: 100%; height: 120px; padding: 15px; border-radius: 15px; 
-        border: 2px solid #e2e8f0; font-size: 16px; resize: none; outline: none; transition: 0.3s;"></textarea>
+    <textarea id="user-feeling" placeholder="Məsələn: Bu gün dərslər çox çətindir, özümü yorğun hiss edirəm..." style="width: 100%; height: 120px; padding: 15px; border-radius: 15px; border: 2px solid #e2e8f0; font-size: 16px; resize: none; outline: none; transition: 0.3s;"></textarea>
 
-    <button onclick="analyzeFeeling()" style="
-        width: 100%; margin-top: 15px; padding: 15px; background: #7c3aed; 
-        color: white; border: none; border-radius: 15px; font-weight: bold; 
-        font-size: 18px; cursor: pointer; transition: 0.3s;">
-        ✨ Dərdini Bölüş və Dəstək Al
+    <button onclick="askNihasWrite()" id="ask-btn" style="width: 100%; margin-top: 15px; padding: 15px; background: #7c3aed; color: white; border: none; border-radius: 15px; font-weight: bold; font-size: 18px; cursor: pointer; transition: 0.3s;">
+        ✨ Dərdini Bölüş və Cavab Al
     </button>
 
     <div id="ai-response" style="display: none; margin-top: 25px; padding: 20px; background: #faf5ff; border-radius: 20px; border: 1px dashed #7c3aed;">
         <h4 style="color: #7c3aed; margin-top: 0;">🤖 Nihas AI deyir ki:</h4>
-        <p id="response-text" style="color: #1e293b; line-height: 1.6; font-style: italic; margin-bottom: 20px;">Düşünürəm...</p>
+        <p id="response-text" style="color: #1e293b; line-height: 1.7; font-style: italic; margin-bottom: 15px;"></p>
         
-        <div style="display: flex; gap: 10px;">
-            <button onclick="stopNihasAudio()" style="flex: 1; padding: 12px; background: #ef4444; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">🛑 Dayandır</button>
-            <button onclick="copyNihasText()" style="flex: 1; padding: 12px; background: #64748b; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">📋 Kopyala</button>
-        </div>
+        <button onclick="copyNihasText()" style="width: 100%; padding: 10px; background: #64748b; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">📋 Bu motivasiyanı kopyala</button>
     </div>
 
     <script>
-        // ElevenLabs Məlumatları (Sənin məlumatların)
-        const NIH_API_KEY = "sk_e7ca2ca419eb0e53b2004de185c263a330c325114415b84a";
-        const NIH_VOICE_ID = "21m00Tcm4TlvDq8ikWAM"; 
-        let currentNihasAudio = null;
+        // Sənin OpenAI API Açarın
+        const NIHAS_OPENAI_KEY = "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";
 
-        async function analyzeFeeling() {
-            const input = document.getElementById('user-feeling').value.toLowerCase();
+        async function askNihasWrite() {
+            const input = document.getElementById('user-feeling').value;
+            const btn = document.getElementById('ask-btn');
             const responseBox = document.getElementById('ai-response');
             const responseText = document.getElementById('response-text');
-            
-            if (input.length < 5) { alert("Zəhmət olmasa bir az ətraflı yaz! 😊"); return; }
 
-            responseBox.style.display = "block";
-            let answer = "";
+            if (input.length < 3) { alert("Zəhmət olmasa bir az yaz! 😊"); return; }
 
-            // Şən və Gülməşəkər Cavablar
-            if (input.includes("imtahan") || input.includes("bal") || input.includes("test")) {
-                answer = "Ay can! İmtahan stresi? Sən o testləri birnəfəsə keçəcəksən! Sən TFTML qəhrəmanısan, bir imtahan səni qorxuda bilməz. Get bir çay iç, hər şey əla olacaq! ✨🚀";
-            } else if (input.includes("yorğun") || input.includes("bezdim") || input.includes("çətin")) {
-                answer = "Bilirəm, batareyalar bəzən bitir... 🔋 Amma sən çox güclüsən! Nihas hər zaman sənin tərəfindədir. Bir az gülümsə, çünki gülümsəmək sənə çox yaraşır! 🌈🎸";
-            } else {
-                answer = "Həyatdır da, gah eniş, gah yoxuş! 🎢 Amma sən bu yoxuşları qaçaraq çıxacaqsan! Nihas sənə inanır. Sən tək deyilsən, mən (Nihas AI) sənin rəqəmsal dostunam! 😊🌟";
-            }
+            btn.innerText = "Nihas düşünür... 🤔";
+            btn.disabled = true;
 
-            responseText.innerText = answer;
-
-            // Səsli Oxuma (ElevenLabs)
             try {
-                const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${NIH_VOICE_ID}`, {
+                const response = await fetch("https://api.openai.com/v1/chat/completions", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json", "xi-api-key": NIH_API_KEY },
-                    body: JSON.stringify({ text: answer, model_id: "eleven_multilingual_v2" })
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${NIHAS_OPENAI_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-3.5-turbo",
+                        messages: [
+                            {role: "system", content: "Sən Nihas AI adında, şagirdlərin rəqəmsal sirdaşısan. Azərbaycan dilində, çox səmimi, şən, gülməşəkər və motivasiyaedici cavablar ver. Hər zaman şagirdi ruhlandır."},
+                            {role: "user", content: input}
+                        ]
+                    })
                 });
-                const blob = await res.blob();
-                if(currentNihasAudio) currentNihasAudio.pause();
-                currentNihasAudio = new Audio(URL.createObjectURL(blob));
-                currentNihasAudio.play();
-            } catch(e) { console.log("Səs xətası!", e); }
+
+                const data = await response.json();
+                const aiMessage = data.choices[0].message.content;
+
+                responseBox.style.display = "block";
+                responseText.innerText = aiMessage;
+
+            } catch (err) {
+                console.error(err);
+                alert("Xəta baş verdi, lütfən sonra yenidən yoxla.");
+            } finally {
+                btn.innerText = "✨ Dərdini Bölüş və Cavab Al";
+                btn.disabled = false;
+            }
         }
 
-        function stopNihasAudio() { if(currentNihasAudio) currentNihasAudio.pause(); }
-        function copyNihasText() { 
+        function copyNihasText() {
             const txt = document.getElementById('response-text').innerText;
             navigator.clipboard.writeText(txt);
-            alert("Motivasiya mətni kopyalandı! 😊"); 
+            alert("Kopyalandı! 😊");
         }
     </script>
 </section>
@@ -1226,6 +1213,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
