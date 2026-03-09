@@ -1520,97 +1520,92 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
 
-<section style="background: #020617; padding: 30px; border-radius: 30px; border: 3px solid #10b981; color: white; font-family: 'Poppins', sans-serif;">
-    <h2 style="text-align: center; color: #10b981;">🖐️ Nihas AI: Real-Time Tracker</h2>
-
+<section style="background: #020617; padding: 30px; border-radius: 35px; border: 3px solid #10b981; color: white; font-family: 'Poppins', sans-serif;">
+    <h2 style="text-align: center; color: #10b981;">🧬 Nihas AI: Fiziki Barmaq Skaneri</h2>
+    
     <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 20px;">
         <div style="position: relative; width: 480px; height: 360px; border-radius: 20px; overflow: hidden; border: 2px solid #1e293b;">
-            <video id="input_video" style="display: none;"></video>
-            <canvas id="output_canvas" width="480" height="360" style="transform: scaleX(-1);"></canvas>
-            <div id="status" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); padding: 5px 10px; border-radius: 5px; font-size: 12px;">Sistem: Yüklənir...</div>
+            <video id="webcam_in" style="display: none;"></video>
+            <canvas id="camera_out" width="480" height="360" style="transform: scaleX(-1);"></canvas>
+            <div id="ai_status" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.8); padding: 5px 12px; border-radius: 8px; font-size: 12px; border: 1px solid #10b981;">AI Gözlənilir...</div>
         </div>
 
-        <div style="width: 480px; height: 360px; background: #0f172a; border-radius: 20px; border: 3px solid #10b981; position: relative;">
-            <canvas id="draw_canvas" width="480" height="360" style="position: absolute; top: 0; left: 0;"></canvas>
-            <div style="position: absolute; bottom: 10px; right: 10px; color: #10b981; font-weight: bold;">LÖVHƏ 🔥</div>
+        <div style="width: 480px; height: 360px; background: #0f172a; border-radius: 20px; border: 3px solid #10b981; position: relative; overflow: hidden;">
+            <canvas id="air_canvas" width="480" height="360" style="position: absolute; top: 0; left: 0;"></canvas>
+            <div style="position: absolute; bottom: 10px; right: 10px; color: #10b981; font-size: 12px;">CANLI LÖVHƏ REJİMİ</div>
         </div>
     </div>
 
     <div style="text-align: center; margin-top: 25px;">
-        <button onclick="clearCanvas()" style="padding: 12px 35px; background: #ef4444; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold;">Lövhəni Təmizlə</button>
+        <button onclick="resetBoard()" style="padding: 12px 40px; background: #ef4444; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 16px;">Lövhəni Təmizlə</button>
     </div>
 </section>
 
 <script>
-    const videoElement = document.getElementById('input_video');
-    const canvasElement = document.getElementById('output_canvas');
-    const canvasCtx = canvasElement.getContext('2d');
-    const drawCanvas = document.getElementById('draw_canvas');
-    const drawCtx = drawCanvas.getContext('2d');
-    const statusText = document.getElementById('status');
+    const videoElem = document.getElementById('webcam_in');
+    const camCanvas = document.getElementById('camera_out');
+    const camCtx = camCanvas.getContext('2d');
+    const airCanvas = document.getElementById('air_canvas');
+    const airCtx = airCanvas.getContext('2d');
+    const statusBox = document.getElementById('ai_status');
 
-    let lastX = 0;
-    let lastY = 0;
+    let prevX = null;
+    let prevY = null;
 
-    function onResults(results) {
-        statusText.innerText = "Sistem: Aktiv 🟢";
-        canvasCtx.save();
-        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-        canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+    function onHandResults(results) {
+        statusBox.innerText = "SİSTEM: AKTİV 🟢";
+        camCtx.save();
+        camCtx.clearRect(0, 0, camCanvas.width, camCanvas.height);
+        camCtx.drawImage(results.image, 0, 0, camCanvas.width, camCanvas.height);
 
-        if (results.multiHandLandmarks) {
+        if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
             for (const landmarks of results.multiHandLandmarks) {
                 // İşarə barmağının ucu (Nöqtə 8)
-                const indexFinger = landmarks[8];
-                const x = (1 - indexFinger.x) * drawCanvas.width; // Güzgü əksi üçün 1-x
-                const y = indexFinger.y * drawCanvas.height;
+                const tip = landmarks[8];
+                const x = (1 - tip.x) * airCanvas.width; // Güzgü əksi üçün
+                const y = tip.y * airCanvas.height;
 
-                // Lövhədə çəkmək (Əgər barmaq yuxarıdadırsa)
-                drawCtx.lineWidth = 5;
-                drawCtx.lineCap = 'round';
-                drawCtx.strokeStyle = '#10b981';
+                // Əgər barmaq kamerada görünürsə, xətt çək
+                if (prevX !== null && prevY !== null) {
+                    airCtx.lineWidth = 6;
+                    airCtx.lineCap = 'round';
+                    airCtx.strokeStyle = '#10b981';
+                    airCtx.beginPath();
+                    airCtx.moveTo(prevX, prevY);
+                    airCtx.lineTo(x, y);
+                    airCtx.stroke();
+                }
+                
+                prevX = x;
+                prevY = y;
 
-                drawCtx.beginPath();
-                drawCtx.moveTo(lastX, lastY);
-                drawCtx.lineTo(x, y);
-                drawCtx.stroke();
-
-                lastX = x;
-                lastY = y;
-
-                // Kamera üzərində barmağı vizual olaraq göstər
-                canvasCtx.fillStyle = "#fbbf24";
-                canvasCtx.beginPath();
-                canvasCtx.arc((1-indexFinger.x)*canvasElement.width, indexFinger.y*canvasElement.height, 8, 0, 2 * Math.PI);
-                canvasCtx.fill();
+                // Barmağın ucunda sarı bir nöqtə göstər (vizual təsdiq)
+                camCtx.fillStyle = "#fbbf24";
+                camCtx.beginPath();
+                camCtx.arc((1 - tip.x) * camCanvas.width, tip.y * camCanvas.height, 10, 0, 2 * Math.PI);
+                camCtx.fill();
             }
+        } else {
+            prevX = null;
+            prevY = null;
+            statusBox.innerText = "SİSTEM: BARMAQ AXTARILIR...";
         }
-        canvasCtx.restore();
+        camCtx.restore();
     }
 
-    const hands = new Hands({locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-    }});
+    const handsAI = new Hands({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`});
+    handsAI.setOptions({ maxNumHands: 1, modelComplexity: 1, minDetectionConfidence: 0.7, minTrackingConfidence: 0.7 });
+    handsAI.onResults(onHandResults);
 
-    hands.setOptions({
-        maxNumHands: 1,
-        modelComplexity: 1,
-        minDetectionConfidence: 0.5,
-        minTrackingConfidence: 0.5
+    const camSession = new Camera(videoElem, {
+        onFrame: async () => { await handsAI.send({image: videoElem}); },
+        width: 480, height: 360
     });
-    hands.onResults(onResults);
+    camSession.start();
 
-    const camera = new Camera(videoElement, {
-        onFrame: async () => {
-            await hands.send({image: videoElement});
-        },
-        width: 480,
-        height: 360
-    });
-    camera.start();
-
-    function clearCanvas() {
-        drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+    function resetBoard() {
+        airCtx.clearRect(0, 0, airCanvas.width, airCanvas.height);
+        prevX = null; prevY = null;
     }
 </script>
         </section>
@@ -1844,6 +1839,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
