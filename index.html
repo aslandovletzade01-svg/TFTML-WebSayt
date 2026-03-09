@@ -1516,6 +1516,65 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         }
     </script>
 </section>
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<section style="background: #020617; padding: 30px; border-radius: 35px; border: 2px solid #6366f1; color: white; font-family: 'Poppins', sans-serif;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h2 style="color: #818cf8; margin: 0;">🌍 Nihas Global Classroom</h2>
+        <p style="color: #94a3b8; font-size: 13px;">Hazırda platformada olan aktiv "Alimlər"in xəritəsi</p>
+    </div>
+
+    <div id="map" style="width: 100%; height: 400px; border-radius: 20px; border: 2px solid #1e293b; box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);"></div>
+
+    <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px; font-size: 14px;">
+        <div>🔵 <span id="user-count">1</span> Aktiv İstifadəçi</div>
+        <div style="color: #4ade80;">🟢 Sistem: Canlı</div>
+    </div>
+</section>
+
+<script>
+    // 1. Xəritəni hazırlayırıq (Qaranlıq stil - Dark Mode)
+    var map = L.map('map').setView([40.4093, 49.8671], 4); // Bakı mərkəzli başlayır
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: 'Gencraft AI Map'
+    }).addTo(map);
+
+    // 2. Parlayan "Marker" (Nişan) üçün stil
+    var glowIcon = L.divIcon({
+        className: 'glow-marker',
+        html: '<div style="width: 15px; height: 15px; background: #6366f1; border-radius: 50%; box-shadow: 0 0 15px #6366f1, 0 0 30px #6366f1; animation: pulse 2s infinite;"></div>',
+        iconSize: [15, 15]
+    });
+
+    // 3. İstifadəçi daxil olanda xəritəyə əlavə etmə funksiyası
+    function addUserToMap(lat, lng, userName) {
+        L.marker([lat, lng], {icon: glowIcon})
+            .addTo(map)
+            .bindPopup(`<b>${userName}</b> hazırda buradadır!`)
+            .openPopup();
+    }
+
+    // NÜMUNƏ: Sən daxil olanda (Simulyasiya)
+    // Realda bu lat/lng məlumatı Firebase-dən (aslan-51072) gələcək
+    setTimeout(() => {
+        addUserToMap(40.4093, 49.8671, "Aslan (Yaradıcı)");
+    }, 2000);
+
+    // CSS Animasiyası
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .leaflet-popup-content-wrapper { background: #0f172a; color: white; border: 1px solid #6366f1; }
+        .leaflet-popup-tip { background: #6366f1; }
+    `;
+    document.head.appendChild(style);
+</script>
            <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 
@@ -1835,6 +1894,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
