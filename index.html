@@ -787,117 +787,6 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         </a>
     </div>
 </section>
-            <div id="mega-container" style="position: relative; padding: 60px 20px; transition: 1s; border-radius: 30px; text-align: center; overflow: hidden; background: #1a1a2e; color: white; font-family: 'Poppins', sans-serif;">
-    
-    <div id="bg-particles" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 1; pointer-events: none;"></div>
-
-    <h2 id="main-title" style="position: relative; z-index: 2; font-size: 28px; text-transform: uppercase; letter-spacing: 3px; color: #00d2ff;">🎯 Təkrar Etmək İstədiyin Fənnini Seç</h2>
-
-    <div style="position: relative; width: 350px; height: 350px; margin: 40px auto; z-index: 2;">
-        <div id="game-wheel" style="
-    width: 350px; 
-    height: 350px; 
-    border-radius: 50%; 
-    border: 15px solid #16213e; 
-    box-shadow: 0 0 50px #00d2ff; 
-    transition: transform 5s cubic-bezier(0.15, 0, 0, 1.01); 
-    background: conic-gradient(
-        #00d2ff 0deg 60deg,    /* Riyaziyyat */
-        #ff0055 60deg 120deg,  /* Fizika */
-        #00ff88 120deg 180deg, /* İnfo */
-        #f39c12 180deg 240deg, /* Kimya */
-        #9b59b6 240deg 300deg, /* Bio */
-        #e67e22 300deg 360deg  /* Coğrafiya */
-    );
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;">
-
-    <div style="position: absolute; width: 100%; height: 100%; font-size: 14px; font-weight: bold; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
-        <span style="position: absolute; top: 20%; left: 65%; transform: translate(-50%, -50%) rotate(30deg);">Riyaziyyat</span>
-        <span style="position: absolute; top: 50%; left: 80%; transform: translate(-50%, -50%) rotate(90deg);">Fizika</span>
-        <span style="position: absolute; top: 80%; left: 65%; transform: translate(-50%, -50%) rotate(150deg);">İnfo</span>
-        <span style="position: absolute; top: 80%; left: 35%; transform: translate(-50%, -50%) rotate(210deg);">Kimya</span>
-        <span style="position: absolute; top: 50%; left: 20%; transform: translate(-50%, -50%) rotate(270deg);">Bio</span>
-        <span style="position: absolute; top: 20%; left: 35%; transform: translate(-50%, -50%) rotate(330deg);">Coğrafiya</span>
-    </div>
-
-    <div style="width: 40px; height: 40px; background: #16213e; border-radius: 50%; border: 3px solid #00d2ff; z-index: 5;"></div>
-</div>
-
-    <button onclick="megaSpin()" id="spin-master-btn" style="position: relative; z-index: 2; padding: 20px 50px; font-size: 20px; font-weight: bold; text-transform: uppercase; background: linear-gradient(45deg, #00d2ff, #3a7bd5); color: white; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 0 20px #00d2ff; transition: 0.3s;">🚀 START</button>
-
-    <div id="info-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; flex-direction: column; animation: fadeIn 0.5s;">
-        <div id="subject-card" style="background: #16213e; padding: 50px; border-radius: 30px; border: 3px solid #00d2ff; box-shadow: 0 0 100px #00d2ff; text-align: center; max-width: 500px; transform: scale(0);">
-            <h1 id="res-subject" style="font-size: 45px; margin-bottom: 20px; text-shadow: 0 0 20px #00d2ff;"></h1>
-            <p id="res-desc" style="font-size: 18px; line-height: 1.6; color: #a2a2a2;"></p>
-            <div id="res-icon" style="font-size: 80px; margin: 20px 0;"></div>
-            <button onclick="closeOverlay()" style="margin-top: 30px; padding: 15px 40px; background: #00d2ff; color: #1a1a2e; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">Məktəb Divarına Qayıt</button>
-        </div>
-    </div>
-
-    <style>
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes popUp { from { transform: scale(0); } to { transform: scale(1); } }
-        .spin-active { animation: shake 0.1s infinite; }
-        @keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -1px); } 100% { transform: translate(1px, 1px); } }
-    </style>
-
-    <script>
-        let totalRot = 0;
-        const subjectsData = {
-            "Riyaziyyat": { desc: "Sən rəqəmlərin ustasısan! Analitik düşüncə tərzi səni zirvəyə daşıyacaq.", icon: "📐", color: "#00d2ff" },
-            "Fizika": { desc: "Kainatın sirləri səni gözləyir. Enerji, qüvvə və hərəkət sənin dünyandır.", icon: "⚛️", color: "#ff0055" },
-            "İnformatika": { desc: "Gələcəyin kodu sənin əllərindədir. Süni intellekt və alqoritmlər dünyasına xoş gəldin!", icon: "💻", color: "#00ff88" },
-            "Kimya": { desc: "Elementlərin rəqsi! Sən molekulları idarə edən sehrbazsan.", icon: "🧪", color: "#f39c12" },
-            "Biologiya": { desc: "Həyatın kodunu öyrənirsən. Hüceyrələrdən ekosistemə qədər hər şey sənə tabedir.", icon: "🧬", color: "#9b59b6" },
-            "Coğrafiya": { desc: "Dünyanı sərhədsiz kəşf et. Xəritələr sənin yol göstərənin olacaq.", icon: "🌍", color: "#e67e22" }
-        };
-
-        function megaSpin() {
-            const wheel = document.getElementById('game-wheel');
-            const btn = document.getElementById('spin-master-btn');
-            const container = document.getElementById('mega-container');
-            
-            btn.disabled = true;
-            container.classList.add('spin-active');
-            
-            let spin = Math.floor(Math.random() * 360) + 2160; // 6 dövr
-            totalRot += spin;
-            wheel.style.transform = `rotate(${totalRot}deg)`;
-
-            setTimeout(() => {
-                container.classList.remove('spin-active');
-                const finalDeg = totalRot % 360;
-                const index = Math.floor(((360 - finalDeg) % 360) / 60);
-                const subName = Object.keys(subjectsData)[index];
-                showResult(subName);
-                btn.disabled = false;
-            }, 5000);
-        }
-
-        function showResult(name) {
-            const overlay = document.getElementById('info-overlay');
-            const card = document.getElementById('subject-card');
-            const data = subjectsData[name];
-
-            document.getElementById('res-subject').innerText = name;
-            document.getElementById('res-desc').innerText = data.desc;
-            document.getElementById('res-icon').innerText = data.icon;
-            card.style.borderColor = data.color;
-            card.style.boxShadow = `0 0 100px ${data.color}`;
-
-            overlay.style.display = 'flex';
-            setTimeout(() => { card.style.animation = "popUp 0.5s forwards"; card.style.transform = "scale(1)"; }, 100);
-        }
-
-        function closeOverlay() {
-            document.getElementById('info-overlay').style.display = 'none';
-        }
-    </script>
-</div>
-</section>
                 <section id="nihas-ai-pro" style="
     background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); 
     padding: 60px 20px; 
@@ -1132,6 +1021,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
