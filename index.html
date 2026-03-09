@@ -1011,6 +1011,168 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         }
     </script>
 </section>
+            <section id="chemistry-lab" style="background: #ffffff; padding: 40px; border-radius: 30px; margin: 30px auto; max-width: 900px; border: 3px solid #059669; box-shadow: 0 20px 50px rgba(5, 150, 105, 0.15); font-family: 'Poppins', sans-serif;">
+    
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="font-size: 50px;">🧪</div>
+        <h2 style="color: #065f46; margin-top: 10px;">Virtual Kimya Laboratoriyası</h2>
+        <p style="color: #374151;">Elementləri seç və yeni maddələr yarat!</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start;">
+        
+        <div style="background: #f0fdf4; padding: 25px; border-radius: 20px; border: 1px solid #bdf1d2;">
+            <h4 style="color: #065f46; margin-bottom: 15px; border-bottom: 2px solid #059669; padding-bottom: 5px;">Mövcud Elementlər</h4>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;" id="element-grid">
+                </div>
+            
+            <div style="margin-top: 25px;">
+                <h4 style="color: #065f46;">Seçilmişlər:</h4>
+                <div id="selected-elements" style="min-height: 50px; background: white; border-radius: 10px; border: 1px dashed #059669; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 10px;">
+                    <span style="color: #9ca3af; font-size: 14px;">Element seçin...</span>
+                </div>
+                <button onclick="combineElements()" style="width: 100%; margin-top: 15px; padding: 12px; background: #059669; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s;">⚗️ Reaksiyanı Başlat</button>
+                <button onclick="clearLab()" style="width: 100%; margin-top: 10px; padding: 8px; background: #ef4444; color: white; border: none; border-radius: 10px; cursor: pointer; opacity: 0.8;">Təmizlə</button>
+            </div>
+        </div>
+
+        <div style="background: #111827; padding: 25px; border-radius: 20px; min-height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; position: relative; overflow: hidden;">
+            <div id="reaction-animation" style="font-size: 60px; margin-bottom: 20px;">🔬</div>
+            <div id="result-info" style="text-align: center;">
+                <h3 id="result-name" style="color: #10b981; margin-bottom: 10px;">Gözlənilir...</h3>
+                <p id="result-formula" style="font-size: 24px; font-weight: bold; letter-spacing: 2px;"></p>
+                <p id="result-desc" style="font-size: 14px; color: #9ca3af; margin-top: 10px;"></p>
+            </div>
+            <div id="bubbles"></div>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px; background: #fffbeb; padding: 20px; border-radius: 15px; border-left: 6px solid #f59e0b;">
+        <h4 style="color: #92400e; margin-bottom: 5px;">Müəllim Məsləhəti:</h4>
+        <p style="color: #b45309; font-size: 14px; margin: 0;">Məsələn, 2 dənə Hidrogen (H) və 1 dənə Oksigen (O) seçib sınaqdan keçirin. Suyun necə yarandığını görün! ✨</p>
+    </div>
+
+    <script>
+        const elementsData = [
+            { id: 'H', name: 'Hidrogen', color: '#3b82f6' },
+            { id: 'O', name: 'Oksigen', color: '#ef4444' },
+            { id: 'C', name: 'Karbon', color: '#4b5563' },
+            { id: 'Na', name: 'Natrium', color: '#f59e0b' },
+            { id: 'Cl', name: 'Xlor', color: '#10b981' },
+            { id: 'N', name: 'Azot', color: '#8b5cf6' }
+        ];
+
+        const reactions = {
+            "H,H,O": { name: "Su", formula: "H₂O", desc: "Həyatın mənbəyi olan şəffaf maye." },
+            "C,O,O": { name: "Karbon qazı", formula: "CO₂", desc: "Bitkilərin fotosintez üçün istifadə etdiyi qaz." },
+            "Na,Cl": { name: "Xörək duzu", formula: "NaCl", desc: "Mətbəxdə istifadə etdiyimiz ağ kristal maddə." },
+            "H,N,H,H": { name: "Ammonyak", formula: "NH₃", desc: "Kəskin qoxulu, gübrə istehsalında istifadə olunan qaz." },
+            "C,H,H,H,H": { name: "Metan qazı", formula: "CH₄", desc: "Təbii qazın əsas tərkib hissəsi." },
+            "H,Cl": { name: "Hidrogen-xlorid", formula: "HCl", desc: "Mədə şirəsinin tərkibində olan qüvvətli turşu." }
+        };
+
+        let selectedElements = [];
+
+        function initElements() {
+            const grid = document.getElementById('element-grid');
+            elementsData.forEach(el => {
+                const btn = document.createElement('button');
+                btn.innerText = el.id;
+                btn.title = el.name;
+                btn.style.cssText = `padding: 15px; background: ${el.color}; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 18px; transition: 0.2s;`;
+                btn.onmouseover = () => btn.style.transform = "scale(1.1)";
+                btn.onmouseout = () => btn.style.transform = "scale(1)";
+                btn.onclick = () => selectElement(el.id);
+                grid.appendChild(btn);
+            });
+        }
+
+        function selectElement(id) {
+            if (selectedElements.length >= 5) return alert("Maksimum 5 element seçə bilərsiniz!");
+            selectedElements.push(id);
+            renderSelected();
+        }
+
+        function renderSelected() {
+            const container = document.getElementById('selected-elements');
+            if (selectedElements.length === 0) {
+                container.innerHTML = '<span style="color: #9ca3af; font-size: 14px;">Element seçin...</span>';
+                return;
+            }
+            container.innerHTML = '';
+            selectedElements.forEach((el, index) => {
+                const badge = document.createElement('span');
+                badge.innerText = el;
+                const color = elementsData.find(e => e.id === el).color;
+                badge.style.cssText = `background: ${color}; color: white; padding: 5px 12px; border-radius: 8px; font-weight: bold; cursor: pointer;`;
+                badge.onclick = () => { selectedElements.splice(index, 1); renderSelected(); };
+                container.appendChild(badge);
+            });
+        }
+
+        function combineElements() {
+            const reactionKey = selectedElements.sort().join(',');
+            const result = reactions[reactionKey];
+            const animBox = document.getElementById('reaction-animation');
+            const resName = document.getElementById('result-name');
+            const resFormula = document.getElementById('result-formula');
+            const resDesc = document.getElementById('result-desc');
+
+            // Başlanğıc animasiya effekti
+            animBox.innerHTML = "💨";
+            resName.innerText = "Reaksiya gedir...";
+            resFormula.innerText = "...";
+            resDesc.innerText = "";
+
+            setTimeout(() => {
+                if (result) {
+                    animBox.innerHTML = "✨";
+                    resName.innerText = result.name;
+                    resFormula.innerText = result.formula;
+                    resDesc.innerText = result.desc;
+                    createBubbles();
+                } else {
+                    animBox.innerHTML = "⚠️";
+                    resName.innerText = "Uğursuz cəhd";
+                    resFormula.innerText = "Məlum deyil";
+                    resDesc.innerText = "Bu elementlərdən stabil bir maddə alınmadı. Başqa kombinasiya yoxla!";
+                }
+            }, 1000);
+        }
+
+        function createBubbles() {
+            const container = document.getElementById('bubbles');
+            container.innerHTML = '';
+            for (let i = 0; i < 15; i++) {
+                const bubble = document.createElement('div');
+                const size = Math.random() * 20 + 5;
+                bubble.style.cssText = `position: absolute; bottom: -20px; left: ${Math.random() * 100}%; width: ${size}px; height: ${size}px; background: rgba(16, 185, 129, 0.3); border-radius: 50%; animation: bubbleUp ${Math.random() * 2 + 1}s linear infinite;`;
+                container.appendChild(bubble);
+            }
+        }
+
+        function clearLab() {
+            selectedElements = [];
+            renderSelected();
+            document.getElementById('reaction-animation').innerHTML = "🔬";
+            document.getElementById('result-name').innerText = "Gözlənilir...";
+            document.getElementById('result-formula').innerText = "";
+            document.getElementById('result-desc').innerText = "";
+            document.getElementById('bubbles').innerHTML = '';
+        }
+
+        // CSS Animasiyası əlavə edək
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bubbleUp {
+                to { transform: translateY(-300px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        initElements();
+    </script>
+</section>
         </section>
              <div id="mega-container" style="position: relative; padding: 60px 20px; transition: 1s; border-radius: 30px; text-align: center; overflow: hidden; background: #1a1a2e; color: white; font-family: 'Poppins', sans-serif;">
     
@@ -1242,6 +1404,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
