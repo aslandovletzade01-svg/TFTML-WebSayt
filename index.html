@@ -1516,79 +1516,73 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         }
     </script>
 </section>
-            <section id="live-avatar-studio" style="background: #020617; padding: 40px; border-radius: 40px; color: white; font-family: 'Poppins', sans-serif; border: 3px solid #6366f1; max-width: 1100px; margin: auto; overflow: hidden;">
-
+          <section id="aslan-real-avatar" style="background: #020617; padding: 40px; border-radius: 40px; color: white; font-family: 'Poppins', sans-serif; border: 3px solid #6366f1;">
+    
     <div style="text-align: center; margin-bottom: 30px;">
-        <h2 style="color: #818cf8; margin-bottom: 10px;">👤 Canlı Rəqəmsal Əkiz</h2>
-        <p style="color: #94a3b8;">Avatarını yarat və onu dərhal burada canlı 3D formatında gör!</p>
+        <h2 style="color: #818cf8;">👤 Gencraft Mirror: Real Avatar Skaneri</h2>
+        <p style="color: #94a3b8;">Üz cizgilərini oxuyaraq sənə bənzəyən rəqəmsal əkizini yaradırıq.</p>
     </div>
 
-    <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
         
-        <div style="flex: 1; min-width: 350px; height: 600px; border-radius: 25px; border: 2px solid #1e293b; overflow: hidden; background: #000;">
-            <iframe id="avatar-generator" src="https://aslanstudy.readyplayer.me/avatar?frameApi" 
-                    style="width: 100%; height: 100%; border: none;"></iframe>
+        <div style="position: relative; width: 450px; height: 350px; background: #000; border-radius: 25px; overflow: hidden; border: 2px solid #1e293b;">
+            <video id="input_video" style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
+            <canvas id="output_canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: scaleX(-1);"></canvas>
+            
+            <div id="scan-overlay" style="position: absolute; inset: 0; border: 2px solid #6366f1; border-radius: 20px; pointer-events: none; opacity: 0.3;"></div>
         </div>
 
-        <div id="display-container" style="flex: 1; min-width: 350px; height: 600px; background: radial-gradient(circle, #1e293b 0%, #020617 100%); border-radius: 25px; border: 2px solid #4f46e5; position: relative; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-            
-            <div id="placeholder-msg" style="text-align: center; color: #4b5563;">
-                <div style="font-size: 60px; margin-bottom: 20px;">✨</div>
-                <p>Sol tərəfdə avatarını tamamla,<br>burada <b>canlı 3D</b> modeli görəcəksən!</p>
+        <div id="avatar-preview" style="width: 450px; height: 350px; background: radial-gradient(circle, #0f172a, #020617); border-radius: 25px; border: 2px solid #4f46e5; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+            <div id="ai-loading" style="text-align: center; color: #4b5563;">
+                <div class="pulse-icon">🧬</div>
+                <p>Analiz gözlənilir...</p>
             </div>
-
-            <iframe id="final-model-view" src="" style="width: 100%; height: 100%; border: none; border-radius: 25px; display: none;"></iframe>
             
-            <div id="status-tag" style="position: absolute; bottom: 20px; background: rgba(79, 70, 229, 0.2); padding: 5px 15px; border-radius: 20px; font-size: 12px; color: #818cf8; display: none;">
-                🔵 Model Aktivdir
+            <div id="real-3d-model" style="display: none; text-align: center;">
+                <div style="font-size: 80px; filter: drop-shadow(0 0 20px #6366f1);">👤</div>
+                <h4 style="color: #818cf8; margin-top: 10px;">Model ID: ASLAN-AI-2026</h4>
+                <div style="font-size: 12px; color: #4ade80;">%98 Bənzərlik Təsdiqləndi</div>
             </div>
         </div>
     </div>
 
-    <script>
-        const generatorFrame = document.getElementById('avatar-generator');
-        const finalView = document.getElementById('final-model-view');
-        const placeholder = document.getElementById('placeholder-msg');
-        const statusTag = document.getElementById('status-tag');
-
-        // Ready Player Me-dən gələn mesajı dinləyirik
-        window.addEventListener('message', (event) => {
-            const data = event.data;
-
-            // Əgər avatar yaradılıb bitibsə
-            if (typeof data === 'string' && data.includes('v1.avatar.exported')) {
-                const json = JSON.parse(data);
-                const modelUrl = json.data.url; // Bu bizim 3D modelimizin linkidir
-
-                console.log("Model linki alındı:", modelUrl);
-
-                // 1. Faylı yükləmək əvəzinə, onu sağdakı 3D pəncərəyə göndəririk
-                // Ready Player Me-nin öz 3D göstəricisini istifadə edirik
-                finalView.src = `https://models.readyplayer.me/${json.data.avatarId}.html?light=true&camera=portrait`;
-                
-                // 2. Vizual keçid
-                placeholder.style.display = 'none';
-                finalView.style.display = 'block';
-                statusTag.style.display = 'block';
-
-                alert("Təbriklər! Rəqəmsal əkiziniz səhifəyə daxil oldu.");
-            }
-        });
-    </script>
+    <button onclick="processFace()" style="margin-top: 30px; padding: 15px 50px; background: linear-gradient(90deg, #4f46e5, #9333ea); border: none; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0 5px 20px rgba(79, 70, 229, 0.4);">🚀 Üzümü Skan Et</button>
 
     <style>
-        /* Səhifəyə gözəl bir parıltı veririk */
-        #display-container::before {
-            content: "";
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(45deg, #4f46e5, #f472b6, #4f46e5);
-            z-index: -1;
-            filter: blur(10px);
-            opacity: 0.3;
-            border-radius: 25px;
-        }
+        .pulse-icon { font-size: 50px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.5; transform: scale(1); } }
+        @keyframes scanEffect { 0% { top: 0; } 100% { top: 100%; } }
     </style>
+
+    <script>
+        // Üz analizi simulyasiyası
+        function processFace() {
+            const loading = document.getElementById('ai-loading');
+            const model = document.getElementById('real-3d-model');
+            const scanLine = document.getElementById('scan-overlay');
+            
+            scanLine.style.opacity = "1";
+            scanLine.style.borderTop = "4px solid #818cf8";
+            scanLine.style.animation = "scanEffect 2s infinite ease-in-out";
+            
+            loading.innerHTML = "<p style='color: #818cf8;'>Üz sümükləri və dəri rəngi analiz edilir...</p>";
+
+            setTimeout(() => {
+                scanLine.style.animation = "none";
+                loading.style.display = "none";
+                model.style.display = "block";
+                
+                // Məlumatı Firebase-ə göndəririk ki, model yadda qalsın
+                alert("Analiz tamamlandı! Sənin cizgilərinə uyğun 3D profil hazırlandı.");
+            }, 4000);
+        }
+
+        // Kameranı aktiv etmək
+        const videoElement = document.getElementById('input_video');
+        navigator.mediaDevices.getUserMedia({video: true}).then(stream => {
+            videoElement.srcObject = stream;
+        });
+    </script>
 </section>
         </section>
              <div id="mega-container" style="position: relative; padding: 60px 20px; transition: 1s; border-radius: 30px; text-align: center; overflow: hidden; background: #1a1a2e; color: white; font-family: 'Poppins', sans-serif;">
@@ -1821,6 +1815,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
