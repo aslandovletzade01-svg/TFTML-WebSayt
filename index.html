@@ -777,78 +777,106 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         resultDiv.style.display = 'block';
     }
 </script>
-           <section id="global-capsule" style="background: #020617; padding: 40px; border-radius: 30px; color: white; font-family: 'Poppins', sans-serif; border: 3px solid #6366f1;">
-    
-    <div style="text-align: center; margin-bottom: 30px;">
-        <h2 style="color: #818cf8;">🌐 Qlobal Zaman Xəritəsi</h2>
-        <p style="color: #94a3b8;">Bu mesajlar bütün dünyada, bütün cihazlarda eyni anda görünür!</p>
+          <section id="aslan-global-system" style="background: #020617; padding: 50px 20px; border-radius: 40px; color: white; font-family: 'Poppins', sans-serif; border: 4px solid #4f46e5; box-shadow: 0 0 50px rgba(79, 102, 241, 0.3); max-width: 1200px; margin: auto;">
+
+    <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="font-size: 32px; color: #818cf8; text-shadow: 0 0 15px #4f46e5;">💎 Qlobal Zaman Kristalları</h2>
+        <p style="color: #94a3b8;">Bu kristallar sənin şəxsi Firebase buludunda saxlanılır və hər yerdə eyni anda görünür!</p>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
-    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-        <div style="flex: 1; min-width: 300px; background: #1e293b; padding: 25px; border-radius: 20px;">
-            <input type="text" id="g-name" placeholder="Adınız" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: none;">
-            <input type="password" id="g-pass" placeholder="Şəxsi Şifrəniz" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: none;">
-            <textarea id="g-msg" placeholder="Geleceye mesaj..." style="width: 100%; height: 100px; padding: 10px; border-radius: 8px; border: none; margin-bottom: 10px;"></textarea>
-            <button onclick="sendToCloud()" style="width: 100%; padding: 15px; background: #6366f1; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;">🚀 Buluda Göndər</button>
+    <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+        <div style="flex: 1; min-width: 320px; background: #0f172a; padding: 30px; border-radius: 25px; border: 1px solid #1e293b;">
+            <h4 style="color: #f472b6; margin-top: 0;">✍️ Yeni Kapsul</h4>
+            <input type="text" id="cap-name" placeholder="Adınız" style="width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 10px; border: none; background: #1e293b; color: white;">
+            <input type="number" id="cap-year" placeholder="Hansı il üçün?" style="width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 10px; border: none; background: #1e293b; color: white;">
+            <input type="password" id="cap-pass" placeholder="Şəxsi Şifrəniz" style="width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 10px; border: none; background: #1e293b; color: white;">
+            <textarea id="cap-msg" placeholder="Gələcəyə mesajınız..." style="width: 100%; height: 100px; padding: 12px; border-radius: 10px; border: none; background: #1e293b; color: white; resize: none; margin-bottom: 15px;"></textarea>
+            <button onclick="sendToFirebase()" style="width: 100%; padding: 15px; background: #4f46e5; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s;">🚀 Buluda Göndər</button>
         </div>
 
         <div style="flex: 1.5; min-width: 350px;">
-            <div id="global-display" style="display: flex; flex-wrap: wrap; gap: 10px; background: #0f172a; padding: 20px; border-radius: 20px; height: 400px; overflow-y: auto; border: 1px solid #334155;">
-                <p style="color: #64748b;">Kapsullar yüklənir...</p>
-            </div>
+            <h4 style="color: #60a5fa; margin-top: 0;">✨ Canlı Kapsul Dünyası</h4>
+            <div id="crystal-container" style="display: flex; flex-wrap: wrap; gap: 15px; background: rgba(0,0,0,0.4); padding: 25px; border-radius: 25px; height: 450px; overflow-y: auto; border: 2px dashed #334155; align-content: flex-start;">
+                </div>
         </div>
     </div>
 
     <script>
-        // FIREBASE AYARLARI (Aslan, bura sənin xüsusi bazan olacaq)
-        // İndilik test üçün bir demo baza qururuq:
+        // ŞƏKİLDƏKİ MƏLUMATLARINIZ BURADA
         const firebaseConfig = {
-            databaseURL: "https://aslanstudy-default-rtdb.firebaseio.com/" 
+            apiKey: "AIzaSyCZN6aPT7s258VgKCmEouWnSn4egA6GMAQ",
+            authDomain: "aslan-51072.firebaseapp.com",
+            databaseURL: "https://aslan-51072-default-rtdb.firebaseio.com/",
+            projectId: "aslan-51072",
+            storageBucket: "aslan-51072.firebasestorage.app",
+            messagingSenderId: "532363334301",
+            appId: "1:532363334301:web:c69cbc83b8eb5e1d4afa74"
         };
-        firebase.initializeApp(firebaseConfig);
+
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
         const db = firebase.database();
 
-        // BULUDA GÖNDƏRMƏ
-        function sendToCloud() {
-            const name = document.getElementById('g-name').value;
-            const pass = document.getElementById('g-pass').value;
-            const msg = document.getElementById('g-msg').value;
+        function sendToFirebase() {
+            const name = document.getElementById('cap-name').value;
+            const year = document.getElementById('cap-year').value;
+            const pass = document.getElementById('cap-pass').value;
+            const msg = document.getElementById('cap-msg').value;
 
-            if(name && pass && msg) {
+            if(name && year && pass && msg) {
                 db.ref('capsules').push({
-                    name: name,
-                    pass: pass,
-                    msg: msg,
-                    time: new Date().toLocaleDateString()
+                    name, year, pass, msg,
+                    date: new Date().toLocaleDateString()
+                }).then(() => {
+                    alert("Kapsul uğurla Qlobal Bazaya göndərildi!");
+                    document.querySelectorAll('input, textarea').forEach(i => i.value = '');
                 });
-                alert("Mesaj buluda uçdu! İndi hər kəs onu görəcək.");
-            }
+            } else { alert("Zəhmət olmasa bütün xanaları doldurun!"); }
         }
 
-        // BULUDDAN CANLI OXUMA (HƏR KƏS ÜÇÜN)
-        db.ref('capsules').on('value', (snapshot) => {
-            const display = document.getElementById('global-display');
-            display.innerHTML = '';
-            const data = snapshot.val();
-            
+        // Buluddan canlı məlumat almaq
+        db.ref('capsules').on('value', (snap) => {
+            const container = document.getElementById('crystal-container');
+            container.innerHTML = '';
+            const data = snap.val();
             for(let id in data) {
-                const cap = data[id];
-                const div = document.createElement('div');
-                div.style.cssText = "padding: 12px; background: #312e81; border-radius: 12px; cursor: pointer; border: 1px solid #4f46e5; text-align: center; min-width: 80px;";
-                div.innerHTML = `🔒 <br> <small>${cap.name}</small>`;
+                const c = data[id];
+                const crystal = document.createElement('div');
+                crystal.className = "crystal-box";
+                crystal.innerHTML = `
+                    <div style="font-size: 22px; margin-bottom: 5px;">💎</div>
+                    <div style="font-weight: bold; font-size: 13px;">${c.name}</div>
+                    <div style="font-size: 10px; opacity: 0.6;">${c.year}</div>
+                `;
                 
-                div.onclick = () => {
-                    const p = prompt("Şifrəni yaz:");
-                    if(p === cap.pass) alert("🔓 Mesaj: " + cap.msg);
-                    else alert("Səhv şifrə!");
+                crystal.onclick = () => {
+                    const check = prompt(`${c.name}-ın mesajını oxumaq üçün şifrəni yazın:`);
+                    if(check === c.pass) {
+                        alert(`🔓 MESAJ: "${c.msg}" \n\nTarix: ${c.date}`);
+                    } else if(check !== null) { alert("❌ Şifrə yanlışdır!"); }
                 };
-                display.appendChild(div);
+                container.prepend(crystal);
             }
         });
     </script>
+
+    <style>
+        .crystal-box {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            border: 1px solid #4f46e5;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            width: 90px;
+            cursor: pointer;
+            transition: 0.3s;
+            animation: floatAni 3s infinite ease-in-out;
+        }
+        .crystal-box:hover { transform: scale(1.1); background: #4f46e5; box-shadow: 0 0 20px #4f46e5; }
+        @keyframes floatAni { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    </style>
 </section>
                 <section id="nihas-ai-pro" style="
     background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); 
@@ -1719,6 +1747,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
