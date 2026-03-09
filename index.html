@@ -1516,81 +1516,101 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         }
     </script>
 </section>
-            <section style="background: #020617; padding: 30px; border-radius: 30px; border: 2px solid #10b981; font-family: 'Poppins', sans-serif; color: white;">
-    
-    <div style="text-align: center; margin-bottom: 20px;">
-        <h2 style="color: #10b981; margin: 0;">🖐️ Canlı Air-Write Studiyası</h2>
-        <p style="color: #94a3b8; font-size: 13px;">Əlinizi tərpədin, lövhədə dərhal görünsün!</p>
-    </div>
+           <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
 
-    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-        <div style="position: relative; width: 400px; height: 300px; background: #000; border-radius: 20px; border: 2px solid #1e293b; overflow: hidden;">
-            <video id="air_video" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
-            <div id="pointer" style="position: absolute; width: 15px; height: 15px; background: #fbbf24; border-radius: 50%; box-shadow: 0 0 15px #fbbf24; display: none; pointer-events: none; z-index: 10;"></div>
+<section style="background: #020617; padding: 30px; border-radius: 30px; border: 3px solid #10b981; color: white; font-family: 'Poppins', sans-serif;">
+    <h2 style="text-align: center; color: #10b981;">🖐️ Nihas AI: Real-Time Tracker</h2>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 20px;">
+        <div style="position: relative; width: 480px; height: 360px; border-radius: 20px; overflow: hidden; border: 2px solid #1e293b;">
+            <video id="input_video" style="display: none;"></video>
+            <canvas id="output_canvas" width="480" height="360" style="transform: scaleX(-1);"></canvas>
+            <div id="status" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); padding: 5px 10px; border-radius: 5px; font-size: 12px;">Sistem: Yüklənir...</div>
         </div>
 
-        <div style="width: 400px; height: 300px; background: #0f172a; border-radius: 20px; border: 3px solid #10b981; position: relative;">
-            <canvas id="live_canvas" width="400" height="300" style="position: absolute; top: 0; left: 0;"></canvas>
-            <div style="position: absolute; top: 10px; left: 10px; font-size: 10px; color: #10b981; background: rgba(0,0,0,0.5); padding: 5px; border-radius: 5px;">CANLI REJİM 🔥</div>
+        <div style="width: 480px; height: 360px; background: #0f172a; border-radius: 20px; border: 3px solid #10b981; position: relative;">
+            <canvas id="draw_canvas" width="480" height="360" style="position: absolute; top: 0; left: 0;"></canvas>
+            <div style="position: absolute; bottom: 10px; right: 10px; color: #10b981; font-weight: bold;">LÖVHƏ 🔥</div>
         </div>
     </div>
 
-    <div style="text-align: center; margin-top: 20px;">
-        <button onclick="clearLiveCanvas()" style="padding: 10px 25px; background: #ef4444; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">Lövhəni Təmizlə</button>
-        <button onclick="startLiveAirWrite()" style="padding: 10px 25px; background: #10b981; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-left: 10px;">Kameranı Aç</button>
+    <div style="text-align: center; margin-top: 25px;">
+        <button onclick="clearCanvas()" style="padding: 12px 35px; background: #ef4444; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold;">Lövhəni Təmizlə</button>
     </div>
 </section>
 
 <script>
-    const liveCanvas = document.getElementById('live_canvas');
-    const liveCtx = liveCanvas.getContext('2d');
-    const pointer = document.getElementById('pointer');
-    let isDrawing = false;
+    const videoElement = document.getElementById('input_video');
+    const canvasElement = document.getElementById('output_canvas');
+    const canvasCtx = canvasElement.getContext('2d');
+    const drawCanvas = document.getElementById('draw_canvas');
+    const drawCtx = drawCanvas.getContext('2d');
+    const statusText = document.getElementById('status');
 
-    function startLiveAirWrite() {
-        const video = document.getElementById('air_video');
-        
-        navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-            video.srcObject = stream;
-            pointer.style.display = "block";
+    let lastX = 0;
+    let lastY = 0;
 
-            // Sənin istədiyin: Əlini tərpədəndə avtomatik yazsın
-            video.addEventListener('mousemove', (e) => {
-                // Video koordinatlarını Canvas-a uyğunlaşdırırıq
-                const x = e.offsetX;
-                const y = e.offsetY;
+    function onResults(results) {
+        statusText.innerText = "Sistem: Aktiv 🟢";
+        canvasCtx.save();
+        canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+        canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
 
-                // Sarı nöqtəni əlinin üzərinə qoyuruq
-                pointer.style.left = x + "px";
-                pointer.style.top = y + "px";
+        if (results.multiHandLandmarks) {
+            for (const landmarks of results.multiHandLandmarks) {
+                // İşarə barmağının ucu (Nöqtə 8)
+                const indexFinger = landmarks[8];
+                const x = (1 - indexFinger.x) * drawCanvas.width; // Güzgü əksi üçün 1-x
+                const y = indexFinger.y * drawCanvas.height;
 
-                // Hərəkət etdikcə çəkir
-                drawOnLiveCanvas(x, y);
-            });
+                // Lövhədə çəkmək (Əgər barmaq yuxarıdadırsa)
+                drawCtx.lineWidth = 5;
+                drawCtx.lineCap = 'round';
+                drawCtx.strokeStyle = '#10b981';
 
-            // "Toxunmadan" yazmaq simulyasiyası üçün maus düyməsini istifadə edə bilərsən, 
-            // Amma tam avtomatik istəyirsənsə, drawing = true qoyuruq
-            isDrawing = true; 
-        });
+                drawCtx.beginPath();
+                drawCtx.moveTo(lastX, lastY);
+                drawCtx.lineTo(x, y);
+                drawCtx.stroke();
+
+                lastX = x;
+                lastY = y;
+
+                // Kamera üzərində barmağı vizual olaraq göstər
+                canvasCtx.fillStyle = "#fbbf24";
+                canvasCtx.beginPath();
+                canvasCtx.arc((1-indexFinger.x)*canvasElement.width, indexFinger.y*canvasElement.height, 8, 0, 2 * Math.PI);
+                canvasCtx.fill();
+            }
+        }
+        canvasCtx.restore();
     }
 
-    function drawOnLiveCanvas(x, y) {
-        if (!isDrawing) return;
+    const hands = new Hands({locateFile: (file) => {
+        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+    }});
 
-        liveCtx.lineWidth = 4;
-        liveCtx.lineCap = 'round';
-        liveCtx.strokeStyle = '#10b981';
+    hands.setOptions({
+        maxNumHands: 1,
+        modelComplexity: 1,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5
+    });
+    hands.onResults(onResults);
 
-        // Xətti çəkirik
-        liveCtx.lineTo(x, y);
-        liveCtx.stroke();
-        liveCtx.beginPath();
-        liveCtx.moveTo(x, y);
-    }
+    const camera = new Camera(videoElement, {
+        onFrame: async () => {
+            await hands.send({image: videoElement});
+        },
+        width: 480,
+        height: 360
+    });
+    camera.start();
 
-    function clearLiveCanvas() {
-        liveCtx.clearRect(0, 0, liveCanvas.width, liveCanvas.height);
-        liveCtx.beginPath(); // Çizimi sıfırla
+    function clearCanvas() {
+        drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
     }
 </script>
         </section>
@@ -1824,6 +1844,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
