@@ -1304,126 +1304,125 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         runMicroscope();
     </script>
 </section>
-            <section id="physics-sandbox" style="background: #f1f5f9; padding: 30px; border-radius: 30px; margin: 20px auto; max-width: 1000px; font-family: 'Poppins', sans-serif; border: 4px solid #3b82f6; box-shadow: 0 20px 50px rgba(0,0,0,0.1);">
+            <section id="aslan-sandbox" style="background: #ffffff; padding: 30px; border-radius: 30px; margin: 20px auto; max-width: 1000px; font-family: 'Poppins', sans-serif; border: 5px solid #2563eb; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
     
     <div style="text-align: center; margin-bottom: 20px;">
-        <h2 style="color: #1e3a8a; margin: 0;">🛠️ Fizika Konstruktoru v2.0</h2>
-        <p style="color: #64748b; font-size: 14px;">Alətləri sahəyə sürüşdürün və enerji xətlərini birləşdirin!</p>
+        <h2 style="color: #1e3a8a; margin: 0;">🛠️ Fizika Sandbox: Sərbəst Quruculuq</h2>
+        <p style="color: #64748b;">Aləti seçin və sahədə istədiyiniz yerə klikləyib qoyun!</p>
     </div>
 
-    <div style="display: flex; gap: 20px;">
-        <div id="toolbox" style="width: 200px; background: white; padding: 15px; border-radius: 20px; border: 2px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px;">
-            <h4 style="font-size: 14px; color: #1e3a8a; text-align: center; border-bottom: 1px solid #eee; padding-bottom: 5px;">📦 Alətlər Kutusu</h4>
-            
-            <div class="tool" draggable="true" data-type="battery" style="cursor: move; padding: 10px; background: #dcfce7; border-radius: 10px; text-align: center;">🔋 Batareya</div>
-            <div class="tool" draggable="true" data-type="bulb" style="cursor: move; padding: 10px; background: #fef9c3; border-radius: 10px; text-align: center;">💡 Lampa</div>
-            <div class="tool" draggable="true" data-type="fan" style="cursor: move; padding: 10px; background: #e0f2fe; border-radius: 10px; text-align: center;">🌀 Pər (Motor)</div>
-            <div class="tool" draggable="true" data-type="solar" style="cursor: move; padding: 10px; background: #ffedd5; border-radius: 10px; text-align: center;">☀️ Günəş Paneli</div>
-            <div class="tool" draggable="true" data-type="switch" style="cursor: move; padding: 10px; background: #f1f5f9; border-radius: 10px; text-align: center;">🔌 Açar (Switch)</div>
-            <div class="tool" draggable="true" data-type="resistor" style="cursor: move; padding: 10px; background: #fce7f3; border-radius: 10px; text-align: center;">🔘 Rezistor</div>
-            <div class="tool" draggable="true" data-type="buzzer" style="cursor: move; padding: 10px; background: #ddd6fe; border-radius: 10px; text-align: center;">🔔 Zəng</div>
-            <div class="tool" draggable="true" data-type="led" style="cursor: move; padding: 10px; background: #fee2e2; border-radius: 10px; text-align: center;">🚨 LED İşıq</div>
-            <div class="tool" draggable="true" data-type="sensor" style="cursor: move; padding: 10px; background: #ccfbf1; border-radius: 10px; text-align: center;">👁️ Sensor</div>
-            <div class="tool" draggable="true" data-type="transformer" style="cursor: move; padding: 10px; background: #f3f4f6; border-radius: 10px; text-align: center;">⚡ Transformator</div>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div id="sidebar" style="width: 220px; background: #f8fafc; padding: 15px; border-radius: 20px; border: 2px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px;">
+            <h4 style="font-size: 14px; color: #1e3a8a; text-align: center;">📦 Elementlər</h4>
+            <button onclick="setTool('battery', '🔋')" class="tool-btn">🔋 Batareya</button>
+            <button onclick="setTool('bulb', '💡')" class="tool-btn">💡 Lampa</button>
+            <button onclick="setTool('fan', '🌀')" class="tool-btn">🌀 Pər (Motor)</button>
+            <button onclick="setTool('switch', '🔌')" class="tool-btn">🔌 Açar</button>
+            <button onclick="setTool('solar', '☀️')" class="tool-btn">☀️ Günəş Paneli</button>
+            <button onclick="setTool('buzzer', '🔔')" class="tool-btn">🔔 Zəng</button>
+            <button onclick="setTool('led', '🚨')" class="tool-btn">🚨 LED</button>
+            <button onclick="setTool('wire', '🔗')" class="tool-btn" style="background: #475569; color: white;">🔗 Naqil Çək</button>
         </div>
 
-        <div style="flex: 1; position: relative;">
-            <div id="drop-zone" style="width: 100%; height: 500px; background: #fff; border-radius: 20px; border: 2px dashed #3b82f6; position: relative; overflow: hidden; background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 20px 20px;">
+        <div style="flex: 1; min-width: 400px; position: relative;">
+            <canvas id="wire-canvas" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 1;"></canvas>
+            <div id="sandbox-area" onclick="placeElement(event)" style="width: 100%; height: 500px; background: #fff; border-radius: 20px; border: 3px solid #cbd5e1; position: relative; overflow: hidden; cursor: crosshair; background-image: radial-gradient(#e2e8f0 1px, transparent 1px); background-size: 30px 30px;">
                 </div>
             
             <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center;">
-                <button onclick="runSimulation()" style="padding: 12px 30px; background: #10b981; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;">🚀 Sistemi Başlat</button>
-                <button onclick="resetCanvas()" style="padding: 12px 30px; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;">🧹 Sahəni Təmizlə</button>
+                <button onclick="startPhysics()" style="padding: 12px 30px; background: #10b981; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;">🚀 Sistemi Başlat</button>
+                <button onclick="clearSandbox()" style="padding: 12px 30px; background: #ef4444; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;">🧹 Hamısını Sil</button>
             </div>
         </div>
     </div>
 
-    <div id="info-panel" style="margin-top: 20px; padding: 15px; background: #1e293b; color: #94a3b8; border-radius: 15px; font-size: 13px;">
-        💬 <b>Status:</b> <span id="status-text">Qurulma gözlənilir. Elementləri yerləşdirin.</span>
-    </div>
+    <style>
+        .tool-btn { padding: 10px; border: 1px solid #cbd5e1; border-radius: 10px; background: white; cursor: pointer; transition: 0.2s; font-weight: bold; text-align: left; }
+        .tool-btn:hover { background: #e0f2fe; border-color: #3b82f6; }
+        .tool-active { background: #3b82f6 !important; color: white !important; }
+        .placed-obj { position: absolute; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 30px; background: white; border: 2px solid #3b82f6; border-radius: 15px; z-index: 2; cursor: pointer; transition: 0.3s; }
+        .glow { box-shadow: 0 0 20px #fbbf24; background: #fef9c3 !important; }
+    </style>
 
     <script>
-        const dropZone = document.getElementById('drop-zone');
-        const tools = document.querySelectorAll('.tool');
-        let placedItems = [];
+        let currentTool = null;
+        let currentIcon = '';
+        let elements = [];
+        let wireStart = null;
 
-        // Drag & Drop Logikası
-        tools.forEach(tool => {
-            tool.ondragstart = (e) => {
-                e.dataTransfer.setData('type', e.target.getAttribute('data-type'));
-                e.dataTransfer.setData('name', e.target.innerText);
-            };
-        });
+        function setTool(type, icon) {
+            currentTool = type;
+            currentIcon = icon;
+            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('tool-active'));
+            event.target.classList.add('tool-active');
+        }
 
-        dropZone.ondragover = (e) => e.preventDefault();
-
-        dropZone.ondrop = (e) => {
-            e.preventDefault();
-            const type = e.dataTransfer.getData('type');
-            const name = e.dataTransfer.getData('name');
-            const rect = dropZone.getBoundingClientRect();
+        function placeElement(e) {
+            if (!currentTool) return;
+            
+            const area = document.getElementById('sandbox-area');
+            const rect = area.getBoundingClientRect();
             const x = e.clientX - rect.left - 30;
             const y = e.clientY - rect.top - 30;
 
-            createItem(type, name, x, y);
-        };
-
-        function createItem(type, name, x, y) {
-            const item = document.createElement('div');
-            item.className = 'placed-item';
-            item.innerHTML = name;
-            item.style.cssText = `position: absolute; left: ${x}px; top: ${y}px; padding: 15px; background: white; border: 2px solid #3b82f6; border-radius: 15px; cursor: pointer; transition: 0.3s; user-select: none; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);`;
-            
-            item.onclick = () => {
-                item.style.borderColor = '#10b981';
-                item.setAttribute('data-active', 'true');
-            };
-
-            dropZone.appendChild(item);
-            placedItems.push({ element: item, type: type });
-        }
-
-        function runSimulation() {
-            let hasBattery = placedItems.some(i => i.type === 'battery');
-            let status = document.getElementById('status-text');
-
-            if (!hasBattery) {
-                status.innerHTML = "❌ <span style='color: #f87171'>Sistem işləmir! Enerji mənbəyi (Batareya) tapılmadı.</span>";
+            if (currentTool === 'wire') {
+                handleWire(x + 30, y + 30);
                 return;
             }
 
-            placedItems.forEach(item => {
-                if (item.type === 'bulb') {
-                    item.element.style.background = '#fef9c3';
-                    item.element.style.boxShadow = '0 0 20px #fbbf24';
-                    item.element.innerHTML = '💡 İŞIQ!';
-                }
-                if (item.type === 'fan') {
-                    item.element.style.animation = 'spin 0.5s linear infinite';
-                }
-                if (item.type === 'buzzer') {
-                    item.element.style.background = '#ddd6fe';
-                    status.innerHTML = "🎵 <span style='color: #a78bfa'>Bzzzt! Səs siqnalı aktivdir.</span>";
-                }
+            const el = document.createElement('div');
+            el.className = 'placed-obj';
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            el.innerHTML = currentIcon;
+            
+            area.appendChild(el);
+            elements.push({ type: currentTool, x: x + 30, y: y + 30, dom: el });
+        }
+
+        function handleWire(x, y) {
+            if (!wireStart) {
+                wireStart = { x, y };
+            } else {
+                drawWire(wireStart.x, wireStart.y, x, y);
+                wireStart = null;
+            }
+        }
+
+        function drawWire(x1, y1, x2, y2) {
+            const canvas = document.getElementById('wire-canvas');
+            const area = document.getElementById('sandbox-area');
+            canvas.width = area.offsetWidth;
+            canvas.height = area.offsetHeight;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = "#475569";
+            ctx.lineWidth = 4;
+            ctx.stroke();
+        }
+
+        function startPhysics() {
+            const hasBat = elements.some(e => e.type === 'battery');
+            if (!hasBat) {
+                alert("Batareya qoymağı unutmusunuz!");
+                return;
+            }
+            
+            elements.forEach(e => {
+                if (e.type === 'bulb') e.dom.classList.add('glow');
+                if (e.type === 'fan') e.dom.style.animation = "spin 0.5s linear infinite";
             });
-
-            status.innerHTML = "✅ <span style='color: #34d399'>Sistem uğurla başladıldı! Enerji dövr edir.</span>";
         }
 
-        function resetCanvas() {
-            dropZone.innerHTML = '';
-            placedItems = [];
-            document.getElementById('status-text').innerText = "Sahə təmizləndi.";
+        function clearSandbox() {
+            document.getElementById('sandbox-area').innerHTML = '';
+            const canvas = document.getElementById('wire-canvas');
+            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+            elements = [];
         }
-
-        // CSS Animasiyalar
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes spin { to { transform: rotate(360deg); } }
-            .tool:hover { transform: scale(1.05); filter: brightness(0.9); }
-            .placed-item:active { cursor: grabbing; }
-        `;
-        document.head.appendChild(style);
     </script>
 </section>
         </section>
@@ -1657,6 +1656,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
