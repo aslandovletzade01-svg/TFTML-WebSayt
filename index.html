@@ -1517,17 +1517,17 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
     </script>
 </section>
            
-           <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 
 <section style="background: #020617; padding: 30px; border-radius: 35px; border: 3px solid #10b981; color: white; font-family: 'Poppins', sans-serif;">
-    <h2 style="text-align: center; color: #10b981;">🧬 Nihas AI: Dəqiq Barmaq İzləmə</h2>
+    <h2 style="text-align: center; color: #10b981;">🧬 Nihas AI: Air-Writer Modulu</h2>
     
     <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-        <div style="position: relative; width: 480px; height: 360px; border-radius: 20px; overflow: hidden; border: 2px solid #1e293b;">
+        <div style="position: relative; width: 480px; height: 360px; border-radius: 20px; overflow: hidden; border: 2px solid #1e293b; background: #000;">
             <video id="webcam_raw" style="display: none;"></video>
             <canvas id="cam_preview" width="480" height="360" style="transform: scaleX(-1);"></canvas>
-            <div style="position: absolute; top: 10px; left: 10px; background: #10b981; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold;">SİSTEM: DƏQİQ 🟢</div>
+            <div id="status_label" style="position: absolute; top: 10px; left: 10px; background: #ef4444; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold;">SİSTEM: DEAKTİV 🔴</div>
         </div>
 
         <div style="width: 480px; height: 360px; background: #0f172a; border-radius: 20px; border: 3px solid #10b981; position: relative;">
@@ -1535,8 +1535,9 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         </div>
     </div>
 
-    <div style="text-align: center; margin-top: 25px;">
-        <button onclick="clearArt()" style="padding: 12px 40px; background: #ef4444; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold;">Lövhəni Təmizlə</button>
+    <div style="text-align: center; margin-top: 25px; display: flex; justify-content: center; gap: 15px;">
+        <button id="toggle_ai_btn" onclick="toggleAirWriter()" style="padding: 12px 40px; background: #3b82f6; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.3s;">Sistemi Aktiv Et ✨</button>
+        <button onclick="clearArt()" style="padding: 12px 40px; background: #ef4444; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold;">Lövhəni Təmizlə 🧹</button>
     </div>
 </section>
 
@@ -1546,9 +1547,18 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
     const previewCtx = previewCanvas.getContext('2d');
     const drawCanvas = document.getElementById('drawing_layer');
     const drawCtx = drawCanvas.getContext('2d');
+    const statusLabel = document.getElementById('status_label');
+    const toggleBtn = document.getElementById('toggle_ai_btn');
 
     let oldX = null;
     let oldY = null;
+    let isCameraRunning = false;
+    let cameraInstance = null;
+
+    // MediaPipe Hands Ayarları
+    const hands = new Hands({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`});
+    hands.setOptions({ maxNumHands: 1, modelComplexity: 1, minDetectionConfidence: 0.7, minTrackingConfidence: 0.7 });
+    hands.onResults(handleResults);
 
     function handleResults(results) {
         previewCtx.save();
@@ -1557,10 +1567,8 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
 
         if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
             const hand = results.multiHandLandmarks[0];
-            const fingerTip = hand[8]; // İşarə barmağı
+            const fingerTip = hand[8]; 
 
-            // PROBLEM BURADA İDİ: X koordinatını güzgü əksinə görə hesablayırıq
-            // (1 - tip.x) istifadə edərək sağ-sol qarışıqlığını tam düzəldirik
             const currentX = (1 - fingerTip.x) * drawCanvas.width;
             const currentY = fingerTip.y * drawCanvas.height;
 
@@ -1577,28 +1585,57 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
             oldX = currentX;
             oldY = currentY;
 
-            // Barmaq ucunda vizual marker (Sarı nöqtə)
             previewCtx.fillStyle = "#fbbf24";
             previewCtx.beginPath();
-            // Preview canvas transform: scaleX(-1) olduğu üçün burada sadə x istifadə edirik
             previewCtx.arc(fingerTip.x * previewCanvas.width, fingerTip.y * previewCanvas.height, 10, 0, 2 * Math.PI);
             previewCtx.fill();
         } else {
-            oldX = null;
-            oldY = null;
+            oldX = null; oldY = null;
         }
         previewCtx.restore();
     }
 
-    const hands = new Hands({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`});
-    hands.setOptions({ maxNumHands: 1, modelComplexity: 1, minDetectionConfidence: 0.7, minTrackingConfidence: 0.7 });
-    hands.onResults(handleResults);
+    // Əsas Aktivləşdirmə Funksiyası
+    async function toggleAirWriter() {
+        if (!isCameraRunning) {
+            // SİSTEMİ BAŞLAT
+            toggleBtn.innerText = "Yüklənir... ⏳";
+            toggleBtn.disabled = true;
 
-    const cam = new Camera(video, {
-        onFrame: async () => { await hands.send({image: video}); },
-        width: 480, height: 360
-    });
-    cam.start();
+            cameraInstance = new Camera(video, {
+                onFrame: async () => { await hands.send({image: video}); },
+                width: 480, height: 360
+            });
+
+            try {
+                await cameraInstance.start();
+                isCameraRunning = true;
+                toggleBtn.innerText = "Sistemi Dayandır 🛑";
+                toggleBtn.style.background = "#ef4444";
+                toggleBtn.disabled = false;
+                statusLabel.innerText = "SİSTEM: AKTİV 🟢";
+                statusLabel.style.background = "#10b981";
+            } catch (err) {
+                alert("Kameraya giriş icazəsi verilmədi!");
+                toggleBtn.innerText = "Sistemi Aktiv Et ✨";
+                toggleBtn.disabled = false;
+            }
+        } else {
+            // SİSTEMİ SÖNDÜR
+            const tracks = video.srcObject.getTracks();
+            tracks.forEach(track => track.stop()); // Kameranı fiziki söndürür
+            video.srcObject = null;
+            
+            isCameraRunning = false;
+            toggleBtn.innerText = "Sistemi Aktiv Et ✨";
+            toggleBtn.style.background = "#3b82f6";
+            statusLabel.innerText = "SİSTEM: DEAKTİV 🔴";
+            statusLabel.style.background = "#ef4444";
+            
+            // Ekranı təmizlə ki, donub qalmasın
+            previewCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+        }
+    }
 
     function clearArt() {
         drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
@@ -1954,6 +1991,7 @@ function toggleCbox() {
     
 </body>
 </html>
+
 
 
 
