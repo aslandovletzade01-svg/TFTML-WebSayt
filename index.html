@@ -1437,92 +1437,106 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         oldX = null; oldY = null;
     }
 </script>
-          <script src="https://webgazer.cs.brown.edu/webgazer.js"></script>
+            <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
 
-<section id="hawking-module" style="background: #020617; padding: 60px; color: white; font-family: 'Poppins', sans-serif; border-radius: 40px; border: 2px solid #3b82f6; text-align: center;">
-    <h2 style="color: #60a5fa; font-size: 32px; margin-bottom: 20px;">🧬 Biometrik Göz Naviqasiyası</h2>
-    <p style="color: #94a3b8; margin-bottom: 40px;">Bu sistem fiziki məhdudiyyətli şəxslər üçün "Stiven Houkinq" texnologiyası əsasında hazırlanıb.</p>
+<section id="ai-scanner-room" style="background: #020617; padding: 60px 20px; color: white; font-family: 'Orbitron', sans-serif; border-radius: 40px; border: 2px solid #0ea5e9; text-align: center; position: relative; overflow: hidden;">
+    
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 80%); pointer-events: none;"></div>
 
-    <div id="ai-panel" style="background: rgba(15, 23, 42, 0.8); padding: 40px; border-radius: 25px; border: 1px solid #1e293b;">
-        <div id="status-light" style="width: 20px; height: 20px; background: red; border-radius: 50%; margin: 0 auto 15px; box-shadow: 0 0 10px red;"></div>
-        <h4 id="status-text">SİSTEM DEAKTİVDİR</h4>
+    <h2 style="color: #38bdf8; letter-spacing: 2px; margin-bottom: 30px;">NEURAL FACE SCANNER v4.0</h2>
+
+    <div style="position: relative; display: inline-block; border-radius: 25px; overflow: hidden; border: 5px solid #1e293b; box-shadow: 0 0 40px rgba(14, 165, 233, 0.3);">
+        <video id="video" width="600" height="450" autoplay muted style="display: block;"></video>
+        <canvas id="overlay" style="position: absolute; top: 0; left: 0;"></canvas>
         
-        <button id="start-btn" onclick="initHawkingSystem()" style="margin-top: 25px; padding: 15px 40px; background: #3b82f6; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 16px;">
-            AI İZLƏMƏNİ BAŞLAT 🚀
-        </button>
+        <div id="scan_line" style="position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: #38bdf8; box-shadow: 0 0 15px #38bdf8; display: none; animation: scanAnim 3s linear infinite;"></div>
     </div>
+
+    <div id="result_panel" style="margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 800px; margin-left: auto; margin-right: auto;">
+        <div style="background: #0f172a; padding: 15px; border-radius: 15px; border: 1px solid #1e293b;">
+            <small style="color: #64748b; display: block;">YAŞ TƏXMİNİ</small>
+            <b id="age_res" style="color: #38bdf8; font-size: 20px;">--</b>
+        </div>
+        <div style="background: #0f172a; padding: 15px; border-radius: 15px; border: 1px solid #1e293b;">
+            <small style="color: #64748b; display: block;">EMOSİYA</small>
+            <b id="emo_res" style="color: #4ade80; font-size: 20px;">--</b>
+        </div>
+        <div style="background: #0f172a; padding: 15px; border-radius: 15px; border: 1px solid #1e293b;">
+            <small style="color: #64748b; display: block;">CİNSİYYƏT</small>
+            <b id="gen_res" style="color: #f472b6; font-size: 20px;">--</b>
+        </div>
+    </div>
+
+    <button id="ai_btn" onclick="initNihasAI()" style="margin-top: 30px; padding: 18px 50px; background: #0ea5e9; color: white; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: 'Orbitron';">
+        SKANERİ AKTİV ET 🔍
+    </button>
 </section>
 
 <style>
-    /* Sarı nöqtənin (Göz kursorunun) dizaynı */
-    #webgazerGazeDot {
-        width: 30px !important; height: 30px !important;
-        background: radial-gradient(circle, #fbbf24, #d97706) !important;
-        border: 3px solid #fff !important;
-        box-shadow: 0 0 25px #fbbf24 !important;
-        z-index: 1000000 !important;
-        border-radius: 50% !important;
-        display: none;
+    @keyframes scanAnim {
+        0% { top: 0; }
+        100% { top: 100%; }
     }
-    #webgazerVideoContainer { display: none !important; }
+    canvas { pointer-events: none; }
 </style>
 
 <script>
-    let clickCount = 0;
-    let dwellTimer;
-
-    async function initHawkingSystem() {
-        document.getElementById('start-btn').innerText = "Yüklənir...";
+    async function initNihasAI() {
+        const video = document.getElementById('video');
+        const btn = document.getElementById('ai_btn');
+        const scanLine = document.getElementById('scan_line');
         
-        webgazer.setGazeListener(function(data, elapsedTime) {
-            if (data == null) return;
+        btn.innerText = "SİSTEM YÜKLƏNİR...";
+        btn.disabled = true;
 
-            // 1. Nöqtəni gözün baxdığı yerə məcburi göndəririk
-            let dot = document.getElementById('webgazerGazeDot');
-            if(dot) {
-                dot.style.display = 'block';
-                dot.style.left = data.x + 'px';
-                dot.style.top = data.y + 'px';
-            }
+        // 1. Modellərin yüklənməsi
+        const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
+        await Promise.all([
+            faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+            faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+            faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
+            faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL)
+        ]);
 
-            // 2. Smart Click (Dwell Time): 1.2 saniyə bir yerə baxanda klikləsin
-            const target = document.elementFromPoint(data.x, data.y);
-            if (target && (target.tagName === 'BUTTON' || target.tagName === 'A')) {
-                if (!dwellTimer) {
-                    dwellTimer = setTimeout(() => {
-                        target.click();
-                        target.style.outline = "5px solid #4ade80";
-                        setTimeout(() => target.style.outline = "none", 500);
-                        dwellTimer = null;
-                    }, 1200);
+        // 2. Kamera açılışı
+        navigator.mediaDevices.getUserMedia({ video: {} }).then(stream => {
+            video.srcObject = stream;
+            scanLine.style.display = "block";
+            btn.style.display = "none";
+        });
+
+        video.addEventListener('play', () => {
+            const canvas = document.getElementById('overlay');
+            const displaySize = { width: video.width, height: video.height };
+            faceapi.matchDimensions(canvas, displaySize);
+
+            setInterval(async () => {
+                // 3. Üz analizi
+                const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+                    .withFaceLandmarks()
+                    .withFaceExpressions()
+                    .withAgeAndGender();
+
+                const resizedDetections = faceapi.resizeResults(detections, displaySize);
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // 4. Qəribə tor xətlər (Mesh) və Sketç
+                faceapi.draw.drawDetections(canvas, resizedDetections);
+                faceapi.draw.drawFaceLandmarks(canvas, resizedDetections); // Üzdəki tor xətlər
+
+                if (detections.length > 0) {
+                    const det = detections[0];
+                    document.getElementById('age_res').innerText = Math.round(det.age) + " Yaş";
+                    document.getElementById('gen_res').innerText = det.gender === 'male' ? "Kişi" : "Qadın";
+                    
+                    const emoMap = { neutral: "Stabil 😐", happy: "Məmnun 😊", sad: "Yorğun 😔", angry: "Qəzəbli 😡", surprised: "Təəccüblü 😲" };
+                    const topEmo = Object.keys(det.expressions).reduce((a, b) => det.expressions[a] > det.expressions[b] ? a : b);
+                    document.getElementById('emo_res').innerText = emoMap[topEmo] || "Analiz...";
                 }
-            } else {
-                clearTimeout(dwellTimer);
-                dwellTimer = null;
-            }
-        }).begin();
-
-        // Kameranı gizlə, nöqtəni göstər
-        webgazer.showVideoPreview(false).showPredictionPoints(true);
-        
-        document.getElementById('status-light').style.background = "#4ade80";
-        document.getElementById('status-light').style.boxShadow = "0 0 15px #4ade80";
-        document.getElementById('status-text').innerText = "SİSTEM AKTİVDİR: İNDİ EKRANDA 5-10 YERƏ KLİKLƏYİN!";
-        document.getElementById('start-btn').style.display = "none";
+            }, 150);
+        });
     }
-
-    // KALİBRASİYA: Bu hissə sarı nöqtəni "oyadır"
-    window.addEventListener('click', (e) => {
-        if(webgazer.isReady()) {
-            webgazer.recordScreenPosition(e.clientX, e.clientY);
-            clickCount++;
-            if(clickCount < 10) {
-                document.getElementById('status-text').innerText = `Kalibrasiya: ${clickCount}/10 klik edildi...`;
-            } else {
-                document.getElementById('status-text').innerText = "SİSTEM HAZIRDIR! GÖZLƏRİNİZLƏ İDARƏ EDİN.";
-            }
-        }
-    });
 </script>
         </section>
              <div id="mega-container" style="position: relative; padding: 60px 20px; transition: 1s; border-radius: 30px; text-align: center; overflow: hidden; background: #1a1a2e; color: white; font-family: 'Poppins', sans-serif;">
