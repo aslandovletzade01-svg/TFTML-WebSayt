@@ -1439,103 +1439,102 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
 </script>
             <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
 
-<section id="ai-scanner-room" style="background: #020617; padding: 60px 20px; color: white; font-family: 'Orbitron', sans-serif; border-radius: 40px; border: 2px solid #0ea5e9; text-align: center; position: relative; overflow: hidden;">
+<section id="final-ai-scanner" style="background: #020617; padding: 40px; border-radius: 35px; border: 2px solid #0ea5e9; color: white; font-family: 'Orbitron', sans-serif; text-align: center; max-width: 900px; margin: 20px auto;">
     
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 80%); pointer-events: none;"></div>
+    <h2 style="color: #38bdf8; text-shadow: 0 0 10px #0ea5e9;">BIOMETRIC SCANNER v4.0</h2>
 
-    <h2 style="color: #38bdf8; letter-spacing: 2px; margin-bottom: 30px;">NEURAL FACE SCANNER v4.0</h2>
-
-    <div style="position: relative; display: inline-block; border-radius: 25px; overflow: hidden; border: 5px solid #1e293b; box-shadow: 0 0 40px rgba(14, 165, 233, 0.3);">
-        <video id="video" width="600" height="450" autoplay muted style="display: block;"></video>
-        <canvas id="overlay" style="position: absolute; top: 0; left: 0;"></canvas>
+    <div style="position: relative; margin: 20px auto; width: 600px; height: 450px; border: 3px solid #1e293b; border-radius: 20px; overflow: hidden; background: #000;">
+        <video id="ai_video" width="600" height="450" autoplay muted style="display: block;"></video>
+        <canvas id="ai_overlay" style="position: absolute; top: 0; left: 0;"></canvas>
         
-        <div id="scan_line" style="position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: #38bdf8; box-shadow: 0 0 15px #38bdf8; display: none; animation: scanAnim 3s linear infinite;"></div>
+        <div id="scanner_bar" style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: #38bdf8; box-shadow: 0 0 15px #38bdf8; display: none; animation: moveBar 3s linear infinite;"></div>
     </div>
 
-    <div id="result_panel" style="margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 800px; margin-left: auto; margin-right: auto;">
-        <div style="background: #0f172a; padding: 15px; border-radius: 15px; border: 1px solid #1e293b;">
-            <small style="color: #64748b; display: block;">YAŞ TƏXMİNİ</small>
-            <b id="age_res" style="color: #38bdf8; font-size: 20px;">--</b>
+    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
+        <div style="background: #0f172a; padding: 15px; border-radius: 12px; min-width: 120px; border: 1px solid #1e293b;">
+            <small style="color: #64748b;">YAŞ</small>
+            <div id="res_age" style="font-size: 20px; color: #38bdf8;">--</div>
         </div>
-        <div style="background: #0f172a; padding: 15px; border-radius: 15px; border: 1px solid #1e293b;">
-            <small style="color: #64748b; display: block;">EMOSİYA</small>
-            <b id="emo_res" style="color: #4ade80; font-size: 20px;">--</b>
+        <div style="background: #0f172a; padding: 15px; border-radius: 12px; min-width: 120px; border: 1px solid #1e293b;">
+            <small style="color: #64748b;">EMOSİYA</small>
+            <div id="res_emo" style="font-size: 20px; color: #4ade80;">--</div>
         </div>
-        <div style="background: #0f172a; padding: 15px; border-radius: 15px; border: 1px solid #1e293b;">
-            <small style="color: #64748b; display: block;">CİNSİYYƏT</small>
-            <b id="gen_res" style="color: #f472b6; font-size: 20px;">--</b>
+        <div style="background: #0f172a; padding: 15px; border-radius: 12px; min-width: 120px; border: 1px solid #1e293b;">
+            <small style="color: #64748b;">CİNSİYYƏT</small>
+            <div id="res_gen" style="font-size: 20px; color: #f472b6;">--</div>
         </div>
     </div>
 
-    <button id="ai_btn" onclick="initNihasAI()" style="margin-top: 30px; padding: 18px 50px; background: #0ea5e9; color: white; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: 'Orbitron';">
-        SKANERİ AKTİV ET 🔍
+    <button id="start_btn" onclick="runNihasAI()" style="margin-top: 30px; padding: 15px 50px; background: #0ea5e9; color: white; border: none; border-radius: 12px; cursor: pointer; font-family: 'Orbitron'; font-weight: bold; transition: 0.3s;">
+        SKANERİ BAŞLAT ✨
     </button>
 </section>
 
 <style>
-    @keyframes scanAnim {
-        0% { top: 0; }
-        100% { top: 100%; }
-    }
-    canvas { pointer-events: none; }
+    @keyframes moveBar { 0% { top: 0; } 100% { top: 100%; } }
 </style>
 
 <script>
-    async function initNihasAI() {
-        const video = document.getElementById('video');
-        const btn = document.getElementById('ai_btn');
-        const scanLine = document.getElementById('scan_line');
-        
-        btn.innerText = "SİSTEM YÜKLƏNİR...";
+    async function runNihasAI() {
+        const video = document.getElementById('ai_video');
+        const btn = document.getElementById('start_btn');
+        const bar = document.getElementById('scanner_bar');
+
+        btn.innerText = "SİSTEM OYANIR...";
         btn.disabled = true;
 
-        // 1. Modellərin yüklənməsi
-        const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
-        await Promise.all([
-            faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
-            faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
-            faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL),
-            faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL)
-        ]);
+        try {
+            // 1. Modelləri birbaşa GitHub üzərindən çəkirik (Yüklənmə problemi olmasın deyə)
+            const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
+            await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+            await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+            await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+            await faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL);
 
-        // 2. Kamera açılışı
-        navigator.mediaDevices.getUserMedia({ video: {} }).then(stream => {
+            // 2. Kameranı məcburi açırıq
+            const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
             video.srcObject = stream;
-            scanLine.style.display = "block";
+            
+            bar.style.display = "block";
             btn.style.display = "none";
-        });
 
-        video.addEventListener('play', () => {
-            const canvas = document.getElementById('overlay');
-            const displaySize = { width: video.width, height: video.height };
-            faceapi.matchDimensions(canvas, displaySize);
+            video.addEventListener('play', () => {
+                const canvas = document.getElementById('ai_overlay');
+                const displaySize = { width: video.width, height: video.height };
+                faceapi.matchDimensions(canvas, displaySize);
 
-            setInterval(async () => {
-                // 3. Üz analizi
-                const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-                    .withFaceLandmarks()
-                    .withFaceExpressions()
-                    .withAgeAndGender();
+                setInterval(async () => {
+                    // 3. Üzün biometrik skanı
+                    const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+                        .withFaceLandmarks()
+                        .withFaceExpressions()
+                        .withAgeAndGender();
 
-                const resizedDetections = faceapi.resizeResults(detections, displaySize);
-                const ctx = canvas.getContext('2d');
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    const resized = faceapi.resizeResults(detections, displaySize);
+                    const ctx = canvas.getContext('2d');
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                // 4. Qəribə tor xətlər (Mesh) və Sketç
-                faceapi.draw.drawDetections(canvas, resizedDetections);
-                faceapi.draw.drawFaceLandmarks(canvas, resizedDetections); // Üzdəki tor xətlər
+                    // 4. Kiber tor xətləri (Landmarks) çəkirik
+                    faceapi.draw.drawDetections(canvas, resized);
+                    faceapi.draw.drawFaceLandmarks(canvas, resized); 
 
-                if (detections.length > 0) {
-                    const det = detections[0];
-                    document.getElementById('age_res').innerText = Math.round(det.age) + " Yaş";
-                    document.getElementById('gen_res').innerText = det.gender === 'male' ? "Kişi" : "Qadın";
-                    
-                    const emoMap = { neutral: "Stabil 😐", happy: "Məmnun 😊", sad: "Yorğun 😔", angry: "Qəzəbli 😡", surprised: "Təəccüblü 😲" };
-                    const topEmo = Object.keys(det.expressions).reduce((a, b) => det.expressions[a] > det.expressions[b] ? a : b);
-                    document.getElementById('emo_res').innerText = emoMap[topEmo] || "Analiz...";
-                }
-            }, 150);
-        });
+                    if (detections.length > 0) {
+                        const data = detections[0];
+                        document.getElementById('res_age').innerText = Math.round(data.age) + " Yaş";
+                        document.getElementById('res_gen').innerText = data.gender === 'male' ? "Kişi" : "Qadın";
+                        
+                        const emos = data.expressions;
+                        const topEmo = Object.keys(emos).reduce((a, b) => emos[a] > emos[b] ? a : b);
+                        const trans = { neutral: "Normal 😐", happy: "Şən 😊", sad: "Məyus 😔", angry: "Qəzəbli 😡", surprised: "Heyrət 😲" };
+                        document.getElementById('res_emo').innerText = trans[topEmo] || "Analiz...";
+                    }
+                }, 100);
+            });
+        } catch (err) {
+            alert("Xəta: Kamera icazəsi verin və ya interneti yoxlayın!");
+            btn.innerText = "YENİDƏN CƏHD ET";
+            btn.disabled = false;
+        }
     }
 </script>
         </section>
