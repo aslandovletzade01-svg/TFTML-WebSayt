@@ -1437,104 +1437,136 @@ Daha sonra tədbir bədii hissə ilə davam etdi.
         oldX = null; oldY = null;
     }
 </script>
-            <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+           <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode"></script>
 
-<section id="final-ai-scanner" style="background: #020617; padding: 40px; border-radius: 35px; border: 2px solid #0ea5e9; color: white; font-family: 'Orbitron', sans-serif; text-align: center; max-width: 900px; margin: 20px auto;">
-    
-    <h2 style="color: #38bdf8; text-shadow: 0 0 10px #0ea5e9;">BIOMETRIC SCANNER v4.0</h2>
-
-    <div style="position: relative; margin: 20px auto; width: 600px; height: 450px; border: 3px solid #1e293b; border-radius: 20px; overflow: hidden; background: #000;">
-        <video id="ai_video" width="600" height="450" autoplay muted style="display: block;"></video>
-        <canvas id="ai_overlay" style="position: absolute; top: 0; left: 0;"></canvas>
+<section id="id-pro-system" style="background: #f1f5f9; padding: 60px 20px; font-family: 'Inter', sans-serif; min-height: 100vh;">
+    <div style="max-width: 1200px; margin: 0 auto;">
         
-        <div id="scanner_bar" style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: #38bdf8; box-shadow: 0 0 15px #38bdf8; display: none; animation: moveBar 3s linear infinite;"></div>
-    </div>
+        <h2 style="text-align: center; color: #1e293b; margin-bottom: 40px; font-size: 32px; font-weight: 800;">MƏKTƏB RƏQƏMSAL GİRİŞ PANELİ</h2>
 
-    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
-        <div style="background: #0f172a; padding: 15px; border-radius: 12px; min-width: 120px; border: 1px solid #1e293b;">
-            <small style="color: #64748b;">YAŞ</small>
-            <div id="res_age" style="font-size: 20px; color: #38bdf8;">--</div>
-        </div>
-        <div style="background: #0f172a; padding: 15px; border-radius: 12px; min-width: 120px; border: 1px solid #1e293b;">
-            <small style="color: #64748b;">EMOSİYA</small>
-            <div id="res_emo" style="font-size: 20px; color: #4ade80;">--</div>
-        </div>
-        <div style="background: #0f172a; padding: 15px; border-radius: 12px; min-width: 120px; border: 1px solid #1e293b;">
-            <small style="color: #64748b;">CİNSİYYƏT</small>
-            <div id="res_gen" style="font-size: 20px; color: #f472b6;">--</div>
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; align-items: start;">
+            
+            <div style="background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.05);">
+                <h3 style="color: #2563eb; margin-bottom: 25px; border-left: 5px solid #2563eb; padding-left: 15px;">Məlumatları Daxil Edin</h3>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Şəkil Əlavə Et:</label>
+                    <input type="file" id="stu_photo" accept="image/*" onchange="previewImage(event)" style="width: 100%; padding: 10px; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; cursor: pointer;">
+                </div>
+
+                <input type="text" id="stu_name" placeholder="Ad və Soyad" style="width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 16px;">
+                
+                <div style="display: flex; gap: 15px; margin-bottom: 25px;">
+                    <input type="text" id="stu_class" placeholder="Sinif (məs: 10R)" style="flex: 1; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px;">
+                    <input type="text" id="stu_no" placeholder="Məktəb No" style="flex: 1; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px;">
+                </div>
+
+                <button onclick="generateFinalID()" style="width: 100%; padding: 18px; background: #2563eb; color: white; border: none; border-radius: 15px; font-weight: bold; font-size: 18px; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);">VƏSİQƏNİ GENERASİYA ET ⚡</button>
+
+                <div id="id_card_preview" style="display: none; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border-radius: 25px; color: white; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.2);">
+                    <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>
+                    
+                    <div style="display: flex; gap: 25px; align-items: center;">
+                        <img id="card_img" src="" style="width: 120px; height: 150px; border-radius: 15px; object-fit: cover; border: 3px solid #38bdf8; background: #f1f5f9;">
+                        <div>
+                            <h4 id="card_name" style="margin: 0; font-size: 22px; text-transform: uppercase; letter-spacing: 1px;">AD SOYAD</h4>
+                            <p id="card_class" style="margin: 5px 0; color: #38bdf8; font-weight: bold;">SİNİF: --</p>
+                            <p id="card_no" style="margin: 0; font-size: 13px; color: #94a3b8;">ID: #000000</p>
+                            <div id="card_qr" style="margin-top: 15px; background: white; padding: 8px; border-radius: 10px; width: fit-content;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; font-size: 11px; text-align: center; color: #64748b; letter-spacing: 2px;">K. AGAYEV ADINA LİSEY - DIGITAL PASS</div>
+                </div>
+            </div>
+
+            <div style="background: #0f172a; padding: 40px; border-radius: 30px; color: white; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+                <h3 style="color: #38bdf8; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
+                    <span style="display: inline-block; width: 12px; height: 12px; background: #ef4444; border-radius: 50%; animation: pulse 1.5s infinite;"></span>
+                    CANLI SKANER SİSTEMİ
+                </h3>
+                
+                <div id="reader" style="width: 100%; border-radius: 20px; overflow: hidden; border: 2px solid #1e293b;"></div>
+                
+                <div id="scan_info" style="margin-top: 25px; padding: 25px; background: #1e293b; border-radius: 20px; display: none; border: 2px solid #4ade80;">
+                    <div style="font-size: 12px; color: #4ade80; margin-bottom: 10px; font-weight: bold;">DOĞRULANDI:</div>
+                    <div id="scan_data" style="font-size: 18px; font-weight: 600;">---</div>
+                    <div style="margin-top: 10px; font-size: 14px; color: #94a3b8;">Giriş vaxtı: <span id="scan_time"></span></div>
+                </div>
+
+                <button onclick="startProScanner()" id="start_scan_btn" style="width: 100%; margin-top: 20px; padding: 18px; background: #38bdf8; color: #0f172a; border: none; border-radius: 15px; font-weight: 800; cursor: pointer; font-size: 16px;">SKANERİ AKTİV ET 📸</button>
+            </div>
+
         </div>
     </div>
-
-    <button id="start_btn" onclick="runNihasAI()" style="margin-top: 30px; padding: 15px 50px; background: #0ea5e9; color: white; border: none; border-radius: 12px; cursor: pointer; font-family: 'Orbitron'; font-weight: bold; transition: 0.3s;">
-        SKANERİ BAŞLAT ✨
-    </button>
 </section>
 
 <style>
-    @keyframes moveBar { 0% { top: 0; } 100% { top: 100%; } }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    #reader video { object-fit: cover !important; }
 </style>
 
 <script>
-    async function runNihasAI() {
-        const video = document.getElementById('ai_video');
-        const btn = document.getElementById('start_btn');
-        const bar = document.getElementById('scanner_bar');
+    let uploadedImageData = "";
 
-        btn.innerText = "SİSTEM OYANIR...";
-        btn.disabled = true;
-
-        try {
-            // 1. Modelləri birbaşa GitHub üzərindən çəkirik (Yüklənmə problemi olmasın deyə)
-            const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
-            await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
-            await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
-            await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
-            await faceapi.nets.ageGenderNet.loadFromUri(MODEL_URL);
-
-            // 2. Kameranı məcburi açırıq
-            const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
-            video.srcObject = stream;
-            
-            bar.style.display = "block";
-            btn.style.display = "none";
-
-            video.addEventListener('play', () => {
-                const canvas = document.getElementById('ai_overlay');
-                const displaySize = { width: video.width, height: video.height };
-                faceapi.matchDimensions(canvas, displaySize);
-
-                setInterval(async () => {
-                    // 3. Üzün biometrik skanı
-                    const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-                        .withFaceLandmarks()
-                        .withFaceExpressions()
-                        .withAgeAndGender();
-
-                    const resized = faceapi.resizeResults(detections, displaySize);
-                    const ctx = canvas.getContext('2d');
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                    // 4. Kiber tor xətləri (Landmarks) çəkirik
-                    faceapi.draw.drawDetections(canvas, resized);
-                    faceapi.draw.drawFaceLandmarks(canvas, resized); 
-
-                    if (detections.length > 0) {
-                        const data = detections[0];
-                        document.getElementById('res_age').innerText = Math.round(data.age) + " Yaş";
-                        document.getElementById('res_gen').innerText = data.gender === 'male' ? "Kişi" : "Qadın";
-                        
-                        const emos = data.expressions;
-                        const topEmo = Object.keys(emos).reduce((a, b) => emos[a] > emos[b] ? a : b);
-                        const trans = { neutral: "Normal 😐", happy: "Şən 😊", sad: "Məyus 😔", angry: "Qəzəbli 😡", surprised: "Heyrət 😲" };
-                        document.getElementById('res_emo').innerText = trans[topEmo] || "Analiz...";
-                    }
-                }, 100);
-            });
-        } catch (err) {
-            alert("Xəta: Kamera icazəsi verin və ya interneti yoxlayın!");
-            btn.innerText = "YENİDƏN CƏHD ET";
-            btn.disabled = false;
+    // 1. Şəkil önizləmə
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            uploadedImageData = reader.result;
+            document.getElementById('card_img').src = uploadedImageData;
         }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    // 2. Vəsiqəni Generasiya Et
+    function generateFinalID() {
+        const name = document.getElementById('stu_name').value;
+        const s_class = document.getElementById('stu_class').value;
+        const s_no = document.getElementById('stu_no').value;
+
+        if(!name || !s_class || !uploadedImageData) {
+            alert("Xahiş olunur bütün sahələri doldurun və şəkil yükləyin!");
+            return;
+        }
+
+        // Kartı doldur
+        document.getElementById('card_name').innerText = name;
+        document.getElementById('card_class').innerText = "SİNİF: " + s_class;
+        document.getElementById('card_no').innerText = "ID: #" + s_no;
+        document.getElementById('id_card_preview').style.display = "block";
+
+        // QR kodu yarat
+        document.getElementById('card_qr').innerHTML = "";
+        new QRCode(document.getElementById("card_qr"), {
+            text: `ID:${s_no}|Name:${name}|Class:${s_class}`,
+            width: 90,
+            height: 90,
+            colorDark : "#000000",
+            colorLight : "#ffffff"
+        });
+    }
+
+    // 3. Pro Skaner Funksiyası
+    function startProScanner() {
+        document.getElementById('start_scan_btn').style.display = "none";
+        const html5QrCode = new Html5Qrcode("reader");
+        
+        const qrConfig = { fps: 15, qrbox: { width: 280, height: 280 } };
+
+        html5QrCode.start({ facingMode: "environment" }, qrConfig, (decodedText) => {
+            // Nəticəni göstər
+            const infoBox = document.getElementById('scan_info');
+            infoBox.style.display = "block";
+            document.getElementById('scan_data').innerText = decodedText.split('|').join(' / ');
+            document.getElementById('scan_time').innerText = new Date().toLocaleTimeString();
+
+            // Səs
+            new Audio('https://www.soundjay.com/buttons/beep-07a.mp3').play();
+
+            // 4 saniyə sonra təmizlə
+            setTimeout(() => { infoBox.style.display = "none"; }, 4000);
+        });
     }
 </script>
         </section>
