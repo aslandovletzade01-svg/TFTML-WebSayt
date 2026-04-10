@@ -219,27 +219,41 @@
     function closeOrder() {
         document.getElementById('order-modal').style.display = 'none';
     }
+function completeOrder() {
+    const nameInput = document.getElementById('stu-name').value;
+    const classInput = document.getElementById('stu-class').value;
+    const teacherInput = document.getElementById('stu-teacher').value;
+    const delivery = document.getElementById('delivery-info').value;
 
-    function completeOrder() {
-        const nameInput = document.getElementById('stu-name').value;
-        const classInput = document.getElementById('stu-class').value;
-        const delivery = document.getElementById('delivery-info').value;
+    if (schoolDatabase[nameInput] !== undefined) {
+        let userBalance = schoolDatabase[nameInput];
 
-        // 1. Şagird bazada varmı?
-        if (schoolDatabase[nameInput] !== undefined) {
-            let userBalance = schoolDatabase[nameInput];
+        if (userBalance >= selectedPrice) {
+            // SƏNİN NÖMRƏN (Məsələn: 99450XXXXXXX formatında yaz)
+            const myNumber = "994XXXXXXXXX"; 
+            
+            // Mesajın mətni
+            const message = `YENİ SİFARİŞ! 🎉%0A%0A` +
+                            `👤 Şagird: ${nameInput}%0A` +
+                            `🏫 Sinif: ${classInput}%0A` +
+                            `👨‍🏫 Müəllim: ${teacherInput}%0A` +
+                            `🛍️ Məhsul: ${selectedItem}%0A` +
+                            `📍 Yer/Saat: ${delivery}%0A` +
+                            `💰 Qiymət: ${selectedPrice} Coin`;
 
-            // 2. Balans yetərlidirmi?
-            if (userBalance >= selectedPrice) {
-                alert(`Təbriklər ${nameInput}!\n\nSifarişiniz qəbul edildi: ${selectedItem}\nÇatdırılma: ${delivery}\nQalan balansınız: ${userBalance - selectedPrice} 🪙`);
-                closeOrder();
-            } else {
-                alert(`Təəssüf! Balansınız kifayət deyil.\nSizin balans: ${userBalance} 🪙\nLazım olan: ${selectedPrice} 🪙`);
-            }
+            // WhatsApp linkini açır
+            const whatsappURL = `https://wa.me/${myNumber}?text=${message}`;
+            window.open(whatsappURL, '_blank');
+
+            alert("Sifariş formalaşdı! Sifarişi tamamlamaq üçün açılan WhatsApp pəncərəsində 'Göndər' düyməsini basın.");
+            closeOrder();
         } else {
-            alert("Xəta: Adınız bazada tapılmadı! Zəhmət olmasa adınızı düzgün yazın (Məs: Aslan Dövlətzadə)");
+            alert(`Balans yetərli deyil! Balans: ${userBalance} 🪙`);
         }
+    } else {
+        alert("Adınız bazada tapılmadı!");
     }
+}
 </script>
 
 </body>
