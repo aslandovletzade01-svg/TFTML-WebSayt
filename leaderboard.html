@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFTML - Liderlər Zirvəsi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #38bdf8;
+            --gold: #fbbf24;
+            --silver: #94a3b8;
+            --bronze: #d97706;
+            --bg: #f0f9ff; /* Açıq mavi fon */
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background-image: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.1) 0%, transparent 20%),
+                              radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.1) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        /* Başlıq Dizaynı */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #0369a1;
+            font-size: 32px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .header span {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* Liderlər Siyahısı */
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Hər bir Şagird Bloku */
+        .student-card {
+            background: white;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .student-card:hover {
+            transform: translateX(10px);
+            border-color: var(--primary);
+        }
+
+        /* Sıra nömrəsi (Mötərizə ilə) */
+        .rank-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #0369a1;
+            min-width: 80px;
+        }
+
+        /* Şəkil dizaynı */
+        .photo-frame {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .photo-frame img {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 3px solid #e0f2fe;
+        }
+
+        /* Emoji bəzəkləri */
+        .crown-icon {
+            position: absolute;
+            top: -15px;
+            right: -10px;
+            font-size: 24px;
+        }
+
+        /* Məlumatlar */
+        .info {
+            flex: 1;
+        }
+
+        .info h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #1e293b;
+        }
+
+        .info p {
+            margin: 2px 0 0 0;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* Coin Bölməsi */
+        .coin-box {
+            background: #fefce8;
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 1px solid #fef08a;
+            text-align: center;
+        }
+
+        .coin-box b {
+            display: block;
+            color: #ca8a04;
+            font-size: 18px;
+        }
+
+        .coin-box small {
+            font-size: 10px;
+            color: #a16207;
+            text-transform: uppercase;
+        }
+
+        /* Xüsusi Rənglər (1, 2, 3 yerlər üçün) */
+        .rank-1 { border-left: 10px solid var(--gold); background: #fffdf5; }
+        .rank-2 { border-left: 10px solid var(--silver); }
+        .rank-3 { border-left: 10px solid var(--bronze); }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 50px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Arxa fondakı fiqurlar */
+        .shape {
+            position: fixed;
+            z-index: -1;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="shape" style="top: 10%; left: 5%; font-size: 100px;">⭐</div>
+    <div class="shape" style="bottom: 10%; right: 5%; font-size: 80px;">💎</div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🏆 LİDERLƏR ZİRVƏSİ</h1>
+            <span>TFTML COİN REYTİNQİ</span>
+        </div>
+
+        <div class="leaderboard-list">
+            
+            <div class="student-card rank-1">
+                <div class="rank-number">( 1 )</div>
+                <div class="photo-frame">
+                    <span class="crown-icon">👑</span>
+                    <img src="https://i.pravatar.cc/150?u=aslan" alt="Şagird">
+                </div>
+                <div class="info">
+                    <h3>Aslan Dövlətzadə</h3>
+                    <p>Sinif: 10R • Sinif Rəhbəri: Mehman M.</p>
+                </div>
+                <div class="coin-box">
+                    <b>1,250 🪙</b>
+                    <small>TFTML COIN</small>
+                </div>
+            </div>
+
+            <div class="student-card rank-2">
+                <div class="rank-number">( 2 )</div>
+                <div class="photo-frame">
+                    <span class="crown-icon">🥈</span>
+                    <img src="https://i.pravatar.cc/150?u=murad" alt="Şagird">
+                </div>
+                <div class="info">
+                    <h3>Murad Əliyev</h3>
+                    <p>Sinif: 9A • Sinif Rəhbəri: Fərail K.</p>
+                </div>
+                <div class="coin-box">
+                    <b>980 🪙</b>
+                    <small>TFTML COIN</small>
+                </div>
+            </div>
+
+            <div class="student-card rank-3">
+                <div class="rank-number">( 3 )</div>
+                <div class="photo-frame">
+                    <span class="crown-icon">🥉</span>
+                    <img src="https://i.pravatar.cc/150?u=aysel" alt="Şagird">
+                </div>
+                <div class="info">
+                    <h3>Aysel Məmmədova</h3>
+                    <p>Sinif: 11B • Sinif Rəhbəri: Könül X.</p>
+                </div>
+                <div class="coin-box">
+                    <b>850 🪙</b>
+                    <small>TFTML COIN</small>
+                </div>
+            </div>
+
+        </div>
+
+        <a href="index.html" class="back-home">🏠 ANA SƏHİFƏYƏ QAYIT</a>
+    </div>
+
+</body>
+</html>
