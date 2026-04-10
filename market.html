@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFTML - Məktəb Market</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            /* Arxa fonda kitab və qələm şəkilləri (emojilərlə) */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='30' style='font-size:20px; opacity:0.1'%3E📖%3C/text%3E%3Ctext x='40' y='50' style='font-size:20px; opacity:0.1'%3E✏️%3C/text%3E%3C/svg%3E");
+        }
+
+        .container { max-width: 1000px; margin: auto; }
+        
+        .market-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .market-header h1 { font-family: 'Orbitron'; color: #0f172a; margin: 0; }
+
+        /* Məhsul Grid-i */
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        /* Məhsul Kartı */
+        .product-card {
+            background: white;
+            border-radius: 25px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: #38bdf8;
+            box-shadow: 0 15px 30px rgba(56, 189, 248, 0.15);
+        }
+
+        .product-img {
+            font-size: 60px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .product-name { font-weight: 700; color: #1e293b; margin-bottom: 10px; }
+        
+        .product-price {
+            color: #ca8a04;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .buy-btn {
+            background: #38bdf8;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .buy-btn:hover { background: #0284c7; }
+
+        /* Sifariş Formu (Modal) */
+        #order-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-content input, .modal-content select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .submit-order {
+            width: 100%;
+            padding: 15px;
+            background: #22c55e;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="market-header">
+        <h1>🛍️ TFTML MARKET</h1>
+        <p style="color: #64748b;">Topladığın coinləri burada xərcləyə bilərsən</p>
+    </div>
+
+    <div class="market-grid">
+        <div class="product-card">
+            <div>
+                <div class="product-img">📚</div>
+                <div class="product-name">Böyük Roman Seti</div>
+                <div class="product-price">400 🪙</div>
+            </div>
+            <button class="buy-btn" onclick="openOrder('Böyük Roman Seti', 400)">AL</button>
+        </div>
+
+        <div class="product-card">
+            <div>
+                <div class="product-img">📓</div>
+                <div class="product-name">TFTML Bloknot</div>
+                <div class="product-price">150 🪙</div>
+            </div>
+            <button class="buy-btn" onclick="openOrder('TFTML Bloknot', 150)">AL</button>
+        </div>
+
+        <div class="product-card">
+            <div>
+                <div class="product-img">✒️</div>
+                <div class="product-name">Xüsusi Qələm</div>
+                <div class="product-price">80 🪙</div>
+            </div>
+            <button class="buy-btn" onclick="openOrder('Xüsusi Qələm', 80)">AL</button>
+        </div>
+
+        <div class="product-card">
+            <div>
+                <div class="product-img">📐</div>
+                <div class="product-name">Həndəsə Dəsti</div>
+                <div class="product-price">200 🪙</div>
+            </div>
+            <button class="buy-btn" onclick="openOrder('Həndəsə Dəsti', 200)">AL</button>
+        </div>
+    </div>
+    
+    <a href="index.html" style="display: block; text-align: center; margin-top: 40px; color: #38bdf8; text-decoration: none;">🏠 Ana Səhifəyə Qayıt</a>
+</div>
+
+<div id="order-modal">
+    <div class="modal-content">
+        <h2 id="modal-title" style="margin-top: 0; color: #0f172a;">Sifariş Ver</h2>
+        <p id="modal-price" style="color: #ca8a04; font-weight: bold;"></p>
+        
+        <input type="text" id="stu-name" placeholder="Ad və Soyadınız">
+        <input type="text" id="stu-class" placeholder="Sinifiniz (məs: 10R)">
+        <input type="text" id="stu-teacher" placeholder="Sinif Rəhbəri">
+        
+        <label style="font-size: 12px; color: #64748b;">Çatdırılma saatı və yeri:</label>
+        <select id="delivery-info">
+            <option value="10:00 - Böyük tənəffüs - Bufet">10:00 - Böyük tənəffüs (Bufet)</option>
+            <option value="13:00 - Dərs sonu - Kitabxana">13:00 - Dərs sonu (Kitabxana)</option>
+            <option value="15:00 - Akt zalı">15:00 - Akt zalı</option>
+        </select>
+
+        <button class="submit-order" onclick="completeOrder()">SİFARİŞİ TAMAMLA ✅</button>
+        <button onclick="closeOrder()" style="background:none; border:none; color:red; cursor:pointer; width:100%; margin-top:10px;">Ləğv et</button>
+    </div>
+</div>
+
+<script>
+    // DATA: Məktəb bazası (Nümunə)
+    const schoolDatabase = {
+        "Aslan Dövlətzadə": 500,
+        "Murad Əliyev": 300,
+        "Aysel Məmmədova": 100
+    };
+
+    let selectedItem = "";
+    let selectedPrice = 0;
+
+    function openOrder(name, price) {
+        selectedItem = name;
+        selectedPrice = price;
+        document.getElementById('modal-title').innerText = name;
+        document.getElementById('modal-price').innerText = "Qiymət: " + price + " 🪙";
+        document.getElementById('order-modal').style.display = 'flex';
+    }
+
+    function closeOrder() {
+        document.getElementById('order-modal').style.display = 'none';
+    }
+
+    function completeOrder() {
+        const nameInput = document.getElementById('stu-name').value;
+        const classInput = document.getElementById('stu-class').value;
+        const delivery = document.getElementById('delivery-info').value;
+
+        // 1. Şagird bazada varmı?
+        if (schoolDatabase[nameInput] !== undefined) {
+            let userBalance = schoolDatabase[nameInput];
+
+            // 2. Balans yetərlidirmi?
+            if (userBalance >= selectedPrice) {
+                alert(`Təbriklər ${nameInput}!\n\nSifarişiniz qəbul edildi: ${selectedItem}\nÇatdırılma: ${delivery}\nQalan balansınız: ${userBalance - selectedPrice} 🪙`);
+                closeOrder();
+            } else {
+                alert(`Təəssüf! Balansınız kifayət deyil.\nSizin balans: ${userBalance} 🪙\nLazım olan: ${selectedPrice} 🪙`);
+            }
+        } else {
+            alert("Xəta: Adınız bazada tapılmadı! Zəhmət olmasa adınızı düzgün yazın (Məs: Aslan Dövlətzadə)");
+        }
+    }
+</script>
+
+</body>
+</html>
