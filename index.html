@@ -442,6 +442,98 @@
        
     </style>
 </head>
+    <div id="secret-panel" style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; color: #00FF41; z-index: 999999; overflow-y: auto; padding: 30px; font-family: 'Courier New', monospace;">
+    
+    <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #00FF41; padding-bottom: 10px; margin-bottom: 20px;">
+        <h1 style="font-size: 24px;">[ SİSTEMƏ GİRİŞ EDİLDİ: AGENT ASLAN ]</h1>
+        <button onclick="exitHackerMode()" style="background: #ff0000; color: white; border: none; cursor: pointer; padding: 10px 20px; font-weight: bold;">SİSTEMDƏN ÇIX</button>
+    </div>
+
+    <div style="background: #0a0a0a; border: 1px dashed #00FF41; padding: 15px; margin-bottom: 20px;">
+        <button class="hacker-btn" onclick="scrambleText()">📡 SİNYALI KƏS</button>
+        <span style="margin-left: 10px; font-size: 13px;">// Saytın bütün məlumatlarını şifrələ</span>
+    </div>
+
+    <div id="black-forum" style="border: 1px solid #333; padding: 15px; background: #050505;">
+        <h3>💬 QARA FORUM</h3>
+        <div id="forum-messages" style="height: 150px; overflow-y: auto; border-bottom: 1px solid #333; margin-bottom: 10px; padding: 5px;">
+            <p style="color: #444;">> Terminal aktivləşdirildi. Şəbəkə təhlükəsizdir...</p>
+        </div>
+        <input type="text" id="forum-input" placeholder="Mesajınızı daxil edin..." style="width: 70%; background: #000; border: 1px solid #00FF41; color: #00FF41; padding: 10px;">
+        <button class="hacker-btn" onclick="sendForumMessage()">GÖNDƏR</button>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <h3>📝 GİZLİ QEYD DƏFTƏRİ</h3>
+        <textarea id="note-area" style="width: 100%; height: 150px; background: #000; border: 1px solid #00FF41; color: #00FF41; padding: 15px;" placeholder="Yalnız agentlərin görə biləcəyi qeydlər..."></textarea>
+    </div>
+</div>
+
+<style>
+    .hacker-btn { background: none; border: 1px solid #00FF41; color: #00FF41; padding: 10px 15px; cursor: pointer; font-family: 'Courier New', monospace; transition: 0.3s; }
+    .hacker-btn:hover { background: #00FF41; color: #000; box-shadow: 0 0 10px #00FF41; }
+    .scrambled-text { filter: blur(2px); color: #00FF41 !important; letter-spacing: 3px; pointer-events: none; }
+</style>
+
+<script>
+    let sequence = "";
+    const trigger = "tftml";
+    const secretPass = "aslan2009";
+
+    // KLAVİATURA İZLƏYİCİSİ
+    document.addEventListener("keydown", (e) => {
+        sequence += e.key.toLowerCase();
+        if (sequence.length > trigger.length) sequence = sequence.substring(sequence.length - trigger.length);
+
+        if (sequence === trigger) {
+            let pass = prompt("SİSTEME GİRİŞ ÜÇÜN AGENT ŞİFRƏSİNİ DAXİL EDİN:");
+            if (pass === secretPass) {
+                document.getElementById("secret-panel").style.display = "block";
+                document.body.style.overflow = "hidden"; // Arxa səhifənin sürüşməsini dayandır
+                loadNotes();
+            } else {
+                alert("ACCESS DENIED! (GİRİŞ QADAĞANDIR)");
+            }
+            sequence = "";
+        }
+    });
+
+    // 📡 SİNYALI KƏS (Mətnləri Base64-ə çevirir)
+    function scrambleText() {
+        const tags = ['p', 'h1', 'h2', 'h3', 'span', 'a', 'li'];
+        tags.forEach(tag => {
+            document.querySelectorAll(tag).forEach(el => {
+                if (!el.closest('#secret-panel')) {
+                    el.innerText = "X9" + btoa(el.innerText).substring(0, 10) + "==";
+                    el.classList.add("scrambled-text");
+                }
+            });
+        });
+    }
+
+    // 💬 FORUM
+    function sendForumMessage() {
+        const inp = document.getElementById("forum-input");
+        const msgBox = document.getElementById("forum-messages");
+        if (inp.value.trim()) {
+            msgBox.innerHTML += `<p><span style="color:#888;">[${new Date().toLocaleTimeString()}]</span> <b>AGENT:</b> ${inp.value}</p>`;
+            msgBox.scrollTop = msgBox.scrollHeight;
+            inp.value = "";
+        }
+    }
+
+    // 📝 QEYDLƏR
+    const area = document.getElementById("note-area");
+    area.oninput = () => localStorage.setItem("aslan_hidden_notes", area.value);
+    function loadNotes() { area.value = localStorage.getItem("aslan_hidden_notes") || ""; }
+
+    // ÇIXIŞ
+    function exitHackerMode() {
+        document.getElementById("secret-panel").style.display = "none";
+        document.body.style.overflow = "auto";
+        location.reload(); 
+    }
+</script>
 <body>
 
     <header>
